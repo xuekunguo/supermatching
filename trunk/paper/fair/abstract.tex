@@ -1,8 +1,11 @@
-We present a feature matching algorithm for finding correspondences between two sets of features.
-Our approach is based on finding matching triangles and quadrangles, going beyond the single (point) and pairwise (segment) of features typically used.
-Our algorithm is formulated as supersymmetric-tensor-based higher-order matching scheme,
-the higher-order affinity measures taking into account matches between more than a single or pairwise features.
-We exploit a compact form of this affinity tensor, taking advantage of supersymmetry to devise an efficient sampling strategy to create the affinity tensor.
-Matching is performed using the rank-one approximation of the tensor directly with a higher-order power method.
-Experiments on both synthetic and real RGB images and depth videos show that
-our algorithm provides accurate and robust matching of feature correspondences in the complex scenario.
+Matching is one challenging problem in the literature and forms the basis of numerous Computer Graphics and Computer Vision applications. 
+In the paper, we present a feature matching algorithm, named SuperMatching, for finding correspondences between two sets of features.
+SuperMatching working in the way finding matching constrained by triangles and higher polygons (e.g., quadrangles) aspects, 
+going beyond the single (point) and pairwise (segment) of features typically used.
+SuperMatching is formulated as supersymmetric-tensor-based matching scheme,
+by casting features matching into a higher-order graph matching problem.
+The higher-order affinity metric of supersymmetric tensor considers the stable geometric constraints among features.
+SuperMatching exploits a compact form of this affinity tensor, also takes advantage of supersymmetry to devise an efficient sampling strategy to create the affinity tensor.
+Matching is performed using the rank-one approximation of the tensor directly with a higher-order power solving method.
+Experiments on both synthetic and real scanned data show that 
+our algorithm provides accurate and robust features matching in complex scenario.

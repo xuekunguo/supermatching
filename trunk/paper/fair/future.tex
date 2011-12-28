@@ -1,5 +1,6 @@
 \section{Conclusion}
 \label{sec:conclusion}
+a novel matching algorithm named SuperMatching, which tackles the classic Computer Graphics and Computer Vision problem of matching various features for cases without any assumptions.
 
 This paper has given an efficient higher-order matching algorithm based on the supersymmetric affinity tensor, based on an efficient power iteration method. Our main contributions are as follows.
 First, we use a  higher-order supersymmetric affinity tensor with a compact form to express higher-order consistency constraints of features. Secondly, we derive an efficient higher-order power iteration method, which makes significant savings by taking advantage of supersymmetry. We also give an efficient sampling strategy for choosing feature tuples to create the affinity tensor. Finally, we give a fourth-order potential which possesses affine invariance. Our experiments on both synthetic and real image data sets show that our method has improved matching performance compared to state-of-the-art approaches.
@@ -8,7 +9,7 @@ First, we use a  higher-order supersymmetric affinity tensor with a compact form
 %% The Appendices part is started with the command \appendix;
 %% appendix sections are then done as normal sections
 \appendix
-\section{Why our Supersymmetric Tensor Based Higher-order Power Iteration Algorithm is efficient?}
+\section{Why higher-order power iteration solving of supersymmetric tensor is efficient?}
 We explain the idea using a third-order affinity tensor as an example.
 Given a potential index set $\theta_3$ and a potential function $\phi_3$,
 replacing all the equivalent elements in Equ.(\ref{equ:eqsmain2}) by a single element, we get the following equations:
@@ -42,5 +43,5 @@ v_l^{(k)} & = \mathcal{T}_3(l,i,j)2v_l^{(k-1)}v_i^{2_{(k-1)}}v_j^{2_{(k-1)}} +
 \end{flalign}
 \vspace{-4mm}
 
-%% 
+%%
 %% \label{}
