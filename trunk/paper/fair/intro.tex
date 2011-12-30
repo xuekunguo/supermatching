@@ -1,68 +1,72 @@
 \section{Introduction}
 \label{sec:introduction}
 
-Finding correspondences between two sets of features of 2D/3D shapes is a fundamental problem in many geometric computing,
+Building correspondences between two sets of features of 2D/3D shapes is a fundamental problem in many geometric processing,
 computer graphics and computer vision tasks.
-It arises in applications such as feature extraction~\cite{Lowe04,Berg05,Johnson99,Sun09,Leutenegger11},
-shape matching~\cite{Belongie02,Brown07,Bronstein11}, registration of 3D scans~\cite{Aiger08},
-symmetry detection, automatic shape understanding, shape retrieval from database, and reconstruction, etc.
-~\cite{Chang11,Kim11,Lipman09,vanKaick11,Toler10,Tevs11,Tevs09,SahilliogluY11,Ovsjanikov10,Sun10,Windheuser11,Zeng10}.
+It arises in applications such as feature extraction~\cite{Johnson99,Lowe04,Sun09,Toler10,Leutenegger11},
+shape matching~\cite{Belongie02,Berg05,Brown07,Tevs09,Ovsjanikov10,Tevs11,SahilliogluY11,Windheuser11}, registration of 3D shapes~\cite{Gelfand05,Aiger08,li08,Zeng10,vanKaick11,Chang11},
+automatic shape understanding~\cite{Lipman09,Sun10,Kim11}, shape retrieval from database~\cite{Bronstein11}, and reconstruction~\cite{Brown07,Chang11}.
 
-This challenging problem has attracted considerable attention.
-A feature itself may comprise one or more items of a given kind,
-so we may match single points to single points (point-single),
+In principle and practise, the correspondence building process mainly proceed in three steps~\cite{Lowe04,Leutenegger11}: 
+salient feature detection, high-quality descriptor, and accurately matching.
+The former two problems have been been widely attracted considerable attention as their importance is easy perceivable.
+However, even with the ideal feature detector and descriptor that capturing the most important and distinctive information content enclosed in the detected salient regions,
+the correspondences still could not ideally built in the state-of-the-art algorithms~\cite{vanKaick11}.
+The reason is that the real input data is so inperfect and complex especially with symmetric and repetitive regions.
+The researchers are beginning to be aware of that the limitation could be effectively alleviated by feature matching. 
+Some original idea (e.g. RANSAC-like algorithms~\cite{Tevs09,Tevs11}) has been extended,
+or indirectly sorting to shape embedding strategies, such as Generalized Multidimensional Scaling~\cite{Bronstein11}, 
+Heat Kernel Map~\cite{Ovsjanikov10}, M{\"o}bius Transformation~\cite{Lipman09,Kim11}. 
+But, these previous algorithms still did not treat feature matching as one independent problem, 
+although they agreed with that matching is not tightly coupled with feature detection and description.
+
+In the paper, we mainly focus on feature matching problem, which is complementary to existing correspondence algorithms. 
+As we know, a matching itself may comprise one or more items of a given kind.
+We may match single point to single point (point-single),
 point pairs separated by a fixed distance to other point pairs (segment-double),
 triples of points forming a triangle to other triples of points (triangle-triple),
 quadruples of points forming a quadrangle to other quadruples of points (quadrangle-quadruple), and so on.
-When single features are matched,
-we must solve a linear assignment problem,
-or if multiple features are matched at once,
-a quadratic or higher-order assignment problem results~\cite{Conte04}.
+As pointed by~\cite{Conte04}, when single features are matched, 
+we must solve a linear assignment problem, if multiple features are matched at once,
+a quadratic or higher-order assignment problem results.
 
 Linear assignment matches single features in one set with single features in the other set, and could be mainly treated as single points linkage.
 Matching two feature sets by considering similarities of \emph{single} features from each set can easily fail in the presence of ambiguities such as repeated elements,
 textures or relatively uniform local appearance.
 
 Quadratic and higher-order assignment matches groups of features in one set simultaneously with groups from the other set,
-and and requires a greater consistency between the information being matched, making it more reliable.
+and requires a greater consistency between the information being matched, making it more reliable.
 As well as the features themselves, other constraints such as consistency of the distances between the features being matched are also enforced,
 greatly improving the reliability of higher order matching.
 
 As a particular example of \emph{quadratic} assignment, Leordanu and Hebert~\cite{Leordeanu05} consider pairs of feature descriptors,
 and distances between pairs of features from each set to reduce the number of incorrect correspondences.
 Such pairwise distance constraints are particularly helpful in cases when the features themselves have low discriminative ability.
+The idea has been widely adopted in the 3D shape matching algorithms~\cite{Tevs09,Ovsjanikov10,Tevs11,Kim11,SahilliogluY11,Windheuser11}.
 
-Posing feature matching problems as \emph{higher-order} assignment problems has attracted much recent interest.
 Higher-order assignment further generalizes the assignment problem to include yet more complex constraints between features.
-For example, a third-order potential function, proposed in~\cite{Duchenne_etal09,Chertok10},
-quantifies the affinity between two point triples
-by measuring the similarity of the angles formed by such two feature tuples (triangles).
+For example, third-order potential functions, proposed in~\cite{Duchenne_etal09,Zeng10,Chertok10},
+quantify the affinity between two point triples by measuring the similarity of the angles formed by such two feature tuples (triangles).
 However, this angular similarity value only calculates the total differences in corresponding angles,
 and does not change with the order of the input assignments.
-By changing the affinity tensor to a \emph{supersymmetric} tensor~\cite{Kofidis02}, the limitation could be effectively solved by our algorithm.
+By changing the affinity tensor to a \emph{supersymmetric} tensor~\cite{Kofidis02}, the unaccurate limitation could be further solved by our algorithm.
 
 Thus, by formulating the higher-order problem using a supersymmetric affinity tensor,
-we obtain an accurate and efficient higher-order matching algorithm,
-which works well when matching a moderate number of features using triples or quadruples of features.
-We make use of the supersymmetry of the affinity tensor,
-and determine correspondences by finding the rank-one approximation of the tensor using a more efficient power method.
-
+we propose an accurate and efficient higher-order supersymmetric matching algorithm, named \emph{SuperMatching}.
+SuperMatching, addressed in Section~\ref{sec:supersymhopm}, works well when matching a moderate number of features using triples or higher polygons of features.
 The contributions of this paper include:
 \begin{itemize}
-\item We show how to define a compact higher-order supersymmetric affinity tensor to express geometric consistency constraints between tuples of features (for triangle and quadrangle).
+\item We show how to define a compact higher-order supersymmetric affinity tensor to express geometric consistency constraints between tuples of features.
 
 \item Based on the supersymmetry of the affinity tensor, we propose a higher-order power iteration method, which efficiently solves the matching problem.
 
 \item The affinity tensor is physically created by using a new efficient sampling strategy for feature tuples,
 which avoids sampling repetitive items, reduces the number of feature tuples to be sampled while ensuring the accuracy of the power iteration result.
 
-%\item We demonstrate a specific fourth-order potential with affine invariance, for feature matching under affine transformation.
-
 \end{itemize}
 
-Our experiments on both synthetic and real image
-data sets show that our method is accurate and robust,
+Our experiments in Section~\ref{sec:experiments} on both synthetic and real scanned data sets show that SuperMatching result is accurate and robust,
 and has competitive computational cost compared to previous algorithms.
 
-Section~\ref{sec:supersymhopm} describes the higher-order supersymmetirc affinity tensor and the power iteration method.
-Experiments are shown in Section~\ref{sec:experiments} and conclusions drawn in Section~\ref{sec:conclusion}. 
+%Section~\ref{sec:supersymhopm} describes the higher-order supersymmetirc affinity tensor and the power iteration method.
+%Experiments are shown in Section~\ref{sec:experiments} and conclusions drawn in Section~\ref{sec:conclusion}. 
