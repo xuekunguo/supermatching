@@ -3,7 +3,7 @@
 \label{sec:overview}
 
 Assume we are given two sets of feature points $P_1$ and $P_2$, with $N_1$  and $N_2$ points respectively.
-The correspondences between these two feature sets can be represented by an \emph{assignment matrix} $X$ of size $N_1 \times N_2$ whose elements are 0 or 1.
+The matching between these two feature sets can be represented by an \emph{assignment matrix} $X$ of size $N_1 \times N_2$ whose elements are 0 or 1.
 $X(i,j)=1$ when $i \in P_1$ matches $j \in P_2$ and $X(i,j)=0$ otherwise. $X$ can be row-wise vectorized to give an assignment vector $\boldsymbol{x} \in \{0,1\}^{N_1N_2}$.
 
 Solving the higher-order matching problem is equivalent to find the optimal assignment vector ${\boldsymbol{x}}^*=<x_{i_1},\cdots,x_{i_N}> \in \{0,1\}^{N_1N_2}$, satisfying
@@ -13,10 +13,10 @@ Solving the higher-order matching problem is equivalent to find the optimal assi
 \end{equation}
 Here, $i_n$ stands for an assignment $(i^{'}_n,j^{'}_n)$, $(i^{'}_n\in P_1,j^{'}_n\in P_2)$, and the
 product $x_{i_1}  \cdots\;x_{i_N}$ is 1 only if all assignments $\{i_n\}_{n=1}^N$ are equal to 1, which means the tuple of features $(i^{'}_1,\cdots,i^{'}_N)$ from $P_1$ is matched correspondingly to the tuple of features $(j^{'}_1,\cdots,j^{'}_N)$ from $P_2$.
-$\mathcal{T}_N(i_1,\cdots,i_N)$ defines the affinity of the set of assignments $\{i_n\}_{n=1}^N$; 
+$\mathcal{T}_N(i_1,\cdots,i_N)$ defines the affinity of the set of assignments $\{i_n\}_{n=1}^N$;
 it also can be seen as the affinity measure between the ordered feature tuples $(i^{'}_1,\cdots,i^{'}_N)$  and $(j^{'}_1,\cdots,j^{'}_N)$.
 
-In the paper, we consider the one-to-many correspondence problem. 
+In the paper, we consider the one-to-many correspondence problem.
 We assume that a point in $P_1$ is matched to exactly one point in $P_2$, but that the reverse is not necessarily true.
 If \emph{do} we want to treat both datasets in the same way,
 we can first match $P_1$ to $P_2$, then match $P_2$ to $P_1$, and then combine the matching results by taking their union or intersection.
@@ -28,7 +28,6 @@ From Equ.(\ref{equ:assigment}) we can see that there are four issues to be consi
 \item approximately solve the optimal higher-order assignment problem efficiently? (see Section~\ref{subsec:oursymmhopm})
 \item define the affinity measure between two feature tuples, or equivalently, the higher-order potential function $\phi_N$? (see Section~\ref{subsec:potentials})
 \item determine an appropriate sampling strategy that physically build the affinity tensor and influence good matching accuracy? (see Section~\ref{subsec:sampling})
-%%%RRM It is not clear why sampling is needed. This should be covered earlier somewhere.
 \end{itemize}
 
 
