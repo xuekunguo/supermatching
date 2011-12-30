@@ -1,42 +1,40 @@
 \section{Related work}
 \label{sec:related}
+%Finding correspondences between two sets of discrete features, such as points, is a classical problem with a large literature. Typically, these points are embedded in an image or a surface, for example, and the feature points are connected directly or indirectly to other feature points to form a graph, using the pixel or mesh connectivity. Often the datasets are assumed to be related by a rigid body transform, or at least an isometry, but other more general transformations may also be considered.
 
-Finding correspondences between two sets of discrete features, such as points, is a classical problem, and thus there is a large literature on the subject.
-Previous approaches can be classified into the which match single points to single points, those which match pairs of points to pairs of points, and so on.
+According to the applied constraints, 
+previous approaches to feature matching can be classified into those which match single points to single points, those which match pairs of points to pairs of points, and so on.
 
-Matching single points to single points, i.e.\ linear assignment problems, only consider affinity measures between two graph nodes, one from each set being matched, typically the feature distance between the two feature points.
-In concrete terms, the linear assignment problem is posed as: find a mapping $f:\ P_1\to P_2$,
-such that the optimal assignment $S^*=\argmax\sum\nolimits_{i\in P_1}A(i,j(i))$,
-where $A:\ N_1\times N_2 \to R$ is the \emph{affinity matrix}, and $A(i,j)$ measures the affinity between feature $i\in P_1$ and feature $j\in P_2$.
-Such affinity measures rely heavily on descriptors computed using local information around each feature point
-(e.g.\ shape contexts~\cite{Belongie02}, SIFT~\cite{Lowe04}, spin images~\cite{Johnson99}, heat diffusion signatures~\cite{Sun09}) in many computer vision and geometric computing tasks.
+Matching single points to single points is a linear assignment problem which only considers an affinity measure between two graph nodes, one from each set being matched; 
+this measure is typically the feature distance between the two feature points.
+In concrete terms, the linear assignment problem may be expressed as: find a mapping $f:\ P_1\to P_2$,
+Affinity measures used in computer vision and computer graphics tasks rely heavily on descriptors computed using local information around each feature point,
+e.g. SIFT~\cite{Lowe04}, spin images~\cite{Johnson99}, heat diffusion signatures~\cite{Sun09}, and BRISK~\cite{Leutenegger11}.
 It is apparent that point-to-point matching is weak in that wrong correspondences maybe readily be established.
 
 Matching pairs of points in one set to pairs of points in the other set leads to a quadratic assignment problem.
-We now have an affinity matrix $A: N_1N_2\times N_1N_2 \to R$, where $A(i,j)$ measures the compatibilities between two assignments $s_i=(f_i^1,f_{j(i)}^2)$ and $s_j=(f_i'^1,f_{j^{'}(i')}^2)$,
-which takes into account both similarity of point features \emph{and} Euclidean distance between the points in a pair.
-The quadratic assignment problem seeks to find a mapping $f:\ P_1\to P_2$ which represents the optimal assignment.
-Unfortunately, this problem is NP-hard, but spectral relaxation techniques~\cite{Leordeanu05} can provide good approximate solutions.
+The usual approach is now to take into account both similarity of the point features \emph{and} the Euclidean/Geodesic distance between the points in a pair, 
+assuming the objects are related by a rigid body transform~\cite{Leordeanu05}, or at least an isometry~\cite{li08,Tevs09,Ovsjanikov10,Tevs11,SahilliogluY11,Windheuser11}.
+The quadratic assignment problem seeks to find a mapping which represents the optimal assignment.
+Unfortunately, this problem is NP-hard, unreasonable matching results could not be avoided.
 
-Several higher-order constraints beyond pairwise potentials have been proposed.
-In general, we may define an $m^{th}$-order affinity measure $T_m$ to capture the affinity associated with making $m$ particular simultaneous assignments $s_{i_1}=(f_{i_1}^1,f_{j_1(i_1)}^2,),\; \cdots \;,s_{i_m}=(f_{i_m}^1,f_{j_m(i_m)}^2)$.
+Several higher-order approaches have also been proposed.
 Such higher-order methods can significantly improve matching accuracy,
-but the higher-order assignment problem is again NP-hard, and various approximate methods have again been developed.
+but higher-order assignment problem is again NP-hard, and various approximate methods have again been developed.
 Zass and Sashua~\cite{Zass08} consider a probabilistic model of soft hypergraph matching.
 They reduce the higher-order problem to a first-order one by marginalizing the higher-order tensor to a one dimensional probability vector.
 Duchenne et al.~\cite{Duchenne_etal09} introduced a third-order tensor in place of an affinity matrix to represent affinities of feature triples,
 and higher-order power iteration was used to achieve the final matching.
 Chertok et al.~\cite{Chertok10} treat the tensor as a joint probability of assignments, marginalize the affinity tensor to a matrix,
 and find optimal soft assignments by eigendecomposition of the matrix.
-Wang et al.~\cite{Aiping10} also built a third-order affinity tensor and obtained a final matching by rank-one approximation of the tensor.
+Wang et al.~\cite{Aiping10} also build a third-order affinity tensor, and obtain a final matching by rank-one approximation of the tensor.
 Higher-order assignment problems typically require large amounts of memory and computational resources.
 By reducing the number of elements needed to represent the affinity measures,
 the above approaches can efficiently match large numbers (many hundreds or more) of features.
 However, these approaches sparsify the affinity information to some degree, leading to a reduction in matching accuracy.
-When matching two feature sets with large differences in scale, the matching results may become unstable.
+When matching two feature sets which do not accurately meet the assumption that the datasets are related by an isometry, the matching results may become unstable.
 
-A similar idea for 3D registration, called the 4-Points Congruent Sets method (4PCS), was proposed by Aiger et al.~\cite{Aiger08}.
-It is a fast and robust alignment scheme for 3D point sets that uses widely separated point tuples, providing resilience to noise and outliers.
-The key geometric idea is that 4PCS defines a ratio property which is preserved for planar 4-point sets under affine transformations.
-We use similar geometric rules in a more general way for feature matching.
-
+A related idea using higher constraints, 4-points congruent sets method (4PCS), was proposed by Aiger et al.~\cite{Aiger08}.
+It is a fast alignment scheme for 3D point sets that uses widely separated points.
+However, the coplanar 4 points and rigid-transformation constraints are some strong, and limit its application in real data.
+We solve both rigid and non-rigid matching problem by one more mathematical and formulated tensor-based algorithm.
