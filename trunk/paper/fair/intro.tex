@@ -4,29 +4,29 @@
 Building correspondences between two sets of features of 2D/3D shapes is a fundamental problem in many geometric processing,
 computer graphics and computer vision tasks.
 It arises in applications such as feature extraction~\cite{Johnson99,Lowe04,Sun09,Toler10,Leutenegger11},
-shape matching~\cite{Belongie02,Berg05,Brown07,Tevs09,Ovsjanikov10,Tevs11,SahilliogluY11,Windheuser11}, registration of 3D shapes~\cite{Gelfand05,Aiger08,li08,Zeng10,vanKaick11,Chang11},
+shape matching~\cite{Berg05,Brown07,Tevs09,Ovsjanikov10,Tevs11,SahilliogluY11,Windheuser11}, registration of 3D shapes~\cite{Gelfand05,Aiger08,li08,Zeng10,vanKaick11,Chang11},
 automatic shape understanding~\cite{Lipman09,Sun10,Kim11}, shape retrieval from database~\cite{Bronstein11}, and reconstruction~\cite{Brown07,Chang11}.
 
-In principle and practise, the correspondence building process mainly proceed in three steps~\cite{Lowe04,Leutenegger11}: 
+In principle and practise, the correspondence building process mainly proceed in three steps~\cite{Lowe04,Leutenegger11}:
 salient feature detection, high-quality descriptor, and accurately matching.
 The former two problems have been been widely attracted considerable attention as their importance is easy perceivable.
 However, even with the ideal feature detector and descriptor that capturing the most important and distinctive information content enclosed in the detected salient regions,
 the correspondences still could not ideally built in the state-of-the-art algorithms~\cite{vanKaick11}.
 The reason is that the real input data is so inperfect and complex especially with symmetric and repetitive regions.
-The researchers are beginning to be aware of that the limitation could be effectively alleviated by feature matching. 
+The researchers are beginning to be aware of that the limitation could be effectively alleviated by feature matching.
 Some original idea (e.g. RANSAC-like algorithms~\cite{Tevs09,Tevs11}) has been extended,
-or indirectly sorting to shape embedding strategies, such as Generalized Multidimensional Scaling~\cite{Bronstein11}, 
-Heat Kernel Map~\cite{Ovsjanikov10}, M{\"o}bius Transformation~\cite{Lipman09,Kim11}. 
-But, these previous algorithms still did not treat feature matching as one independent problem, 
+or indirectly sorting to shape embedding strategies, such as Generalized Multidimensional Scaling~\cite{Bronstein11},
+Heat Kernel Map~\cite{Ovsjanikov10}, M{\"o}bius Transformation~\cite{Lipman09,Kim11}.
+But, these previous algorithms still did not treat feature matching as one independent problem,
 although they agreed with that matching is not tightly coupled with feature detection and description.
 
-In the paper, we mainly focus on feature matching problem, which is complementary to existing correspondence algorithms. 
+In the paper, we mainly focus on feature matching problem, which is complementary to existing correspondence algorithms.
 As we know, a matching itself may comprise one or more items of a given kind.
 We may match single point to single point (point-single),
 point pairs separated by a fixed distance to other point pairs (segment-double),
 triples of points forming a triangle to other triples of points (triangle-triple),
 quadruples of points forming a quadrangle to other quadruples of points (quadrangle-quadruple), and so on.
-As pointed by~\cite{Conte04}, when single features are matched, 
+As pointed by~\cite{Conte04}, when single features are matched,
 we must solve a linear assignment problem, if multiple features are matched at once,
 a quadratic or higher-order assignment problem results.
 
@@ -66,8 +66,8 @@ which avoids sampling repetitive items, reduces the number of feature tuples to 
 \end{itemize}
 
 Our experiments in Section~\ref{sec:experiments} on both synthetic and real captured data sets show that SuperMatching result is accurate and robust,
-and has competitive computational cost compared to previous algorithms. 
-More important, the matching is performed by incorporating variant 2D and 3D feature descriptors, 
+and has competitive computational cost compared to previous algorithms.
+More important, the matching is performed by incorporating variant 2D and 3D feature descriptors,
 which demonstrate that SuperMatching is independent to descriptors and could be generally applied in computer graphics and computer vision fields.
 
 %Section~\ref{sec:supersymhopm} describes the higher-order supersymmetirc affinity tensor and the power iteration method.

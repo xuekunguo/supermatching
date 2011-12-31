@@ -2,10 +2,10 @@
 \label{sec:related}
 %Finding correspondences between two sets of discrete features, such as points, is a classical problem with a large literature. Typically, these points are embedded in an image or a surface, for example, and the feature points are connected directly or indirectly to other feature points to form a graph, using the pixel or mesh connectivity. Often the datasets are assumed to be related by a rigid body transform, or at least an isometry, but other more general transformations may also be considered.
 
-According to the applied constraints, 
+According to the applied constraints,
 previous approaches to feature matching can be classified into those which match single points to single points, those which match pairs of points to pairs of points, and so on.
 
-Matching single points to single points is a linear assignment problem which only considers an affinity measure between two graph nodes, one from each set being matched; 
+Matching single points to single points is a linear assignment problem which only considers an affinity measure between two graph nodes, one from each set being matched;
 this measure is typically the feature distance between the two feature points.
 In concrete terms, the linear assignment problem may be expressed as: find a mapping $f:\ P_1\to P_2$,
 Affinity measures used in computer vision and computer graphics tasks rely heavily on descriptors computed using local information around each feature point,
@@ -13,7 +13,7 @@ e.g. SIFT~\cite{Lowe04}, spin images~\cite{Johnson99}, heat diffusion signatures
 It is apparent that point-to-point matching is weak in that wrong correspondences maybe readily be established.
 
 Matching pairs of points in one set to pairs of points in the other set leads to a quadratic assignment problem.
-The usual approach is now to take into account both similarity of the point features \emph{and} the Euclidean/Geodesic distance between the points in a pair, 
+The usual approach is now to take into account both similarity of the point features \emph{and} the Euclidean/Geodesic distance between the points in a pair,
 assuming the objects are related by a rigid body transform~\cite{Leordeanu05}, or at least an isometry~\cite{li08,Tevs09,Ovsjanikov10,Tevs11,SahilliogluY11,Windheuser11}.
 The quadratic assignment problem seeks to find a mapping which represents the optimal assignment.
 Unfortunately, this problem is NP-hard, unreasonable matching results could not be avoided.
@@ -37,4 +37,4 @@ When matching two feature sets which do not accurately meet the assumption that 
 A related idea using higher constraints in 3D registration, 4-points congruent sets method (4PCS), was proposed by Aiger et al.~\cite{Aiger08}.
 It is a fast alignment scheme for 3D point sets that uses widely separated points.
 However, the coplanar 4 points and rigid-transformation constraints are some strong, and limit its application in real data.
-We solve both rigid and articulated shape matching problem by one more mathematical and formulated tensor-based algorithm.
+We solve both rigid and isometric shape matching problem by one more mathematical and formulated tensor-based algorithm.
