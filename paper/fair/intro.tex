@@ -20,7 +20,7 @@ Heat Kernel Map~\cite{Ovsjanikov10}, M{\"o}bius Transformation~\cite{Lipman09,Ki
 But, these previous algorithms still did not treat feature matching as one independent problem,
 although they agreed with that matching is not tightly coupled with feature detection and description.
 
-In the paper, we mainly focus on feature matching problem, which is complementary to existing correspondence algorithms.
+In the paper, we mainly focus on feature matching problem, which is complementary to existing feature detection and desription algorithms.
 As we know, a matching itself may comprise one or more items of a given kind.
 We may match single point to single point (point-single),
 point pairs separated by a fixed distance to other point pairs (segment-double),
@@ -32,12 +32,12 @@ a quadratic or higher-order assignment problem results.
 
 Linear assignment matches single features in one set with single features in the other set, and could be mainly treated as single points linkage.
 Matching two feature sets by considering similarities of \emph{single} features from each set can easily fail in the presence of ambiguities such as repeated elements,
-textures or relatively uniform local appearance.
+or similar local appearance.
 
 Quadratic and higher-order assignment matches groups of features in one set simultaneously with groups from the other set,
 and requires a greater consistency between the information being matched, making it more reliable.
 As well as the features themselves, other constraints such as consistency of the distances between the features being matched are also enforced,
-greatly improving the reliability of higher order matching.
+greatly improving the matching accuracy.
 
 As a particular example of \emph{quadratic} assignment, Leordanu and Hebert~\cite{Leordeanu05} consider pairs of feature descriptors,
 and distances between pairs of features from each set to reduce the number of incorrect correspondences.
@@ -52,8 +52,8 @@ and does not change with the order of the input assignments.
 By changing the affinity tensor to a \emph{supersymmetric} tensor~\cite{Kofidis02}, the unaccurate limitation could be further solved by our algorithm.
 
 Thus, by formulating the higher-order problem using a supersymmetric affinity tensor,
-we propose an accurate and efficient higher-order supersymmetric matching algorithm, named \emph{SuperMatching}.
-SuperMatching, addressed in Section~\ref{sec:supersymhopm}, works well when matching a moderate number of features using triples or higher polygons of features.
+we propose a general higher-order supersymmetric matching algorithm, named \emph{SuperMatching}.
+SuperMatching, addressed in Section~\ref{sec:supersymhopm}, which accurately matching a moderate number of features using triples or higher polygons of features.
 The contributions of this paper include:
 \begin{itemize}
 \item We show how to define a compact higher-order supersymmetric affinity tensor to express geometric consistency constraints between tuples of features.
@@ -61,14 +61,14 @@ The contributions of this paper include:
 \item Based on the supersymmetry of the affinity tensor, we propose a higher-order power iteration method, which efficiently solves the matching problem.
 
 \item The affinity tensor is physically created by using a new efficient sampling strategy for feature tuples,
-which avoids sampling repetitive items, reduces the number of feature tuples to be sampled while ensuring the accuracy of the power iteration result.
+which avoids sampling repetitive items, reduces the number of feature tuples to be sampled while improving the matching accuracy.
 
 \end{itemize}
 
 Our experiments in Section~\ref{sec:experiments} on both synthetic and real captured data sets show that SuperMatching result is accurate and robust,
 and has competitive computational cost compared to previous algorithms.
 More important, the matching is performed by incorporating variant 2D and 3D feature descriptors,
-which demonstrate that SuperMatching is independent to descriptors and could be generally applied in computer graphics and computer vision fields.
+which demonstrate that SuperMatching is independent on descriptors and could be generally applied in computer graphics and computer vision fields.
 
 %Section~\ref{sec:supersymhopm} describes the higher-order supersymmetirc affinity tensor and the power iteration method.
 %Experiments are shown in Section~\ref{sec:experiments} and conclusions drawn in Section~\ref{sec:conclusion}. 
