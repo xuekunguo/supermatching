@@ -13,7 +13,7 @@ It is apparent that point-to-point matching is weak in that wrong correspondence
 
 Matching pairs of points in one set to pairs of points in the other set leads to a quadratic assignment problem.
 The usual approach is now to take into account both similarity of the point features \emph{and} the Euclidean/Geodesic distance between the points in a pair,
-assuming the objects are related by a rigid transformation~\cite{Leordeanu05}, or at least an isometry~\cite{li08,Tevs09,Ovsjanikov10,Tevs11,SahilliogluY11,Windheuser11}.
+assuming the objects are related by a rigid transformation~\cite{Leordeanu05,Cour06}, or at least an isometry~\cite{li08,Tevs09,Ovsjanikov10,Tevs11,SahilliogluY11,Windheuser11}.
 The quadratic assignment problem seeks to find a mapping which represents the optimal assignment.
 Unfortunately, this problem is NP-hard, unreasonable matching results could not be avoided.
 
@@ -22,7 +22,7 @@ Such higher-order methods can significantly improve matching accuracy,
 but higher-order assignment problem is more chanllenging, and various approximate methods have again been developed.
 Zass and Sashua~\cite{Zass08} consider a probabilistic model of soft hypergraph matching.
 They reduce the higher-order problem to a first-order one by marginalizing the higher-order tensor to a one dimensional probability vector.
-Duchenne et al.~\cite{Duchenne_etal09} introduced a third-order tensor in place of an affinity matrix to represent affinities of feature triples,
+Duchenne et al.~\cite{Duchenne09} introduced a third-order tensor in place of an affinity matrix to represent affinities of feature triples,
 and higher-order power iteration was used to achieve the final matching.
 Chertok et al.~\cite{Chertok10} treat the tensor as a joint probability of assignments, marginalize the affinity tensor to a matrix,
 and find optimal soft assignments by eigendecomposition of the matrix.

@@ -102,7 +102,7 @@ which is so robust that could be satisfied in practical application.
 S-HOPM is performed in two iterative steps: high-order power iteration of $\boldsymbol{u}$, normalization of $\boldsymbol{u}$ under the Frobenius norm.
 In the recent, one more effective improvement~\cite{Duchenne_etal09} was proposed by using $\mathcal{C}_1$ norm to replace the traditional $\mathcal{C}_2$ norm.
 
-We directly take the $\mathcal{C}_1$ norm~\cite{Duchenne_etal09} and further revise S-HOPM as following.
+We directly take the $\mathcal{C}_1$ norm~\cite{Duchenne09} and further revise S-HOPM as following.
 For the first step (high-order power iteration of $\boldsymbol{u}$), $\hat{\boldsymbol{u}}^{(k)}=\mathcal{I}\mathop{\star}\limits^{\mathcal{T}_N}
 {(\boldsymbol{u}^{(k-1)})}^{\mathop{\star}\limits^{\mathcal{T}_N} (N-1)}$,
 $\mathop{\star}\limits^{\mathcal{T}_N}$ is a so-called $\mathcal{T}_N$-product,
@@ -126,10 +126,10 @@ This version excludes each non-potential element from the iteration process, so 
 and the complexity of the whole iteration process only depends on the number $|\theta_N|$ of affinities. Step 5 in Algorithm~\ref{alg2} includes all permutations of each potential element $\mathcal{T}_n(i_1,i_2,\cdots,i_n)$,
 which are expressed by a single potential function $\phi_n(i_1,i_2,\cdots,i_n)$.
 Consequently, This method reduces memory costs while keeping accuracy.
-Please noted that, although the affinity tensor~\cite{Duchenne_etal09} was claimed as supersymmetric.
-~\cite{Duchenne_etal09} did not make full use of supersymmetry when creating the supersymmetric affinity tensor,
+Please noted that, although the affinity tensor~\cite{Duchenne09} was claimed as supersymmetric.
+~\cite{Duchenne09} did not make full use of supersymmetry when creating the supersymmetric affinity tensor,
 nor did they take advantage of supersymmetry when accelerating the power iteration process.
-Fortunately, the limitation due to unbalanced and redundant tensor elements in ~\cite{Duchenne_etal09} could be overcome by Algorithm~\ref{alg2}.
+Fortunately, the limitation due to unbalanced and redundant tensor elements in ~\cite{Duchenne09} could be overcome by Algorithm~\ref{alg2}.
 The later experiment proves the expectation.
 
 Many initialization schemes have been proposed for S-HOPM method~\cite{Kofidis02}.
@@ -143,7 +143,7 @@ Here we give two general higher-order potentials.
 One is used for the 2D cases, while the other is defined for 3D matching.
 The potentials are based on a Gaussian kernel which guarantees the tensor elements are non-negative and invariant to any permutation of the input assignments.
 
-In 2D cases, we first restate a well-known 2D third-order geometric-similarity invariant potential $\phi_3$~\cite{Duchenne_etal09,Chertok10} linking two feature tuples,
+In 2D cases, we first restate a well-known 2D third-order geometric-similarity invariant potential $\phi_3$~\cite{Duchenne09,Chertok10} linking two feature tuples,
 each having three features.
 Similarity of triangles formed by three points corresponds to invariance under scaling, rotation and translation---interior angles do not change.
 Thus $\phi_3$ can be defined in terms of differences of corresponding interior angles:
@@ -197,7 +197,7 @@ Combining all the potential elements obtained, we form the desired potential ele
 The parameters $t_1$ and $k$ must be chosen according to the size of the feature sets. 
 For $P_1$, the sampling cost is $O(N_1\, t_1\,  k\log N_1)$.
 In practice, for two feature sets each with hundreds points, 
-we take $t_1 \approx 50$ and $k \approx 300$ for third-order and higher-order (e.g. fourth-order) matching.
+we take $t_1 \approx 100$ and $k \approx 300$ for third-order and higher-order (e.g. fourth-order) matching.
 The experiments demonstrate that this sampling approach works well.
 
 
@@ -216,7 +216,7 @@ Thus, we use a sampling constraint that the sets of feature tuples $F_1$ obtaine
 and $\Omega$ is arbitrary permutation.
 This sampling constraint eliminates overlaps that may appear in the potential elements $\theta_N$.
 
-Earlier work~\cite{Duchenne_etal09,Zass08} ever adopted random sampling, 
+Earlier work~\cite{Duchenne09,Zass08} ever adopted random sampling, 
 but failed to impose any constraint on the sampling process,
 leading to the possibility that feature tuples may include repetition.
 For example, for third-order matching, it is possible that a feature tuple $(f_{i_1}^1, f_{i_2}^1, f_{i_3}^1)$ may be sampled from $P_1$ and $(f_{i_1}^2, f_{i_2}^2, f_{i_3}^2)$ from $P_2$, and also a feature tuple $(f_{i_1}^1, f_{i_3}^1, f_{i_2}^1)$ sampled from $P_1$ and $(f_{i_1}^2, f_{i_3}^2, f_{i_2}^2)$ from $P_2$. That will create two tensor elements $\phi_3(s_{i_1}, s_{i_2}, s_{i_3})$ with index $(s_{i_1}, s_{i_2}, s_{i_3})$ and $\phi_3(s_{i_1}, s_{i_3}, s_{i_2})$ with index $(s_{i_1}, s_{i_3}, s_{i_2})$, which are the same. However, we just need one tensor element to express the affinity measure on the assignment group $(s_{i_1}, s_{i_2}, s_{i_3})$. 
