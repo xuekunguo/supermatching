@@ -3,7 +3,7 @@
 \section{SuperMatching}
 \label{sec:supersymhopm}
 %-------------------------------------------------------------------------
-We first discuss the former two issues mentioned above, 
+We first discuss the former two issues mentioned above,
 which are independent of application; later we turn to definition of affinity measure, which is application dependent, and sampling strategy.
 
 \subsection{Supersymmetric affinity tensor}
@@ -108,14 +108,16 @@ For the first step (high-order power iteration of $\boldsymbol{u}$), $\hat{\bold
 $\mathop{\star}\limits^{\mathcal{T}_N}$ is a so-called $\mathcal{T}_N$-product,
 $\mathcal{I}$ is the unit tensor~\cite{Kofidis02}.
 Then, for $\hat{\boldsymbol{u}}^{(k)}$ with $N$th-order supersymmetric affinity tensor, it can be formulated as:
+%\begin{small}
 \begin{flalign}
 \label{equ:eqsmain2}
 &\hat{\boldsymbol{u}}^{(k)}=\mathcal{I}\mathop{\star}\limits^{\mathcal{T}_N}
 {(\boldsymbol{u}^{(k-1)})}^{\mathop{\star}\limits^{\mathcal{T}_N} (N-1)} \Leftrightarrow  \nonumber \\
-&\forall m\in (i_1,\cdots , i_N), v_{m}^{(k)}= \nonumber\\
-&\sum\limits_{i_1,\ldots,i_N}\mathcal{T}_N(i_1,\cdots,i_N)2v_{m}^{(k-1)}v_{i_1}^{2_{(k-1)}}\cdots v_{m-1}^{2_{(k-1)}}v_{m+1}^{2_{(k-1)}}\cdots v_{i_N}^{2_{(k-1)}}= \nonumber \\
-&(N-1)!\phi_N(i_1,\cdots,i_N)2v_{m}^{(k-1)}v_{i_1}^{2_{(k-1)}}\cdots v_{m-1}^{2_{(k-1)}}v_{m+1}^{2_{(k-1)}}\cdots v_{i_N}^{2_{(k-1)}}
+&\forall m\in (i_1,... , i_N), v_{m}^{(k)}= \nonumber\\
+&\sum\limits_{i_1,...,i_N}\mathcal{T}_N(i_1,...,i_N)2v_{m}^{(k-1)}v_{i_1}^{2_{(k-1)}}... v_{m-1}^{2_{(k-1)}}v_{m+1}^{2_{(k-1)}}... v_{i_N}^{2_{(k-1)}}= \nonumber \\
+&(N-1)!\phi_N(i_1,...,i_N)2v_{m}^{(k-1)}v_{i_1}^{2_{(k-1)}}... v_{m-1}^{2_{(k-1)}}v_{m+1}^{2_{(k-1)}}... v_{i_N}^{2_{(k-1)}}
 \end{flalign}
+%\end{small}
 where $\boldsymbol{u}^{(k)}=\boldsymbol{v}^{2_{(k)}}$, $\phi_N$ is corresponding potential function.
 The deduction relies on two principles. First, we take advantage of the supersymmetry.
 Secondly, many of the elements of the affinity tensor are zero non-potential elements:
@@ -175,7 +177,7 @@ Fig.~\ref{fig:TO} illustrates the schematic diagram of third-order potential in 
 \subsection{Sampling strategy}
 \label{subsec:sampling}
 
-Algorithm~\ref{alg2} depends on all potential elements. 
+Algorithm~\ref{alg2} depends on all potential elements.
 We next discuss the issue of how to sample the feature tuples to build potential items, which determines the size $|\theta_N|$ and influences matching accuracy.
 
 Given two feature sets $P_1$ and $P_2$ with $N_1$ and $N_2$ features respectively,
@@ -185,7 +187,7 @@ first find all feature tuples for $P_1$ and $P_2$, as $F_1$ and $F_2$; then $\fo
 calculating the potentials for $(f_{i_1}^1, f_{i_2}^1, \cdots, f_{i_N}^1)$ with all feature tuples in $F_2$.
 This naive method is very expensive, which is why sampling is used.
 Different sampling strategies can be chosen for different applications,
-we employ random sampling for general feature matching problems. 
+we employ random sampling for general feature matching problems.
 %as there is no guidance to provide a better sampling method.
 
 Our sampling works as following: randomly sampling $t_1$ feature tuples for $P_1$, and full sampling for $P_2$ (to find all $N_2^N$ feature tuples).
@@ -194,9 +196,9 @@ and then  randomly choose $t_1$ feature tuples containing these required element
 We repeat this process until all features in $P_1$ have been chosen once as a required element.
 Then, $\forall (f_{i_1}^1, f_{i_2}^1, \cdots, f_{i_N}^1)\in F_1$, we find the $k$ most similar features in $F_2$ to build $k$ potential elements as $\phi_i^k$.
 Combining all the potential elements obtained, we form the desired potential element set $\theta_N = \{\phi_i^k\}_{i=1}^{N_1 t_1}$, with the size $|\theta_N| = N_1 t_1 k$.
-The parameters $t_1$ and $k$ must be chosen according to the size of the feature sets. 
+The parameters $t_1$ and $k$ must be chosen according to the size of the feature sets.
 For $P_1$, the sampling cost is $O(N_1\, t_1\,  k\log N_1)$.
-In practice, for two feature sets each with hundreds points, 
+In practice, for two feature sets each with hundreds points,
 we take $t_1 \approx 100$ and $k \approx 300$ for third-order and higher-order (e.g. fourth-order) matching.
 The experiments demonstrate that this sampling approach works well.
 
@@ -216,10 +218,10 @@ Thus, we use a sampling constraint that the sets of feature tuples $F_1$ obtaine
 and $\Omega$ is arbitrary permutation.
 This sampling constraint eliminates overlaps that may appear in the potential elements $\theta_N$.
 
-Earlier work~\cite{Duchenne09,Zass08} ever adopted random sampling, 
+Earlier work~\cite{Duchenne09,Zass08} ever adopted random sampling,
 but failed to impose any constraint on the sampling process,
 leading to the possibility that feature tuples may include repetition.
-For example, for third-order matching, it is possible that a feature tuple $(f_{i_1}^1, f_{i_2}^1, f_{i_3}^1)$ may be sampled from $P_1$ and $(f_{i_1}^2, f_{i_2}^2, f_{i_3}^2)$ from $P_2$, and also a feature tuple $(f_{i_1}^1, f_{i_3}^1, f_{i_2}^1)$ sampled from $P_1$ and $(f_{i_1}^2, f_{i_3}^2, f_{i_2}^2)$ from $P_2$. That will create two tensor elements $\phi_3(s_{i_1}, s_{i_2}, s_{i_3})$ with index $(s_{i_1}, s_{i_2}, s_{i_3})$ and $\phi_3(s_{i_1}, s_{i_3}, s_{i_2})$ with index $(s_{i_1}, s_{i_3}, s_{i_2})$, which are the same. However, we just need one tensor element to express the affinity measure on the assignment group $(s_{i_1}, s_{i_2}, s_{i_3})$. 
-This repetitive problem not only makes the potential elements redundant but also affects the accuracy of the power iteration, 
+For example, for third-order matching, it is possible that a feature tuple $(f_{i_1}^1, f_{i_2}^1, f_{i_3}^1)$ may be sampled from $P_1$ and $(f_{i_1}^2, f_{i_2}^2, f_{i_3}^2)$ from $P_2$, and also a feature tuple $(f_{i_1}^1, f_{i_3}^1, f_{i_2}^1)$ sampled from $P_1$ and $(f_{i_1}^2, f_{i_3}^2, f_{i_2}^2)$ from $P_2$. That will create two tensor elements $\phi_3(s_{i_1}, s_{i_2}, s_{i_3})$ with index $(s_{i_1}, s_{i_2}, s_{i_3})$ and $\phi_3(s_{i_1}, s_{i_3}, s_{i_2})$ with index $(s_{i_1}, s_{i_3}, s_{i_2})$, which are the same. However, we just need one tensor element to express the affinity measure on the assignment group $(s_{i_1}, s_{i_2}, s_{i_3})$.
+This repetitive problem not only makes the potential elements redundant but also affects the accuracy of the power iteration,
 because the numbers of each tensor element may not be equal and some elements may be used more than once during the iteration progress.
 Therefore, our sampling method reduces the sampling cost, while also improving the accuracy of the power iteration.
