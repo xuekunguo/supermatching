@@ -100,7 +100,7 @@ a version for supersymmetric tensors (S-HOPM) is given in~\cite{Kofidis02}.
 The S-HOPM algorithm converges under the assumption of convexity for the functional induced by the tensor~\cite{Kofidis02},
 which is so robust that could be satisfied in practical application.
 S-HOPM is performed in two iterative steps: high-order power iteration of $\boldsymbol{u}$, normalization of $\boldsymbol{u}$ under the Frobenius norm.
-In the recent, one more effective improvement~\cite{Duchenne_etal09} was proposed by using $\mathcal{C}_1$ norm to replace the traditional $\mathcal{C}_2$ norm.
+In the recent, one more effective improvement~\cite{Duchenne09} was proposed by using $\mathcal{C}_1$ norm to replace the traditional $\mathcal{C}_2$ norm.
 
 We directly take the $\mathcal{C}_1$ norm~\cite{Duchenne09} and further revise S-HOPM as following.
 For the first step (high-order power iteration of $\boldsymbol{u}$), $\hat{\boldsymbol{u}}^{(k)}=\mathcal{I}\mathop{\star}\limits^{\mathcal{T}_N}
@@ -155,16 +155,17 @@ Thus $\phi_3$ can be defined in terms of differences of corresponding interior a
 \end{eqnarray}
 where $\varepsilon > 0$ is the is the kernel bandwidth,
 $\{\alpha_l\}_{l=1}^3$ and $\{\alpha_l^{'}\}_{l^{'}=1^{'}}^{3}$ are the angles formed by feature triples $(i_1,j_1,k_1)$ and $(i_2,j_2,k_2)$:
-see Fig.~\ref{fig:TO}. Each element corresponds to one interior angle.
+see figure~\ref{fig:TO}. Each element corresponds to one interior angle.
 We extend it to all general cases by using the internal angles formed by the triangle and higher polygons.
 It is easy to understand that the potential preserves invariance under rigid transformations in 2D field.
 
 For 3D matching problem, we replace the internal angle by edge length, i.e., the geodesic distance between two neighboring points.
+The geodesic distance~\cite{Peyre2010} between two points is computed by the shortest Dijkstra algorithm. 
 Therefore, the feature matching is performed using the geometric constraints with invariance,
 which going beyond traditional the single (point) and pairwise features.
 
 We will use these two high-order potentials to evaluate our algorithm.
-Fig.~\ref{fig:TO} illustrates the schematic diagram of third-order potential in 2D and 3D cases.
+Figure~\ref{fig:TO} illustrates the schematic diagram of third-order potential in 2D and 3D cases.
 
 \begin{figure}
 \centering
