@@ -1,10 +1,10 @@
 \section{Introduction}
 \label{sec:introduction}
 
-Building correspondences between two sets of features belonging to a pair of 2D and 3D shapes or images
+Building correspondences between two sets of features belonging to a pair of 2D/3D shapes 
 is a fundamental problem in many computer graphics, geometry processing, and computer vision tasks.
 It arises in applications such as
-registration of 3D shapes~\cite{Gelfand05,Aiger08,li08,Zeng10,vanKaick11,Chang11},
+registration of 3D shapes~\cite{Gelfand05,Aiger08,li08,Chang09,Zeng10,vanKaick11,Chang11},
 shape retrieval from databases~\cite{Bronstein11},
 shape matching~\cite{Berg05,Brown07,Lorenzo08,Tevs09,Ovsjanikov10,Tevs11,SahilliogluY11,Windheuser11},
 shape reconstruction~\cite{Brown07,Pekelny08,Wand09,Chang11},
@@ -17,7 +17,7 @@ and (iii) determining the most suitable matching between the two sets of points.
 The former two problems have widely attracted considerable attention as their importance is easy perceivable.
 However, even supposing ideal feature  descriptors and selectors  that capture the most important and distinctive information about the neighborhood of each salient point,
 state-of-the-art algorithms  still find it challenging to determine the best matching~\cite{vanKaick11}.
-The reasons are various:  real input data is noisy, the data may only be approximately in correspondence, 
+The reasons are various:  real input data is noisy, the data may only be approximately in correspondence,
 and the problem is further complicated by the presence of (nearly) symmetric and congruent regions.
 Feature matching algorithms need to be robust in the presence of such issues.
 Various approaches have been devised with this in mind,
