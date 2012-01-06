@@ -17,6 +17,7 @@ and the following deduction would prove that the motivation is effective.
 %%%RRM One problem. You have not exaplined anywhere yet WHY the affinity
 %%%RRM tensor should be supersymmetric. This is an important issue which needs
 %%%RRM to come here.
+%%Done
 
 \newtheorem{mot}{Definition}
 \begin{mot}[Supersymmetric Tensor]
@@ -31,7 +32,7 @@ $\mathcal{T}_3(i_1, i_2, i_3)=\mathcal{T}_3(i_1, i_3, i_2)=\mathcal{T}_3(i_2, i_
 \label{mot:def2}
 Given two feature sets $P$ and $Q$, with $N_1$ and $N_2$ features respectively,
 the supersymmetric affinity tensor is an $N^{th}$ order $I_1\cdots \times I_N$, nonnegative tensor $\mathcal{T_N}$,
-where $I_1=I_2=\cdots =I_N=N_1N_2$, for which there exists a set of indices $\theta_N$,
+where $I_1, \cdots ,I_N=N_1N_2$, for which there exists a set of indices $\theta_N$,
 and an $N^{th}$ order potential function $\phi_N$, such that
 %
 \begin{flalign}
@@ -43,17 +44,17 @@ and an $N^{th}$ order potential function $\phi_N$, such that
 %
 where $\Omega$ stands for an arbitrary permutation of the vector, and $\theta_N$ satisfies $\forall (i_1,\ldots,i_N)\in \theta_N, \forall i_m\in\{i_1, \ldots, i_N\}$
 and $\forall i_n\in\{i_1, \ldots, i_N\}-\{i_m\}$ meets the requirement that $i_m \neq i_n$.
-
-A tensor element with $(i_1,i_2,\ldots,i_N)\in \theta_N$ is called a \emph{potential element}, while other elements are called \emph{non-potential element}.
 \end{mot}
+
+A tensor element with $(i_1,\ldots,i_N)\in \theta_N$ is called as a \emph{potential element}, while other elements are called \emph{non-potential element}.
+The potential element is one final matching result from all possible matching candidates. 
 %%%RRM Explain the physical meaning of potential and non-potential elements.
 %%%RRM Why are there non-potential elements?
-%%%RRM
 %%%RRM Also explain what the potential is and why we introduce it.
-%%%RRM
 %%%RRM These ideas will not be familiar to most readers.
+%%%ZQC done
 
-Using Definition~\ref{mot:def2}, we now can greatly reduce the amount of storage needed, representing every potential element $\mathcal{T}_N(i_1,i_2,\ldots,i_N)$ by the canonical entry $\mathcal{T}_N(\mathrm{sort}(i_1,i_2,\ldots,i_N))$, $\forall (i_1,i_2,\ldots,i_N)\in \theta_N$. Each stored value thus provides the value for $N!$ entries.
+Using Definition~\ref{mot:def2}, we now can greatly reduce the amount of storage needed, representing every potential element $\mathcal{T}_N(i_1,\ldots,i_N)$ by the canonical entry $\mathcal{T}_N(\mathrm{sort}(i_1,\ldots,i_N))$, $\forall (i_1,\ldots,i_N)\in \theta_N$. Each stored value thus provides the value for $N!$ entries.
 As non-potential elements all have value zero, there is no need to store them.
 This greatly reduces both storage, and sampling
 needed for feature tuples when estimating the affinity tensor, as discussed in Section~\ref{subsec:sampling}.
@@ -67,14 +68,10 @@ At the same time, it can be used to make the power iteration process more effici
 \caption{\small Higher-order power iteration method for a \protect\\
          \mbox{}\hspace{15ex}\small supersymmetric affinity tensor (with $\mathcal{C}_1$ norm)}
 \label{alg2}
-%%%RRM This algorithm uses v values but does not intiialise the v values.
-%%%RRM You need to say HERE how to compute the v from the u and vice versa
-%%%RRM
-%%%RRM Also need to say in text how you decide you have converged
 \begin{algorithmic}[1]
 \REQUIRE \small $N^{th}$-order supersymmetric affinity tensor $\mathcal{T}_n$
 \ENSURE  \small unit-norm vector $\boldsymbol{u}$
-\STATE   \small \; Initialize $\boldsymbol{u}_0$ randomly (see text), $k=1$
+\STATE   \small \; Initialize $\boldsymbol{u}_0$ by randomly positive values, $k=1$
 \REPEAT
     \FOR{all $(i_1,i_2,\cdots , i_N)\in \theta_N$}
         \FOR{all $m \in (i_1,\cdots , i_N)$}
@@ -88,7 +85,8 @@ At the same time, it can be used to make the power iteration process more effici
     \ENDFOR
     \STATE $k=k+1$;
 \UNTIL{\small convergence};\protect\\
-       \small \textbf{Note}: $v^{(k)}(((i-1)\cdot N_2+1) : i\cdot N_2)$ denotes the slice of $v^{(k)}$ with
+       \small \textbf{Note}: $\boldsymbol{u}^{(k)}=\boldsymbol{v}^{2_{(k)}}$, $\phi_N$ is the corresponding potential function, 
+       \small and $v^{(k)}(((i-1)\cdot N_2+1) : i\cdot N_2)$ denotes the slice of $v^{(k)}$ with
        \small indices from $(i-1)\cdot N_2+1$ to $i\cdot N_2$.
 \end{algorithmic}
 \end{algorithm}
