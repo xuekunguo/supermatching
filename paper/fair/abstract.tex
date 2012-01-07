@@ -1,14 +1,12 @@
 Feature matching is a challenging problem lying at the heart of numerous computer graphics and computer vision applications.
 We present here the \emph{SuperMatching} feature matching algorithm for finding correspondences between two sets of features.
-SuperMatching finds matches between feature points by considering triangles or higher-order polygons formed by them, going beyond the pointwise and pairwise approaches typically used.
-SuperMatching is formulated as a supersymmetric-tensor-based matching scheme,
-casting feature matching as a higher-order graph matching problem.
-The supersymmetric tensor represents an affinity metric which takes into account geometric constraints between features.
-SuperMatching exploits a compact form of this affinity tensor,
-whilst also taking advantage of supersymmetry to devise an
-efficient sampling strategy to estimate the affinity tensor.
+SuperMatching finds matches between feature points by considering triangles or higher-order tuples of points, going beyond the pointwise and pairwise approaches typically used.
+SuperMatching is formulated using a supersymmetric tensor representing an affinity metric which takes into account geometric constraints between features,
+since feature matching is casted as a higher-order graph matching problem.
+SuperMatching takes advantage of supersymmetry to devise an
+efficient sampling strategy to estimate the affinity tensor, as well as to store the tensor compactly.
 Matching is performed by computing a rank-one approximation of the tensor directly
 using a higher-order power iteration solution.
 Experiments on both synthetic and real captured data show that
-our algorithm provides accurate feature matching in the general way by testing various 2D and 3D feature kinds,
-and is more accurate than the state-of-the-art approaches with competitive computational cost.
+SuperMatching provides accurate feature matching for a wide range of 2D and 3D features,
+giving more reliable results than other state-of-the-art approaches, with competitive computational cost.
