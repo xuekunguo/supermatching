@@ -20,11 +20,19 @@ The transform which brings the most data points within a threshold of a point in
 As discussed in~\cite{Gelfand05}, such a voting scheme is guaranteed to find the optimal alignment between the pairwise scans and is independent of the initial pose of the input scans.
 Figure~\ref{fig:3DPair} shows two registration examples of articulated model, the right is the failure case by~\cite{Aiger08}.
 
-\begin{figure}[htb]
+\begin{figure}[tb]
 \centering
   \includegraphics[width=0.99\linewidth]{figures/rigidCMP.jpg}
   \caption{Pairwise alignment of xx. The right is the result from [Aiger et al. 2008]. \cz{On the coming :)}}
 \label{fig:3DPair}
+\end{figure}
+
+\begin{figure}[tb]
+\centering
+  \includegraphics[width=0.99\linewidth]{figures/3DRigid.pdf}
+  \caption{Alignment of several sheep head scans from different viewpoints.
+  Above: scans are captured from different viewpoints. Below: the final shape is formed from 10 aligned scans, the dark segments imply where the pairwise matching works.}
+\label{fig:3DRigid}
 \end{figure}
 
 In the following, we extended the SuperMatching to build a complete model from a set of scans from different viewpoints.
@@ -33,14 +41,6 @@ After the initial pairwise matching, the alignment is refined by the iterative c
 Figure~\ref{fig:3DRigid} illustrates the approach.
 Above, a sheep's head is scanned from multiple viewpoints. Below, matching is used to align 10 scans which are then merged to produce a single shape.
 Pairs of consecutive scans, linked by dark segments, are matched using the SuperMatching algorithm.
-
-\begin{figure}[h]
-\centering
-  \includegraphics[width=0.99\linewidth]{figures/3DRigid.pdf}
-  \caption{Alignment of several sheep head scans from different viewpoints. 
-  Above: scans are captured from different viewpoints. Below: the final shape is formed from 10 aligned scans, the dark segments imply where the pairwise matching works.}
-\label{fig:3DRigid}
-\end{figure}
 
 %%%RRM Actually, there are some datasets out there with known transofrmations
 %%%RRM between them. We could try to show we can estimate the transformations
