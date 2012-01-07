@@ -5,7 +5,7 @@
 Assume we are given two sets of feature points $P$ and $Q$, with $N_1$  and $N_2$ points respectively.
 The matching between these two feature sets can be represented by an \emph{assignment variable} $\mathbf{X}$.
 $\mathbf{X}$ is a matrix, whose size is $N_1N_2$ and elements are 0 or 1.
-$X(i,j)=1$ when point $i \in P$ matches point $j \in Q$ and $X(i,j)=0$ otherwise.
+$X(p,q)=1$ when point $p \in P$ matches point $q \in Q$ and $X(p,q)=0$ otherwise.
 $\mathbf{X}$ can be row-wise vectorized to give an assignment vector $\boldsymbol{x} \in \{0,1\}^N$ where $N={N_1N_2}$.
 
 Solving the higher-order matching problem is equivalent to finding the optimal assignment vector ${\boldsymbol{x}}^*=<x_{i_1},\cdots,x_{i_N}>
@@ -16,18 +16,17 @@ Solving the higher-order matching problem is equivalent to finding the optimal a
 \end{equation}
 
 Here, $i_n$ stands for an assignment $(p_n,q_n)$, $(p_n\in P, q_n\in Q)$, and the
-product $x_{i_1}  \cdots\;x_{i_N}$ is 1 only if all assignments $\{i_n\}_{n=1}^N$ are equal to 1,
-which means the tuple of features $(p_1,\cdots,p_N)$ from $P$ is matched to the tuple of features $(q_1,\cdots,q_N)$ from $Q$.
+product $x_{i_1} \cdots\;x_{i_N}$ means the tuple of features $(p_1,\cdots,p_{N_1})$ from $P$ is matched to the tuple of features $(q_1,\cdots,q_{N_2})$ from $Q$.
 $\mathcal{T}_r(i_1,\cdots,i_N)$ defines the affinity of the set of assignments $\{i_n\}_{n=1}^N$;
-it is the affinity measure between the ordered feature tuples $(p_1,\cdots,p_N)$  and $(q_1,\cdots,q_N)$.
-So, \emph{the affinity measures are defined based on the geometric constraints between pairs of feature tuples},
+it is the affinity measure between the ordered feature tuples $(p_1,\cdots,p_{N_1})$  and $(q_1,\cdots,q_{N_2})$.
+In the paper, \emph{the affinity measures would be defined based on the geometric constraints between pairs of feature tuples},
 this is the basis of the SuperMatching algorithm.
 
 In the rest of the paper, we consider the one-to-many correspondence problem.
 We assume that each point in $P$ is matched to exactly one point in $Q$, but that the reverse is not necessarily true.
 If \emph{do} we want to treat both datasets in the same way,
 we can first match $P$ to $Q$, then match $Q$ to $P$, and then combine the matching results by taking their union or intersection.
-Uniqueness of matches for $P$ means that the assignment variable matrix $\mathbf{X}$ satisfies $\sum\nolimits_i X(i,j)=1$.
+Uniqueness of matches for $P$ means that the assignment variable matrix $\mathbf{X}$ satisfies $\sum\nolimits_p X(p,q)=1$.
 
 From Equ.(\ref{equ:assigment}) we can see that there are four issues to be considered when using higher-order matching algorithms. How should we:
 \begin{itemize}

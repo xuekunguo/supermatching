@@ -1,49 +1,42 @@
 \section{Introduction}
 \label{sec:introduction}
 
-Building correspondences between two sets of features belonging to a pair of 2D/3D shapes 
+Building correspondences between two sets of features belonging to a pair of 2D or 3D shapes
 is a fundamental problem in many computer graphics, geometry processing, and computer vision tasks.
 It arises in applications such as
-registration of 3D shapes~\cite{Gelfand05,Aiger08,li08,Chang09,Zeng10,vanKaick11,Chang11},
+registration of partial or entire 3D shapes~\cite{Gelfand05,Aiger08,li08,Chang09,Zeng10,vanKaick11,Chang11},
 shape retrieval from databases~\cite{Bronstein11},
 shape matching~\cite{Berg05,Brown07,Lorenzo08,Tevs09,Ovsjanikov10,Tevs11,SahilliogluY11,Windheuser11},
 shape reconstruction~\cite{Brown07,Pekelny08,Wand09,Chang11},
 and automatic shape understanding~\cite{Lipman09,Sun10,Kim11} .
 
-In principle and practise, determining correspondences is typically done using three steps~\cite{Johnson99,Lowe04,Sun09,Bokeloh08,Toler10,Leutenegger11}:
+In principle and practise, determining correspondences is typically done in three steps~\cite{Johnson99,Lowe04,Sun09,Bokeloh08,Toler10,Leutenegger11}:
 (i) computing high-quality descriptors which serve to distinguish points from one another,
 (ii) choosing certain salient points with unusual feature descriptors, for matching,
 and (iii) determining the most suitable matching between the two sets of points.
 The former two problems have widely attracted considerable attention as their importance is easy perceivable.
-However, even supposing ideal feature  descriptors and selectors  that capture the most important and distinctive information about the neighborhood of each salient point,
+However, even supposing ideal feature descriptors and selectors that capture the most important and distinctive information about the neighborhood of each salient point,
 state-of-the-art algorithms  still find it challenging to determine the best matching~\cite{vanKaick11}.
-The reasons are various:  real input data is noisy, the data may only be approximately in correspondence,
-and the problem is further complicated by the presence of (nearly) symmetric and congruent regions.
-Feature matching algorithms need to be robust in the presence of such issues.
-Various approaches have been devised with this in mind,
-such as RANSAC-like algorithms~\cite{Tevs09,Tevs11} to minimize the effects of outliers,
+The reasons are various:  real input data is noisy, and data may only be approximately in correspondence;
+the problem is further complicated by the presence of symmetric and congruent regions.
+Various feature matching algorithms have been devised to be robust in the presence of such issues. RANSAC-like algorithms~\cite{Tevs09,Tevs11}  minimize the effects of outliers,
 generalized multidimensional scaling~\cite{Bronstein11} and
-heat kernel maps~\cite{Ovsjanikov10} which consider the manifold in which the points are embedded, and also M{\"o}bius transformations~\cite{Lipman09,Kim11}.
-However, these previous algorithms still do not treat the matching step as an independent problem, even if in these cases matching is not tightly coupled with feature description and selection.
+heat kernel maps~\cite{Ovsjanikov10}  consider the manifold in which the points are embedded. M{\"o}bius transformations~\cite{Lipman09,Kim11} also provide a powerful approach.
+However, these previous algorithms still do not treat the matching step as an independent problem, even if matching is not tightly coupled with feature description and selection.
+This paper focuses on the feature matching problem as a problem in its own right.
 
-In the paper, we focus on the feature matching problem, as a problem in its own right.
-Matching may be done pointwise, or using tuples of points.
-We may match single points to single points (point-single),
-point pairs separated by a fixed distance to other point pairs (line segment-double),
-triples of points forming a triangle to other triples of points (triangle-triple), and so on.
-%quadruples of points forming a quadrangle to other quadruples of points (quadrangle-quadruple), and so on.
-
-As pointed by~\cite{Conte04}, when single features are matched,
-we must solve a linear assignment problem, but if multiple features are matched at once,
+Matching may be done pointwise (single points to single points), or using tuples of points,
+for example point pairs separated by a fixed distance to other point pairs,
+triples of points forming a triangle to other triples of points, and so on.
+As pointed by~\cite{Conte04}, matching single features leads to
+a linear assignment problem, but if multiple features are matched at once,
 a quadratic or higher-order assignment problem results.
-Linear assignment matches single features in one set with single features in the other set.
 Matching two feature sets by considering similarities of \emph{single} features from each set can easily fail in the presence of ambiguities such as repeated elements,
 or similar local appearance.
-Quadratic and higher-order assignment matches groups of features in one set simultaneously with groups from the other set,
-and requires a greater consistency between the information being matched, making it more reliable.
-As well as the features themselves, other constraints such as consistency of the distances between the features being matched are also enforced,
-greatly improving the matching accuracy.
-In general, we formulate these constraints by modelling the affinity relating the two point sets.
+Quadratic and higher-order assignment matches groups of features,
+enforcing other constraints such as consistency of the distances between the points in each tuple being matched. 
+This helps to reject many false matches, making the results more reliable in terms of greatly improving the matching accuracy.
+In general, feature similarity and satisfaction of constraints are expressed in terms of an affinity tensor relating pairs of point tuples.
 
 As a particular example of \emph{quadratic} assignment, Leordanu and Hebert~\cite{Leordeanu05} consider pairs of feature descriptors,
 and use distances between pairs of features from each set to reduce the number of incorrect correspondences.
@@ -51,24 +44,23 @@ Such pairwise distance constraints are particularly helpful in cases when the fe
 The idea has been widely adopted in 3D shape matching algorithms~\cite{Tevs09,Ovsjanikov10,Tevs11,Kim11,SahilliogluY11,Windheuser11}.
 
 Higher-order assignment further generalizes the assignment problem to include yet more complex constraints between features.
-For example, third-order potential functions, proposed in~\cite{Duchenne09,Zeng10,Chertok10},
+For example, third-order potential functions, used in~\cite{Duchenne09,Zeng10,Chertok10},
 quantify the affinity between two point triples by measuring the similarity of the angles of the triangles generated by such triples.
-However, this angular similarity value only considers the total difference in corresponding angles, and does not change according to ordering of elements in the tuple.
-By changing the affinity tensor to a \emph{supersymmetric} tensor~\cite{Kofidis02}, this limitation is overcome by our algorithm.
+However, this angular similarity value only considers the \emph{total} difference in corresponding angles, and does not change with reordering of elements in the tuple.
+When similarity is expressed in this way, the affinity tensor becomes a \emph{supersymmetric} tensor~\cite{Kofidis02}.
 
-To summarize, our \emph{SuperMatching} algorithm formulates the higher-order matching problem using a supersymmetric affinity tensor. It can accurately match a moderate number
+Our \emph{SuperMatching} algorithm also formulates higher-order matching problems using a supersymmetric affinity tensor. It can accurately match a moderate number
 of features using triples or greater tuples of features.
+%It goes beyond previous approaches in that:
 The contributions of this paper include:
 \begin{itemize}
-\item We show how to define a compact higher-order supersymmetric affinity tensor to express geometric consistency constraints between tuples of features.
+\item We show how to define a compact higher-order supersymmetric affinity tensor to express geometric consistent constraints between feature tuples.
 
-\item Relying on the supersymmetry of the affinity tensor, we give a higher-order power iteration method which efficiently solves the matching problem.
+\item We make full use of the supersymmetry of the affinity tensor to devise a power iteration method to efficiently solve the matching problem.
 
-\item The affinity tensor is estimated by using a
-new efficient sampling strategy for feature tuples which avoids sampling repetitive items,  both reducing the number of feature tuples to be sampled and improving the matching accuracy.
-
+\item Complete computation of the full affinity tensor is computationally infeasible. We efficiently estimate it using a sampling strategy which takes advantage of supersymmetry. This avoids sampling repetitive items, it allows the tensor to be stored compactly, and also improves the matching accuracy by avoiding imbalances in sampling.
 \end{itemize}
 
-Our experiments given later for both synthetic and real captured data sets show that SuperMatching is accurate and robust,
-while having a competitive computational cost compared to previous algorithms.
-Importantly, the matching approach is general as it is independent of choice of 2D or 3D feature descriptors and feature point selection method.
+Our experiments using both synthetic and real captured data sets show that SuperMatching is more accurate and robust than prior methods,
+while having a similar computational cost.
+Importantly, the matching approach is general as it is independent of choice of 2D or 3D feature descriptors, feature point selection method, and constraints placed on tuples.
