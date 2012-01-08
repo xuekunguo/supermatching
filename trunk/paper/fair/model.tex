@@ -2,35 +2,40 @@
 \section{Overview}
 \label{sec:overview}
 
-Assume we are given two sets of feature points $P$ and $Q$, with $N_1$  and $N_2$ points respectively.
-The matching between these two feature sets can be represented by an \emph{assignment variable} $\mathbf{X}$.
-$\mathbf{X}$ is a matrix, whose size is $N_1N_2$ and elements are 0 or 1.
-$X(p,q)=1$ when point $p \in P$ matches point $q \in Q$ and $X(p,q)=0$ otherwise.
-$\mathbf{X}$ can be row-wise vectorized to give an assignment vector $\boldsymbol{x} \in \{0,1\}^N$ where $N={N_1N_2}$.
+A tensor generalizes vectors and matrices to higher dimensions: a vector is a tensor of order one,
+and a matrix is a tensor of order two. A higher-order tensor can be expressed as a multi-dimensional array~\cite{Kolda08}.
+More formally, an $N$th-order tensor is an element of the tensor product of $N$ vector spaces, each of which has its own coordinate system.
 
-Solving the higher-order matching problem is equivalent to finding the optimal assignment vector ${\boldsymbol{x}}^*=<x_{i_1},\cdots,x_{i_N}>
- \in \{0,1\}^{N}$, satisfying
+Assume we are given two sets of feature points $P$ and $Q$, with $N_1$ and $N_2$ points respectively.
+From the $N$th-order tensor viewpoint, the matching between these two feature sets can be represented by an \emph{assignment variable} $\boldsymbol{x}$.
+The matching problem is equivalent to finding the optimal assignment tensor ${\boldsymbol{x}}^*=<x_{i_1},\cdots,x_{i_N}>
+ \in \{0,1\}^{N}$, satisfying~\cite{Kolda08,Duchenne09}
 \begin{equation}
 \label{equ:assigment}
-  {\boldsymbol{x}}^* = \argmax_{\boldsymbol{x}}  \sum_{i_1,\cdots,i_N} \mathcal{T}_r(i_1,\cdots,i_N) x_{i_1}  \cdots\; x_{i_N}.
+  {\boldsymbol{x}}^* = \argmax_{\boldsymbol{x}}  \sum_{i_1,\cdots,i_N} \mathcal{T}_N(i_1,\cdots,i_N) x_{i_1}  \cdots\; x_{i_N}.
 \end{equation}
 
-Here, $i_n$ stands for an assignment $(p_n,q_n)$, $(p_n\in P, q_n\in Q)$, and the
-product $x_{i_1} \cdots\;x_{i_N}$ means the tuple of features $(p_1,\cdots,p_{N_1})$ from $P$ is matched to the tuple of features $(q_1,\cdots,q_{N_2})$ from $Q$.
-$\mathcal{T}_r(i_1,\cdots,i_N)$ defines the affinity of the set of assignments $\{i_n\}_{n=1}^N$;
-it is the affinity measure between the ordered feature tuples $(p_1,\cdots,p_{N_1})$  and $(q_1,\cdots,q_{N_2})$.
-In the paper, \emph{the affinity measures would be defined based on the geometric constraints between pairs of feature tuples},
-this is the basis of the SuperMatching algorithm.
+Here, $i_n \in \{i_1,\cdots ,i_N\}$ stands for an assignment in $n$th index/dimension of the $N$ vector spaces.
+Let all feature tuples for $P$ and $Q$ be $F_1$ and $F_2$, then $\forall (f_{i_1}^1, \cdots, f_{i_N}^1)\in F_1$,
+there exits a matching for $(f_{i_1}^1, \cdots, f_{i_N}^1)$ to its corresponding feature tuples in $F_2$.
+For example, a third-order tensor, $i_n \in \{1,2,3\}$, 
+each index could be expressed as $i_1=(f_{i_1}^1,f_{i_1}^2), i_2=(f_{i_2}^1,f_{i_2}^2), i_3=(f_{i_3}^1,f_{i_3}^2)$ pairs of potentially matched points.
+The product $x_{i_1} \cdots\;x_{i_N}$ will be equal to $1$ if the points $(f_{i_1}^1, \cdots, f_{i_N}^1)$ are all matched to the points $(f_{i_1}^2, \cdots, f_{i_N}^2)$, 
+and otherwise 0.
+$\mathcal{T}_N(i_1,\cdots,i_N)$ is the affinity of the set of assignments $\{i_n\}_{n=1}^N$, 
+which will be high if the sets of features $(f_{i_1}^1, \cdots, f_{i_N}^1)$  are similar to the set $(f_{i_1}^2, \cdots, f_{i_N}^2)$.
+Note that the size of $\mathcal{T}_N(i_1,\cdots,i_N)$ is ${(N_1N_2)}^N$.
+In the paper, \emph{the affinity measures would be defined based on the supersymmetric tensor to express the geometric constraints between pairs of feature tuples},
+this is the basis of our SuperMatching algorithm.
 
 In the rest of the paper, we consider the one-to-many correspondence problem.
 We assume that each point in $P$ is matched to exactly one point in $Q$, but that the reverse is not necessarily true.
 If \emph{do} we want to treat both datasets in the same way,
 we can first match $P$ to $Q$, then match $Q$ to $P$, and then combine the matching results by taking their union or intersection.
-Uniqueness of matches for $P$ means that the assignment variable matrix $\mathbf{X}$ satisfies $\sum\nolimits_p X(p,q)=1$.
 
 From Equ.(\ref{equ:assigment}) we can see that there are four issues to be considered when using higher-order matching algorithms. How should we:
 \begin{itemize}
-\item organize and express the affinity measures $\mathcal{T}_N$ in a storage efficient manner? (see Section~\ref{subsec:supersymtensor})
+\item organize and express the affinity measures $\mathcal{T}_N$ in a supersymmetric manner? (see Section~\ref{subsec:supersymtensor})
 \item approximately solve the optimal higher-order assignment problem efficiently? (see Section~\ref{subsec:oursymmhopm})
 \item define the affinity measure between two feature tuples? (see Section~\ref{subsec:potentials})
 \item determine an appropriate sampling strategy to estimate the affinity tensor in a way which will give good matching accuracy? (see Section~\ref{subsec:sampling})

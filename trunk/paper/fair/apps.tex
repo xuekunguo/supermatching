@@ -20,14 +20,14 @@ The transform which brings the most data points within a threshold of a point in
 As discussed in~\cite{Gelfand05}, such a voting scheme is guaranteed to find the optimal alignment between the pairwise scans and is independent of the initial pose of the input scans.
 Figure~\ref{fig:3DPair} shows two registration examples of articulated model, the right is the failure case by~\cite{Aiger08}.
 
-\begin{figure}[tb]
+\begin{figure}[htb]
 \centering
   \includegraphics[width=0.99\linewidth]{figures/rigidCMP.jpg}
   \caption{Pairwise alignment of xx. The right is the result from [Aiger et al. 2008]. \cz{On the coming :)}}
 \label{fig:3DPair}
 \end{figure}
 
-\begin{figure}[tb]
+\begin{figure}[htb]
 \centering
   \includegraphics[width=0.99\linewidth]{figures/3DRigid.pdf}
   \caption{Alignment of several sheep head scans from different viewpoints.
@@ -53,8 +53,8 @@ Pairs of consecutive scans, linked by dark segments, are matched using the Super
 \label{subsec:3dColored}
 
 Complementary to the evaluation presented above,
-we also provide a real-world noisy example demonstration of SuperMatching. 
-In this case, real world data with surface color information was captured using a Kinect camera~\cite{Kinect12}, 
+we also provide a real-world noisy example demonstration of SuperMatching.
+In this case, real world data with surface color information was captured using a Kinect camera~\cite{Kinect12},
 and both SIFT and slippage features were used as a basis for SuperMatching,
 which resulted in robust matches without significant outliers, as illustrated in Figure~\ref{fig:3DReal}.
 The example also demonstrates that the SuperMatching is general, i.e., independent of feature descriptors.
@@ -82,9 +82,9 @@ Note that, unlike many other methods, our method does not need any of manual seg
 While the problem of non-rigid registration of deformable shapes is ill-posed and no algorithm is applicable to all scenarios,
 we believe that our approach pushes the limits of what can be achieved with minimal prior information, and is robust to partial data with holes.
 
-For the pairwise articulated shape registration, 
+For the pairwise articulated shape registration,
 although the partial scans have missing data and their poses are different, SuperMatching still produces accurate matching.
-Correspondences between slippage feature points are established by SuperMatching; 
+Correspondences between slippage feature points are established by SuperMatching;
 these permit robust registration of scans by computing piecewise rigid transformations.
 These transformations are propagated from the slippage feature points to the entire set of points in each scan using nearest neighbor interpolation.
 Figure~\ref{fig:3DRobot} shows two registration examples of articulated model, the right is the failure case by~\cite{Chang09}.
@@ -97,15 +97,15 @@ Figure~\ref{fig:3DRobot} shows two registration examples of articulated model, t
 \end{figure}
 
 For a sequence of partial articulated data, the registration is performed int two main steps.
-We first precompute an initial pairwise registration for each pair of consecutive frames, then perform articulated shape reconstruction as in~\cite{Pekelny08}. 
+We first precompute an initial pairwise registration for each pair of consecutive frames, then perform articulated shape reconstruction as in~\cite{Pekelny08}.
 The pairwise registration is addressed as former paragraph.
-Segmentation of the scans into rigid parts can readily be done by clustering the transformations obtained from the slippage feature points, 
+Segmentation of the scans into rigid parts can readily be done by clustering the transformations obtained from the slippage feature points,
 using the mean shift algorithm~\cite{Comaniciu02}.
 This information is used as the input to the second step of articulated shape reconstruction following~\cite{Pekelny08};
 this algorithm identifies and tracks the rigid parts in each frame, while accumulating  geometric information over time.
 However,~\cite{Pekelny08} requires the user to manually segment each range scan in advance,  whereas we automatically determine  the segmentation.
 Figure~\ref{fig:3DHand} shows an articulated hand example.
-This synthetic data is generated from a deformation sequence, and the final registered shape is produced from these partial data. 
+This synthetic data is generated from a deformation sequence, and the final registered shape is produced from these partial data.
 By using synthetic data, we are able to evaluate the robustness of our reconstruction method using the ground truth, as shown below in Figure~\ref{fig:3DHand}.
 Quantitatively, we measured the maximum of the average distance of the reconstruction over all frames as $0.001 D$ where $D$ is the bounding box diagonal length, and
 the greatest distance error in any one frame was $0.012 D$.
@@ -114,7 +114,7 @@ the greatest distance error in any one frame was $0.012 D$.
 \centering
   \includegraphics[width=0.95\linewidth]{figures/3DHand.pdf}
   \caption{The registration of articulated hand.
-  Above: partial synthetic data with holes is generated from a deformation sequence. 
+  Above: partial synthetic data with holes is generated from a deformation sequence.
   The reconstructed meshes are deduced from the registration process (center).
   Below: ground truth shape, and average and maximum distance from the ground truth per frame.}
 \label{fig:3DHand}
@@ -136,10 +136,9 @@ and the hyper graph matching algorithm~\cite{Zass08}, using the authors' code in
 All methods were executed in Matlab on a $2.3$GHz Core2Duo with $2$GB memory.
 To enable direct and fair comparison,
 ~\cite{Duchenne09}, ~\cite{Zass08} and SuperMatching
-used the same potential and
-all maintained an equivalent tensor size $N$.
+used the same potential and all maintained an equivalent tensor size $(N_1N_2)^N$.
 
-In the tests, SuperMatching considered $30000$ feature tuples, while the method of~\cite{Duchenne09} considered 1010000 features  and the method of~\cite{Zass08} used $40000$.
+In the tests, SuperMatching considered $3\times 10^6$ feature tuples, while the method of~\cite{Duchenne09} considered $10\times 10^6$ features  and the method of~\cite{Zass08} used $4\times 10^6$.
 The difference  mainly results from differences in sampling strategy; note that we have the lowest  sampling cost.
 The average running time to match two feature sets each with $100$ features was around 8s for SuperMatching, 13s for~\cite{Duchenne09}, 6.5s for~\cite{Zass08}, and 5s for~\cite{Cour06}.
 SuperMatching takes less  than the third-order tensor algorithm in~\cite{Duchenne09} as it uses the same tensor size but fewer feature tuples.
@@ -153,22 +152,9 @@ Higher-order algorithms perform much better due to the more complex geometric co
 Nevertheless, SupeMatching outperforms the third-order algorithm~\cite{Duchenne09} and the hyper graph matching algorithm~\cite{Zass08}, as these do not tale proper advantage of supersymmetry.
 
 %----------------------------------------
-%  deformable matching results IMAGES
-%----------------------------------------
-
-%----------------------------------------
-\begin{figure}[htb]
-\centering
-  \includegraphics[width=1.00\linewidth]{figures/2DDeformable.jpg}
-  \caption{Matching results. Left: cloth set, selected from frame 85 to 110, right: cushion set, selected from frames 144 to 213.
-  Top to bottom, spectral method [Cour et al. 2006], hyper graph matching method [Zass and Shashua 2008], a Third-order tensor [Duchenne et al. 2009], and SuperMatching algorithm.}
-\label{fig:2DDeformable}
-\end{figure}
-
-%----------------------------------------
 %  deformable matching results TABLE
 %----------------------------------------
-\begin{table}[htb]
+\begin{table}[tb]
 %\vspace{-4mm}
 \centering
 %\renewcommand{\arraystretch}{0.8}
@@ -186,11 +172,11 @@ Nevertheless, SupeMatching outperforms the third-order algorithm~\cite{Duchenne0
  {Matching frames} &  {F80-}	&  {F90-}	& {F95-}	& {F100-} & {F144-} & {F156-}	& {F165-}	& {F172-} & {Feature}	& {Time}  \\
  {}                &  {F90 }    &  {F95 }   & {F100}    & {F105}  & {F156}  & {F165}    & {F172}    & {F188}  & {Tuples}    &  {(s)} \\
 \hline
- {SuperMatching}   &  {83\%}    &  {85\%}	& {84\%} 	& {81\%}  & {66\%}	& {60\%}	& {69\%}	& {56\%}  &  {30k}	    &  {8}  \\
+ {SuperMatching}   &  {83\%}    &  {85\%}	& {84\%} 	& {81\%}  & {66\%}	& {60\%}	& {69\%}	& {56\%}  &  {$3\times10^6$}  &  {8}  \\
 %\hline
- {\cite{Zass08}}   & {73\%}	    & {79\%}	& {70\%}	& {72\%}  & {44\%}  & {39\%}    & {54\%}	& {43\%}   & {40k}	    & {6.5}  \\
+ {\cite{Zass08}}   & {73\%}	    & {79\%}	& {70\%}	& {72\%}  & {44\%}  & {39\%}    & {54\%}	& {43\%}   & {$4\times10^6$}   & {6.5}  \\
 %\hline
-{\cite{Duchenne09}} & {67\%}    & {77\%}    & {73\%}	& {65\%}  & {39\%}	& {31\%}	& {47\%}	& {42\%}   & {1010k}    & {13}  \\
+{\cite{Duchenne09}} & {67\%}    & {77\%}    & {73\%}	& {65\%}  & {39\%}	& {31\%}	& {47\%}	& {42\%}   & {$10\times10^6$}  & {13}  \\
 %\hline
  {\cite{Cour06}}   & {27\%}     & {29\%}	&  {22\%}	& {27\%}  & {14\%}  & {5\%}	    & {28\%}	& {7\%}    & {--}       & {5}  \\
 \bottomrule
@@ -198,6 +184,19 @@ Nevertheless, SupeMatching outperforms the third-order algorithm~\cite{Duchenne0
 %\vspace{-27pt}
 %\vspace{-8mm}
 \end{table}%
+
+%----------------------------------------
+%  deformable matching results IMAGES
+%----------------------------------------
+%----------------------------------------
+\begin{figure}[tb]
+\centering
+  \includegraphics[width=1.00\linewidth]{figures/2DDeformable.jpg}
+  \caption{Matching results. Left: cloth set, selected from frame 85 to 110, right: cushion set, selected from frames 144 to 213.
+  Top to bottom, spectral method [Cour et al. 2006], hyper graph matching method [Zass and Shashua 2008], a Third-order tensor [Duchenne et al. 2009], and SuperMatching algorithm.}
+\label{fig:2DDeformable}
+\end{figure}
+
 %
 %%%RRM This table would be much better if you showed the percentage of
 %%%RRM CORRECT matches, not the percentage of ERRORS.

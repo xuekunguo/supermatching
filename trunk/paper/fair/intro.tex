@@ -34,7 +34,7 @@ a quadratic or higher-order assignment problem results.
 Matching two feature sets by considering similarities of \emph{single} features from each set can easily fail in the presence of ambiguities such as repeated elements,
 or similar local appearance.
 Quadratic and higher-order assignment matches groups of features,
-enforcing other constraints such as consistency of the distances between the points in each tuple being matched. 
+enforcing other constraints such as consistency of the distances between the points in each tuple being matched.
 This helps to reject many false matches, making the results more reliable in terms of greatly improving the matching accuracy.
 In general, feature similarity and satisfaction of constraints are expressed in terms of an affinity tensor relating pairs of point tuples.
 
@@ -56,9 +56,9 @@ The contributions of this paper include:
 \begin{itemize}
 \item We show how to define a compact higher-order supersymmetric affinity tensor to express geometric consistent constraints between feature tuples.
 
-\item We make full use of the supersymmetry of the affinity tensor to devise a power iteration method to efficiently solve the matching problem.
-
 \item Complete computation of the full affinity tensor is computationally infeasible. We efficiently estimate it using a sampling strategy which takes advantage of supersymmetry. This avoids sampling repetitive items, it allows the tensor to be stored compactly, and also improves the matching accuracy by avoiding imbalances in sampling.
+    
+\item We make full use of the supersymmetry of the affinity tensor to devise a power iteration method to efficiently solve the matching problem.
 \end{itemize}
 
 Our experiments using both synthetic and real captured data sets show that SuperMatching is more accurate and robust than prior methods,

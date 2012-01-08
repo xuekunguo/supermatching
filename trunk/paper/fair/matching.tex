@@ -9,15 +9,9 @@ We first discuss the former two issues mentioned above, which are independent of
 \subsection{Supersymmetric Affinity Tensor}
 \label{subsec:supersymtensor}
 
-A tensor generalizes vectors and matrices to higher dimensions: a vector is a tensor of order one,
-and a matrix is a tensor of order two. A higher-order tensor can be expressed as a multi-dimensional array~\cite{Kolda08}.
-Here we consider a higher-order supersymmetric affinity tensor, which represents a real-valued higher-order affinity between feature tuples.
+Here we consider the supersymmetric higher-order affinity tensor, which is invariant by permutation of the indices.
 The main motivation of using supersymmetry is try to utilize its advantage to remove the redundancy of the tensor elements,
 and the following deduction would prove that the motivation is effective.
-%%%RRM One problem. You have not exaplined anywhere yet WHY the affinity
-%%%RRM tensor should be supersymmetric. This is an important issue which needs
-%%%RRM to come here.
-%%Done
 
 \newtheorem{mot}{Definition}
 \begin{mot}[Supersymmetric Tensor]
@@ -31,13 +25,13 @@ $\mathcal{T}_3(i_1, i_2, i_3)=\mathcal{T}_3(i_1, i_3, i_2)=\mathcal{T}_3(i_2, i_
 \begin{mot}[Supersymmetric Affinity Tensor]
 \label{mot:def2}
 Given two feature sets $P$ and $Q$, with $N_1$ and $N_2$ features respectively,
-the supersymmetric affinity tensor is an $r^{th}$ order $I_1, \cdots, I_N$, nonnegative tensor $\mathcal{T}_r$,
-where $I_1, \cdots ,I_N=N_1N_2$, for which there exists a set of indices $\theta_N$,
-and an $r^{th}$ order potential function $\phi_r$, such that
+the supersymmetric affinity tensor is an $N${th} order $I_1, \cdots, I_N$, nonnegative tensor $\mathcal{T}_N$,
+for which there exists a set of indices $\theta_N$,
+and an $N${th} order potential function $\phi_N$, such that
 %
 \begin{flalign}
-\mathcal{T}_r(i_1,\ldots,i_N) = \begin{cases}
-\phi_r(\Omega(i_1,\ldots,i_N))&{,\forall(i_1,\ldots,i_N)\in \theta_N}  \\
+\mathcal{T}_N(i_1,\ldots,i_N) = \begin{cases}
+\phi_N(\Omega(i_1,\ldots,i_N))&{,\forall(i_1,\ldots,i_N)\in \theta_N}  \\
 \quad{}\quad{}\quad{}   0     &{,\forall(i_1,\ldots,i_N)\notin \theta_N}
 \end{cases}
 \end{flalign}
@@ -54,7 +48,7 @@ The potential element is one final matching result from all possible matching ca
 %%%RRM These ideas will not be familiar to most readers.
 %%%ZQC done
 
-Using Definition~\ref{mot:def2}, we now can greatly reduce the amount of storage needed, representing every potential element $\mathcal{T}_r(i_1,\ldots,i_N)$ by the canonical entry $\mathcal{T}_r(\mathrm{sort}(i_1,\ldots,i_N))$, $\forall (i_1,\ldots,i_N)\in \theta_N$. Each stored value thus provides the value for $N!$ entries.
+Using Definition~\ref{mot:def2}, we now can greatly reduce the amount of storage needed, representing every potential element $\mathcal{T}_N(i_1,\ldots,i_N)$ by the canonical entry $\mathcal{T}_N(\mathrm{sort}(i_1,\ldots,i_N))$, $\forall (i_1,\ldots,i_N)\in \theta_N$. Each stored value thus provides the value for $N!$ entries.
 As non-potential elements all have value zero, there is no need to store them.
 This greatly reduces both storage, and sampling
 needed for feature tuples when estimating the affinity tensor, as discussed in Section~\ref{subsec:sampling}.
@@ -69,13 +63,13 @@ At the same time, it can be used to make the power iteration process more effici
          \mbox{}\hspace{15ex}\small supersymmetric affinity tensor (with $\mathcal{C}_1$ norm)}
 \label{alg2}
 \begin{algorithmic}[1]
-\REQUIRE \small $r^{th}$-order supersymmetric affinity tensor elements
-\ENSURE  \small unit-norm vector $\boldsymbol{u}$
+\REQUIRE \small $N^{th}$-order supersymmetric affinity tensor
+\ENSURE  \small Unit $\mathcal{\ell}^1$-norm vector $\boldsymbol{u}$
 \STATE   \small \; Initialize $\boldsymbol{u}_0$ by randomly positive values, $k=1$
 \REPEAT
     \FOR{all $(i_1,i_2,\cdots , i_N)\in \theta_N$}
         \FOR{all $m \in (i_1,\cdots , i_N)$}
-        \STATE $v_{m}^{(k)}=(N-1)!\phi_r(i_1,\cdots , i_N) 2v_{m}^{(k-1)}v_{i_1}^{2_{(k-1)}}\cdots$ \\
+        \STATE $v_{m}^{(k)}=(N-1)!\phi_N(i_1,\cdots , i_N) 2v_{m}^{(k-1)}v_{i_1}^{2_{(k-1)}}\cdots$ \\
                  $\qquad \qquad v_{m-1}^{2_{(k-1)}}v_{m+1}^{2_{(k-1)}}\cdots v_{i_N}^{2_{(k-1)}}$
         \ENDFOR
         \FOR{$i=1:N_1$}
@@ -91,52 +85,60 @@ At the same time, it can be used to make the power iteration process more effici
 \end{algorithmic}
 \end{algorithm}
 
-Using Definition~\ref{mot:def2}, Equ.(\ref{equ:assigment}) can be expressed as:
+The higher-order tensor equation(\ref{equ:assigment}) is solved by tensor decomposition method~\cite{Kolda08}.
+Tensor decompositions originated with Hitchcock in 1927~\cite{Hitchcock27}.
+We utilize the rank-one higher-order power method~\cite{Lathauwer95} to approximately solve the Equ.(\ref{equ:assigment}).
+So, Equ.(\ref{equ:assigment}) can be expressed as:
 \begin{eqnarray}
 \label{equ:assigment2}
-{\boldsymbol{x}}^* &=& \argmax_{\boldsymbol{x}} \sum_{i_1,i_2,\cdots,i_N} \mathcal{T}_r(i_1,\cdots,i_N) x_{i_1} \cdots x_{i_N} \nonumber\\
-&=& \max <\mathcal{T}_r, \boldsymbol{x}^{\star N}>
+{\boldsymbol{x}}^* &=& \argmax_{\boldsymbol{x}} \sum_{i_1,i_2,\cdots,i_N} \mathcal{T}_N(i_1,\cdots,i_N) x_{i_1} \cdots x_{i_N} \nonumber\\
+&=& \max <\mathcal{T}_N, \boldsymbol{x}^{\star N}>
 \end{eqnarray}
 where $\star$ is called the Tucker product~\cite{Kofidis02}, and $\boldsymbol{x} \in \{0,1\}^{N}$.
 Solving Equ.(\ref{equ:assigment2}) is an NP-complete problem,
 so it is common to relax the constraints:
 the binary assignment vector $\boldsymbol{x}\in \{0,1\}^{N}$ is replaced by an assignment vector $\boldsymbol{u}$ with elements taking real values in $[0,1]$.
-This changes the optimization problem to one of computing the rank-one approximation of the affinity tensor $\mathcal{T}_r$~\cite{Kofidis02},
+This changes the optimization problem to one of computing the rank-one approximation of the affinity tensor $\mathcal{T}_N$~\cite{Kofidis02},
 i.e.\ finding a scalar $\lambda$ and a unit norm vector $\boldsymbol{u}\in \mathbb{R}^{N}$,
-such that the tensor $\hat{\mathcal{T}_r} = \lambda \boldsymbol{u}\star \boldsymbol{u} \star\cdots \star \boldsymbol{u}=\boldsymbol{u}^{\star N}$ minimizes the function $f(\hat{\mathcal{T}_r})=\lVert \mathcal{T}_r-\hat{\mathcal{T}_r} \lVert$.
+such that the tensor $\hat{\mathcal{T}_N} = \lambda \boldsymbol{u}\star \boldsymbol{u} \star\cdots \star \boldsymbol{u}=\boldsymbol{u}^{\star N}$ minimizes the Frobenius norm squared function $f(\hat{\mathcal{T}_N})=\lVert \mathcal{T}_r-\hat{\mathcal{T}_N} \lVert^2_F$.
 The final matching result is found by replacing each element of $\boldsymbol{u}$ by 0 or 1 according to whichever it is closer to.
 
 The higher-order power method is commonly used to find the rank-one tensor approximation;
 a version for supersymmetric tensors (S-HOPM) is given in~\cite{Kofidis02}.
-The S-HOPM algorithm converges under the assumption of convexity for the functional induced by the tensor~\cite{Kofidis02},
+The S-HOPM algorithm converges under the assumption of convexity (or concavity) for the functional induced by the tensor~\cite{Kofidis02},
 which is sufficiently robust for practical application.
 S-HOPM is performed in two iterative steps: higher-order power iteration of $\boldsymbol{u}$, followed by normalization of $\boldsymbol{u}$ under the Frobenius norm.
-A recent effective improvement~\cite{Duchenne09} uses the $\mathcal{C}_1$ norm to replace the traditional $\mathcal{C}_2$ norm.
+A recent effective improvement~\cite{Duchenne09} uses the $\mathcal{\ell}^1$ norm to replace the traditional $\mathcal{\ell}^2$ norm.
 
-We both use the $\mathcal{C}_1$ norm, and further revise S-HOPM as follows.
-To perform higher-order power iteration of $\boldsymbol{u}$, we must compute $\hat{\boldsymbol{u}}^{(k)}=\mathcal{I}\mathop{\star}\limits^{\mathcal{T}_r}
-{(\boldsymbol{u}^{(k-1)})}^{\mathop{\star}\limits^{\mathcal{T}_r} (N-1)}$, where
-$\mathop{\star}\limits^{\mathcal{T}_r}$ is a so-called $\mathcal{T}_r$-product,
+We both use the $\mathcal{\ell}^1$ norm, and further revise S-HOPM as follows.
+To perform higher-order power iteration of $\boldsymbol{u}$, we must compute $\hat{\boldsymbol{u}}^{(k)}=\mathcal{I}\mathop{\star}\limits^{\mathcal{T}_N}
+{(\boldsymbol{u}^{(k-1)})}^{\mathop{\star}\limits^{\mathcal{T}_N} (N-1)}$, where
+$\mathop{\star}\limits^{\mathcal{T}_N}$ is a so-called $\mathcal{T}_N$-product,
 and $\mathcal{I}$ is the unit tensor~\cite{Kofidis02}.
-For $\hat{\boldsymbol{u}}^{(k)}$ belonging to an $r^{th}$-order supersymmetric affinity tensor, this can be formulated as follows:
+For $\hat{\boldsymbol{u}}^{(k)}$ belonging to an $N{th}$-order supersymmetric affinity tensor, this can be formulated as follows:
 %\begin{small}
 \begin{flalign}
 \label{equ:eqsmain2}
-&\hat{\boldsymbol{u}}^{(k)}=\mathcal{I}\mathop{\star}\limits^{\mathcal{T}_r}
-{(\boldsymbol{u}^{(k-1)})}^{\mathop{\star}\limits^{\mathcal{T}_r} (N-1)} \mathrm{~implies~that~} \forall m\in (i_1,... , i_N), \nonumber \\
+&\hat{\boldsymbol{u}}^{(k)}=\mathcal{I}\mathop{\star}\limits^{\mathcal{T}_N}
+{(\boldsymbol{u}^{(k-1)})}^{\mathop{\star}\limits^{\mathcal{T}_N} (N-1)} \mathrm{~implies~that~} \forall m\in (i_1,... , i_N), \nonumber \\
 &v_{m}^{(k)}= \nonumber\\
-&\sum\limits_{i_1,...,i_N}\mathcal{T}_r(i_1,...,i_N)2v_{m}^{(k-1)}v_{i_1}^{2_{(k-1)}}... v_{m-1}^{2_{(k-1)}}v_{m+1}^{2_{(k-1)}}... v_{i_N}^{2_{(k-1)}}= \nonumber \\
-&(N-1)!\phi_r(i_1,...,i_N)2v_{m}^{(k-1)}v_{i_1}^{2_{(k-1)}}... v_{m-1}^{2_{(k-1)}}v_{m+1}^{2_{(k-1)}}... v_{i_N}^{2_{(k-1)}}
+&\sum\limits_{i_1,...,i_N}\mathcal{T}_N(i_1,...,i_N)2v_{m}^{(k-1)}v_{i_1}^{2_{(k-1)}}... v_{m-1}^{2_{(k-1)}}v_{m+1}^{2_{(k-1)}}... v_{i_N}^{2_{(k-1)}}= \nonumber \\
+&(N-1)!\phi_N(i_1,...,i_N)2v_{m}^{(k-1)}v_{i_1}^{2_{(k-1)}}... v_{m-1}^{2_{(k-1)}}v_{m+1}^{2_{(k-1)}}... v_{i_N}^{2_{(k-1)}}
 \end{flalign}
 %\end{small}
-where $\boldsymbol{u}^{(k)}=\boldsymbol{v}^{2_{(k)}}$, and $\phi_r$ is corresponding potential function that would be detailed in the following Section~\ref{subsec:potentials}.
-Our revised S-HOPM relies on two principles. First, we take advantage of the supersymmetry to deduce $\boldsymbol{u}$ as Equ.(\ref{equ:eqsmain2}).
-Secondly, many of the elements of the affinity tensor are zero non-potential elements:
+where $\boldsymbol{u}^{(k)}=\boldsymbol{v}^{2_{(k)}}$, and $\phi_N$ is corresponding potential function that would be detailed in the following Section~\ref{subsec:potentials}.
+
+Note that, \emph{Equ.(\ref{equ:eqsmain2}) is the most compact expression until now}, as it only stores all symmetrically related potential elements as a single item by $(N-1)!$ multiplication.
+%The deduction would be explained in the appendix Section.
+In the mathematical analysis, our SuperMatching algorithms is accurate and efficient as it relies on two principles. 
+First, we take advantage of the supersymmetry to deduce $\boldsymbol{u}$ as Equ.(\ref{equ:eqsmain2}).
+Secondly, many of the elements of the affinity tensor are zero non-potential elements from the Definition 2:
 it is much more efficient to perform the power iteration by just considering the non-zero potential elements.
 
-Our supersymmetric higher-order power iteration solution is summarised in Algorithm~\ref{alg2}. It excludes each non-potential element from the iteration process, so it is efficient.
-And the complexity of the whole iteration process only depends on the number $|\theta_N|$ of non-zero affinities. Step 5 in Algorithm~\ref{alg2} represents all permutations of each potential element $\mathcal{T}_r(i_1,\cdots,i_N)$
-using a single potential function $\phi_r(i_1,\cdots,i_N)$.
+Our supersymmetric higher-order power iteration solution of SuperMatching algorithm is summarized in Algorithm~\ref{alg2}. 
+It excludes each non-potential element from the iteration process and only utilizes one standing potential element for its related elements, so it is efficient.
+And the complexity of the whole iteration process only depends on the number $|\theta_N|$ of non-zero affinities. Step 5 in Algorithm~\ref{alg2} represents all permutations of each potential element $\mathcal{T}_N(i_1,\cdots,i_N)$
+using a single potential function $\phi_N(i_1,\cdots,i_N)$.
 Consequently, this method reduces memory costs while keeping accuracy.
 Note that, although~\cite{Duchenne09} claimed to use a supersymmetric affinity tensor,
 this approach does not make full use of supersymmetry when creating the supersymmetric affinity tensor,
@@ -144,7 +146,8 @@ nor does it take advantage of supersymmetry to accelerate the power iteration pr
 By doing so, we overcome limitations due to unbalanced and redundant tensor elements in~\cite{Duchenne09}, as our experiments show later.
 
 Many initialization schemes have been proposed for the S-HOPM method~\cite{Kofidis02}.
-We simply use positive random values to initialize $\boldsymbol{u}_0$, which ensures   convergence.
+We simply use positive random values between $0$ and $1$ to initialize $\boldsymbol{u}_0$, which ensures convergence.
+The convergence proofs are detailed in~\cite{Regalia00,Kofidis02}.
 
 \subsection{Higher-order Potentials}
 \label{subsec:potentials}
@@ -191,23 +194,23 @@ We next discuss the issue of how to sample the feature tuples to build potential
 
 For the two feature sets $P$ and $Q$,
 a potential element may be obtained by using two feature tuples sampled from each feature set separately.
-For $r$th-order matching, a naive way to construct the potential elements is as follows:
+For $N$th-order matching, a naive way to construct the potential elements is as follows:
 first find all feature tuples for $P$ and $Q$, as $F_1$ and $F_2$; then $\forall (f_{i_1}^1, \cdots, f_{i_N}^1)\in F_1$,
-calculating the potentials for $(f_{i_1}^1, \cdots, f_{i_N}^1)$ with all feature tuples in $F_2$.
+calculate the potentials for $(f_{i_1}^1, \cdots, f_{i_N}^1)$ with all feature tuples in $F_2$.
 This naive method is very time-consuming, which is why sampling is used.
 We employ random sampling for general feature matching problems,
 but this does not preclude more directed sampling if prior knowledge of the matching problems gives guidance.
 
-Our sampling approach is to repeatedly randomly sample $t_1$ feature tuples from $P$, and fully sample $Q$ to find all $N_2^r$ feature tuples.
-For $P$, in order to cover all features in $P$ as $F_1$, we repeatedly take one feature as a required element,
-and then randomly choose $t_1$ feature tuples containing this required element.
+Our sampling approach is to repeatedly randomly sample $t_1$ feature tuples for each feature point from $P$, and fully sample $Q$.
+For $P$, we repeatedly take one feature as a required element, and then randomly choose $t_1$ feature tuples containing this required element.
 We repeat this process until all features in $P$ have been chosen once as a required element.
-Then, $\forall (f_{i_1}^1, \cdots, f_{i_N}^1)\in F_1$, we find $r$ most similar features in $F_2$ to build $r$ potential elements as $\phi_i^r$.
-Combining all the potential elements obtained, we form the desired potential element set $\theta_N = \{\phi_i^r\}_{i=1}^{N_1 t_1}$, of size $|\theta_N| = N_1 t_1 r$.
-For $P$, the sampling cost is $O(N_1\, t_1\,  r)$.
-The parameters $t_1$ and $r$ must be chosen according to the size of the feature sets.
+So the number of feature tuples in $F_1$ is $N_1t_1$, and $N_2^N$ for $F_2$.
+Then, $\forall (f_{i_1}^1, \cdots, f_{i_N}^1)\in F_1$, we find $k$ most similar features in $F_2$ to build $N$th potential elements as $\phi_i^k$.
+Combining all the potential elements obtained, we form the desired potential element set $\theta_N = \{\phi_i^k\}_{i=1}^{N_1 t_1}$, of size $|\theta_N| = N_1 t_1 k$.
+For $P$, the sampling cost is $O(N_1\, t_1\,  k)$.
+The parameters $t_1$ and $k$ must be chosen according to the size of the feature sets.
 In practice, for two feature sets each with hundreds points,
-we may take $t_1 \approx 100$ and $r=3$ for third-order matching.
+we may take $t_1 \approx 100$ and $k=300$ for third-order matching.
 Our experiments demonstrate that this sampling approach works well.
 
 
