@@ -3,9 +3,9 @@
 0
 0
 1
-fair.tex
-56
-9
+abstract.tex
+67
+8
 0
 
 
@@ -13,42 +13,78 @@ fair.tex
 
 
 
-fair.tex
-TeX:UNIX
-403812347 0 -1 5434 -1 1158 66 87 692 414 0 22 374 -1 -1 0 0 74 -1 -1 74 1 0 1158 -1   0
 abstract.tex
 TeX:UNIX
-1159163 0 -1 1003 -1 1004 0 0 1513 425 0 318 170 -1 -1 0 0 72 27 27 72 1 0 1004 -1   0
+403812347 0 -1 1201 -1 837 0 0 1513 425 0 214 119 -1 -1 0 0 1201 -1 -1 1201 1 0 837 -1   0
 intro.tex
 TeX:UNIX
-1159163 0 -1 3194 -1 424 0 0 1425 640 0 118 -391 -1 -1 0 0 22 -1 -1 22 1 0 424 -1   0
+1159163 7 -1 0 -1 8 0 0 1425 640 0 86 0 -1 -1 0 0 5033 -1 -1 5033 1 0 8 -1   0
 related.tex
 TeX:UNIX
-1159163 0 -1 1259 -1 1515 22 29 1447 669 0 566 221 -1 -1 0 0 4053 -1 -1 4053 1 0 1515 -1   0
+1159163 7 -1 0 -1 8 22 29 1447 669 0 86 0 -1 -1 0 0 3324 -1 -1 3324 1 0 8 -1   0
 model.tex
 TeX:UNIX
-1159163 0 -1 896 -1 2727 66 87 1491 727 0 22 595 -1 -1 0 0 76 -1 -1 76 1 0 2727 -1   0
+17936379 0 20 68 -1 1484 66 87 1491 727 0 30 357 -1 -1 0 0 76 -1 -1 76 1 0 1484 -1   0
 matching.tex
 TeX:UNIX
-17936379 0 -1 10663 -1 10660 44 58 1469 698 0 62 510 -1 -1 0 0 24 -1 -1 24 1 0 10660 -1   0
+17936379 0 -1 8795 -1 8737 44 58 1469 698 0 30 680 -1 -1 0 0 24 -1 -1 24 1 0 8737 -1   0
 apps.tex
 TeX:UNIX
-17936378 0 168 1 165 15 88 116 1601 541 0 134 731 -1 -1 0 0 77 0 0 77 1 0 15 165   0
+17936378 0 138 78 138 80 88 116 1601 541 0 654 408 -1 -1 0 0 77 0 0 77 1 0 80 138   0
 future.tex
 TeX:UNIX
-17936379 0 -1 1626 -1 1301 88 116 1513 756 0 38 323 -1 -1 0 0 20 -1 -1 20 1 0 1301 -1   0
+17936379 0 20 192 -1 1081 88 116 1513 756 0 1118 204 -1 -1 0 0 20 -1 -1 20 1 0 1081 -1   0
 fair.bib
 BibTeX:UNIX
-1147890 0 0 1 541 1 110 145 1623 570 0 22 901 -1 -1 0 0 1 0 0 1 1 0 1 541   0
-E:\Researching\2012\FAIR\paper\intro.tex
+1147890 1 571 27 571 16 110 145 1623 570 0 142 765 -1 -1 0 0 1 0 0 1 1 0 16 571   0
+fair.tex
 TeX:UNIX
-269594619 0 -1 2629 -1 3193 0 0 1425 636 0 158 714 -1 -1 0 0 -1 -1 -1 -1 1 0 3193 -1   0
-E:\Researching\2012\FAIR\paper\abstract.tex
+286371835 0 -1 7468 -1 7015 66 87 692 414 0 38 289 -1 -1 0 0 74 -1 -1 74 1 0 7015 -1   0
+E:\Researching\2012\FAIR\paper2\reaboutthesupermatchingwriting\intro.tex
 TeX:UNIX
-269594619 1 -1 1339 -1 0 220 290 1645 926 0 22 0 -1 -1 0 0 -1 -1 -1 -1 1 0 0 -1   0
-E:\Researching\2012\FAIR\paper\fair.tex
+269594619 0 -1 0 -1 3011 110 145 1535 781 0 390 408 -1 -1 0 0 22 -1 -1 22 1 0 3011 -1   0
+fair.bbl
+DATA
+273678578 1 94 6 94 32 44 58 1469 694 1 318 459 -1 -1 0 0 -1 -1 -1 -1 1 0 32 94   0
+E:\Researching\2012\FAIR\related.tex
 TeX:UNIX
-269594619 0 -1 5433 -1 5902 198 261 1623 897 0 270 -553 -1 -1 0 0 -1 -1 -1 -1 1 0 5902 -1   0
+269594619 1 -1 3312 -1 0 22 29 1447 665 0 22 0 -1 -1 0 0 -1 -1 -1 -1 1 0 0 -1   0
+E:\Researching\2012\FAIR\abstract.tex
+TeX:UNIX
+269594619 1 -1 1201 -1 0 220 290 1645 926 0 22 0 -1 -1 0 0 -1 -1 -1 -1 1 0 0 -1   0
+E:\Researching\2012\FAIR\paper2\apps.tex
+TeX:UNIX
+269594619 0 -1 9676 -1 10931 44 58 1469 694 0 390 68 -1 -1 0 0 76 -1 -1 76 1 0 10931 -1   0
+E:\Researching\2012\FAIR\paper2\reaboutthesupermatchingwriting\model.tex
+TeX:UNIX
+269594619 1 -1 3178 -1 2477 198 261 1623 897 0 22 612 -1 -1 0 0 -1 -1 -1 -1 1 0 2477 -1   0
+E:\Researching\2012\FAIR\paper2\reaboutthesupermatchingwriting\intro_1.tex
+TeX:UNIX
+269594619 0 -1 0 -1 629 132 174 1557 810 0 246 -9 -1 -1 0 0 22 -1 -1 22 1 0 629 -1   0
+E:\Researching\2012\FAIR\paper2\reaboutthesupermatchingwriting\abstract.tex
+TeX:UNIX
+269594619 1 -1 1206 -1 0 88 116 1513 752 0 22 0 -1 -1 0 0 -1 -1 -1 -1 1 0 0 -1   0
+E:\Researching\2012\FAIR\paper2\reaboutthesupermatchingwriting\fair.tex
+TeX:UNIX
+269594619 1 -1 7116 -1 7498 44 58 1469 694 0 1070 238 -1 -1 0 0 30 -1 -1 30 1 0 7498 -1   0
+E:\Researching\2012\symmetry\spect_pisym.tex
+TeX:UNIX
+269594619 0 -1 0 -1 828 220 290 1645 926 0 510 -1547 -1 -1 0 0 -1 -1 -1 -1 1 0 828 -1   0
+E:\Researching\2011\spect_pisym\spect_pisym\paper\spect_pisym.tex
+TeX
+403714043 0 -1 0 -1 1569 44 58 594 434 0 390 459 -1 -1 0 0 77 -1 -1 77 1 0 1569 -1   0
+E:\Researching\2012\FAIR\paper2\future.tex
+TeX:UNIX
+269594619 1 -1 45 -1 930 22 29 1447 665 0 22 170 -1 -1 0 0 -1 -1 -1 -1 1 0 930 -1   0
+E:\Researching\2012\FAIR\paper2\related.tex
+TeX:UNIX
+269594619 0 -1 1415 -1 1692 198 261 1623 897 0 398 255 -1 -1 0 0 -1 -1 -1 -1 1 0 1692 -1   0
+E:\Researching\2012\FAIR\paper2\matching_c.tex
+TeX:UNIX
+269594619 0 -1 0 -1 1037 220 290 1645 926 0 22 306 -1 -1 0 0 -1 -1 -1 -1 1 0 1037 -1   0
+E:\Researching\2012\FAIR\paper2\matching.tex
+TeX:UNIX
+269594619 0 -1 0 -1 1037 220 290 1645 926 0 22 306 -1 -1 0 0 -1 -1 -1 -1 1 0 1037 -1   0
 D:\CTEX\WinEdt\Exec\Acrobat CloseDoc.edt
 ASCII:EDT
 269494138 7 35 1629 35 1 198 261 1623 901 1 70 595 -1 -1 0 0 21 0 0 21 1 0 1 35   0
@@ -160,9 +196,6 @@ TeX:UNIX
 E:\Researching\2010\relief\CADG\elsarticle-template-num.tex
 TeX:UNIX
 269594619 1 -1 5002 -1 4937 44 58 1557 489 0 22 442 -1 -1 0 0 -1 -1 -1 -1 1 0 4937 -1   0
-E:\Researching\2011\spect_pisym\spect_pisym\paper\spect_pisym.tex
-TeX
-403714043 0 -1 0 -1 1812 44 58 594 434 0 374 629 -1 -1 0 0 77 -1 -1 77 1 0 1812 -1   0
 E:\Researching\2011\spect_pisym\spect_pisym\paper\spect_pisym.bib
 BibTeX:UNIX
 1147890 1 17 23 17 11 44 58 594 434 0 102 187 -1 -1 0 0 47 0 0 47 1 0 11 17   0
@@ -182,14 +215,4 @@ E:\Researching\2011\spect_pisym\spect_pisym\paper\eg2012.sty
 TeX:DTX
 5255163 0 -1 0 -1 0 0 0 550 376 0 22 0 -1 -1 0 0 -1 -1 -1 -1 1 0 0 -1   0
 
-*fair.tex
->
 *abstract.tex
-*intro.tex
-*related
-*model
-*matching
-*apps
-*future
-*fair.bib
-<
