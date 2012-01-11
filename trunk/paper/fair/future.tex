@@ -1,16 +1,13 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-This paper has given a novel matching algorithm named SuperMatching,
-which tackles the classic Computer Graphics and Computer Vision problem of matching various features for cases without any assumptions.
-SuperMatching is an efficient higher-order matching algorithm based on the supersymmetric affinity tensor.
-Our main contributions are as follows.
-First, we use a  higher-order supersymmetric affinity tensor with a compact form to express higher-order consistency constraints of features.
-Secondly, we derive an efficient higher-order power iteration method, which makes significant efficiency by taking advantage of supersymmetry.
-Finally, we also give an efficient sampling strategy for choosing feature tuples to create the affinity tensor.
-It is one general matching due to independent of feature descriptors definition.
-The experiments on both synthetic and real 2D/3D data sets show that 
-SuperMatching is one accurate feature matching algorithm resulting from supersymmetric geometric constraints linking feature points, whilst having competitive performance.
+This paper has presented the novel SuperMatching algorithm,
+which tackles the classic computer graphics and computer vision problem of feature matching, independently of feature description. 
+It is an efficient higher-order matching algorithm which uses a compact form of the higher-order supersymmetric affinity tensor to express relatedness of features.
+Matching is performed using an efficient power iteration method, whose efficiency takes advantage of supersymmetry and avoids computing with zero elements.
+We also give an efficient sampling strategy for choosing feature tuples to create the affinity tensor.
+Experiments on both synthetic and real 2D and 3D data sets show that
+SuperMatching has greater accuracy than competing methods, whilst having competitive performance.
 
 %%===========================================================
 %% The Appendices part is started with the command \appendix;

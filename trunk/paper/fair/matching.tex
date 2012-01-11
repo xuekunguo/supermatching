@@ -1,17 +1,15 @@
-% !TEX root = sample.tex
 %%==========================================================================
 \section{SuperMatching}
 \label{sec:supersymhopm}
 %-------------------------------------------------------------------------
-We first discuss the former two issues mentioned above, which are independent of application; later we turn to definition of affinity measure, which is application dependent, and sampling strategy.
+We now discuss the first two issues mentioned above, which are independent of application; later we turn to definition of affinity measure, which is application dependent, and sampling strategy.
 
 
 \subsection{Supersymmetric Affinity Tensor}
 \label{subsec:supersymtensor}
 
-Here we consider the supersymmetric higher-order affinity tensor, which is invariant by permutation of the indices.
-The main motivation of using supersymmetry is try to utilize its advantage to remove the redundancy of the tensor elements,
-and the following deduction would prove that the motivation is effective.
+Here we consider the supersymmetric higher-order affinity tensor, which is invariant under permutation of indices.
+The main motivation of using supersymmetry is to allow us to avoid redundant storage and computation.
 
 \newtheorem{mot}{Definition}
 \begin{mot}[Supersymmetric Tensor]
@@ -25,9 +23,9 @@ $\mathcal{T}_3(i_1, i_2, i_3)=\mathcal{T}_3(i_1, i_3, i_2)=\mathcal{T}_3(i_2, i_
 \begin{mot}[Supersymmetric Affinity Tensor]
 \label{mot:def2}
 Given two feature sets $P$ and $Q$, with $N_1$ and $N_2$ features respectively,
-the supersymmetric affinity tensor is an $N${th} order $I_1, \cdots, I_N$, nonnegative tensor $\mathcal{T}_N$,
+the supersymmetric affinity tensor is an $N$th order $I_1, \cdots, I_N$, nonnegative tensor $\mathcal{T}_N$,
 for which there exists a set of indices $\theta_N$,
-and an $N${th} order potential function $\phi_N$, such that
+and an $N$th order potential function $\phi_N$, such that
 %
 \begin{flalign}
 \mathcal{T}_N(i_1,\ldots,i_N) = \begin{cases}
@@ -40,22 +38,20 @@ where $\Omega$ stands for an arbitrary permutation of the vector, and $\theta_N$
 and $\forall i_n\in\{i_1, \ldots, i_N\}-\{i_m\}$ meets the requirement that $i_m \neq i_n$.
 \end{mot}
 
-A tensor element with $(i_1,\ldots,i_N)\in \theta_N$ is called as a \emph{potential element}, while other elements are called \emph{non-potential element}.
-The potential element is one final matching result from all possible matching candidates.
-%%%RRM Explain the physical meaning of potential and non-potential elements.
-%%%RRM Why are there non-potential elements?
-%%%RRM Also explain what the potential is and why we introduce it.
-%%%RRM These ideas will not be familiar to most readers.
-%%%ZQC done
+A tensor element with $(i_1,\ldots,i_N)\in \theta_N$ is called a \emph{potential element}, while other elements are called \emph{non-potential element}.
+A potential element is one real matching result out of all possible matching candidates.
 
-Using Definition~\ref{mot:def2}, we now can greatly reduce the amount of storage needed, representing every potential element $\mathcal{T}_N(i_1,\ldots,i_N)$ by the canonical entry $\mathcal{T}_N(\mathrm{sort}(i_1,\ldots,i_N))$, $\forall (i_1,\ldots,i_N)\in \theta_N$. Each stored value thus provides the value for $N!$ entries.
-As non-potential elements all have value zero, there is no need to store them.
-This greatly reduces both storage, and sampling
-needed for feature tuples when estimating the affinity tensor, as discussed in Section~\ref{subsec:sampling}.
+%%%RRM It is still not clear why there are non-potential elements - this means you do not permit some possible matching results. Why?
+%%%ZQC If one element whose components are not invariant, then it would not be one potential element.
+
+Using Definition~\ref{mot:def2}, we now can reduce the amount of storage needed, representing every potential element $\mathcal{T}_N(i_1,\ldots,i_N)$ by the canonical entry $\mathcal{T}_N(\mathrm{sort}(i_1,\ldots,i_N))$, $\forall (i_1,\ldots,i_N)\in \theta_N$. Each stored value thus provides the value for $N!$ entries.
+Furthermore, as non-potential elements all have value zero, there is no need to store them.
+This greatly reduces both storage, and the amount of feature tuple sampling
+needed  when estimating the affinity tensor, as discussed in Section~\ref{subsec:sampling}.
 At the same time, it can be used to make the power iteration process more efficient: see Section~\ref{subsec:oursymmhopm}.
 
 %-------------------------------------------------------------------------
-\subsection{Higher-order Power Iteration Solving}
+\subsection{Higher-order Power Iteration}
 \label{subsec:oursymmhopm}
 
 \begin{algorithm}[!t]
@@ -85,9 +81,9 @@ At the same time, it can be used to make the power iteration process more effici
 \end{algorithmic}
 \end{algorithm}
 
-The higher-order tensor equation(\ref{equ:assigment}) is solved by tensor decomposition method~\cite{Kolda08}.
-Tensor decompositions originated with Hitchcock in 1927~\cite{Hitchcock27}.
-We utilize the rank-one higher-order power method~\cite{Lathauwer95} to approximately solve the Equ.(\ref{equ:assigment}).
+The higher-order tensor problem in Eq. (\ref{equ:assigment}) may be solved by the tensor decomposition method~\cite{Kolda08}.
+Tensor decomposition originated in~\cite{Hitchcock27}.
+We utilize the rank-one higher-order power method~\cite{Lathauwer95} to approximately solve the Equ.(\ref{equ:assigment}); as noted, an exact computation is infeasible.
 So, Equ.(\ref{equ:assigment}) can be expressed as:
 \begin{eqnarray}
 \label{equ:assigment2}
@@ -95,8 +91,7 @@ So, Equ.(\ref{equ:assigment}) can be expressed as:
 &=& \max <\mathcal{T}_N, \boldsymbol{x}^{\star N}>
 \end{eqnarray}
 where $\star$ is called the Tucker product~\cite{Kofidis02}, and $\boldsymbol{x} \in \{0,1\}^{N}$.
-Solving Equ.(\ref{equ:assigment2}) is an NP-complete problem,
-so it is common to relax the constraints:
+To get an approximate solution, we relax the constraints:
 the binary assignment vector $\boldsymbol{x}\in \{0,1\}^{N}$ is replaced by an assignment vector $\boldsymbol{u}$ with elements taking real values in $[0,1]$.
 This changes the optimization problem to one of computing the rank-one approximation of the affinity tensor $\mathcal{T}_N$~\cite{Kofidis02},
 i.e.\ finding a scalar $\lambda$ and a unit norm vector $\boldsymbol{u}\in \mathbb{R}^{N}$,
@@ -106,7 +101,7 @@ The final matching result is found by replacing each element of $\boldsymbol{u}$
 The higher-order power method is commonly used to find the rank-one tensor approximation;
 a version for supersymmetric tensors (S-HOPM) is given in~\cite{Kofidis02}.
 The S-HOPM algorithm converges under the assumption of convexity (or concavity) for the functional induced by the tensor~\cite{Kofidis02},
-which is sufficiently robust for practical application.
+which is sufficiently robust for practical applications.
 S-HOPM is performed in two iterative steps: higher-order power iteration of $\boldsymbol{u}$, followed by normalization of $\boldsymbol{u}$ under the Frobenius norm.
 A recent effective improvement~\cite{Duchenne09} uses the $\mathcal{\ell}^1$ norm to replace the traditional $\mathcal{\ell}^2$ norm.
 
@@ -126,37 +121,36 @@ For $\hat{\boldsymbol{u}}^{(k)}$ belonging to an $N{th}$-order supersymmetric af
 &(N-1)!\phi_N(i_1,...,i_N)2v_{m}^{(k-1)}v_{i_1}^{2_{(k-1)}}... v_{m-1}^{2_{(k-1)}}v_{m+1}^{2_{(k-1)}}... v_{i_N}^{2_{(k-1)}}
 \end{flalign}
 %\end{small}
-where $\boldsymbol{u}^{(k)}=\boldsymbol{v}^{2_{(k)}}$, and $\phi_N$ is corresponding potential function that would be detailed in the following Section~\ref{subsec:potentials}.
+where $\boldsymbol{u}^{(k)}=\boldsymbol{v}^{2_{(k)}}$, and $\phi_N$ is the corresponding potential function that would be detailed in the following Section~\ref{subsec:potentials}.
 
-Note that, \emph{Equ.(\ref{equ:eqsmain2}) is the most compact expression until now}, as it only stores all symmetrically related potential elements as a single item by $(N-1)!$ multiplication.
-%The deduction would be explained in the appendix Section.
-In the mathematical analysis, our SuperMatching algorithms is accurate and efficient as it relies on two principles. 
-First, we take advantage of the supersymmetry to deduce $\boldsymbol{u}$ as Equ.(\ref{equ:eqsmain2}).
-Secondly, many of the elements of the affinity tensor are zero non-potential elements from the Definition 2:
-it is much more efficient to perform the power iteration by just considering the non-zero potential elements.
+Note that Eq. (\ref{equ:eqsmain2}) is more compact than earlier expressions in the literature, as it handles all symmetrically related potential elements as a single item using   multiplication by $(N-1)!$.
+%%%RRM But if N is 3, (N-1)! is just 2, so this only gives a speed improvement of 2?
+%%%ZQC You are right Ralph, only 2 :) for each element, however there are many elements.
+The efficiency of our SuperMatching algorithm relies on two principles.
+First, we take advantage of the supersymmetry to deduce $\boldsymbol{u}$ as in Equ.(\ref{equ:eqsmain2}).
+Secondly, many of the elements of the affinity tensor are zero non-potential elements, and it is much more efficient to perform the power iteration by just considering the non-zero potential elements.
 
-Our supersymmetric higher-order power iteration solution of SuperMatching algorithm is summarized in Algorithm~\ref{alg2}. 
-It excludes each non-potential element from the iteration process and only utilizes one standing potential element for its related elements, so it is efficient.
-And the complexity of the whole iteration process only depends on the number $|\theta_N|$ of non-zero affinities. Step 5 in Algorithm~\ref{alg2} represents all permutations of each potential element $\mathcal{T}_N(i_1,\cdots,i_N)$
+Our supersymmetric higher-order power iteration solution of Eq. (\ref{equ:assigment}) is performed by the SuperMatching algorithm---See Algorithm~\ref{alg2}.
+It excludes each non-potential element from the iteration process and only utilizes one canonical potential element for each related element, so it is efficient.
+The complexity of the whole iteration process only depends on the number $|\theta_N|$ of non-zero affinities. Step 5 in Algorithm~\ref{alg2} represents all permutations of each potential element $\mathcal{T}_N(i_1,\cdots,i_N)$
 using a single potential function $\phi_N(i_1,\cdots,i_N)$.
 Consequently, this method reduces memory costs while keeping accuracy.
 Note that, although~\cite{Duchenne09} claimed to use a supersymmetric affinity tensor,
-this approach does not make full use of supersymmetry when creating the supersymmetric affinity tensor,
+his approach does not make full use of supersymmetry when creating the supersymmetric affinity tensor,
 nor does it take advantage of supersymmetry to accelerate the power iteration process.
 By doing so, we overcome limitations due to unbalanced and redundant tensor elements in~\cite{Duchenne09}, as our experiments show later.
 
 Many initialization schemes have been proposed for the S-HOPM method~\cite{Kofidis02}.
-We simply use positive random values between $0$ and $1$ to initialize $\boldsymbol{u}_0$, which ensures convergence.
-The convergence proofs are detailed in~\cite{Regalia00,Kofidis02}.
+We simply use positive random values between $0$ and $1$ to initialize $\boldsymbol{u}_0$, which ensures convergence; proofs are detailed in~\cite{Regalia00,Kofidis02}.
 
 \subsection{Higher-order Potentials}
 \label{subsec:potentials}
 
 Different higher-order potentials are appropriate for different applications.
 Here we give two general higher-order potentials.
-One may be used for  2D cases, while the other is defined for 3D matching.
+One may be used for  2D cases, while the other is useful for 3D matching.
 The potentials are based on a Gaussian function
-which guarantees the tensor elements are non-negative and invariant to any permutation of the input assignments.
+which guarantees the tensor elements are non-negative and invariant under any permutation of the input assignments.
 
 In 2D, we first restate a well-known 2D third-order geometric-similarity invariant potential $\phi_3$~\cite{Duchenne09,Chertok10} for linking two point feature triples.
 Similarity of triangles formed by three points corresponds to invariance under scaling, rotation and translation---interior angles do not change.
@@ -168,15 +162,15 @@ Thus $\phi_3$ can be defined in terms of differences of corresponding interior a
 where $\varepsilon > 0$ is the is the kernel bandwidth,
 $\{\alpha_l\}_{l=1}^3$ and $\{\alpha_l^{'}\}_{l^{'}=1^{'}}^{3}$ are the angles formed by feature triples $(p_1,p_2,p_3)$ and $(q_1,q_2,q_3)$:
 see Figure~\ref{fig:TO}. Each point corresponds to one interior angle.
-We may extend it to the general case by using the internal angles formed by higher degree polygons.
+We may extend it to the general case by using the internal angles formed by  polygons with more than 3 sides.
 It is easy to see that the potential preserves invariance under rigid transformations in 2D field.
 
-For 3D matching problems, we may replace the internal angle by edge length, i.e., the geodesic distance across the mesh in which the points are embedded., which now corresponds
+For 3D matching problems, we may replace the internal angle by edge length, i.e.\ the geodesic distance across the mesh in which the points are embedded. which now corresponds to assuming
 an isometry transform relating the point sets.
-The geodesic distance is computed by the Dijkstra algorithm~\cite{Peyre2010} .
+Geodesic distance may be computed by  Dijkstra's algorithm~\cite{Peyre2010} .
 
 We will use these two high-order potentials to evaluate our algorithm.
-Figure~\ref{fig:TO} illustrates the schematic diagram of third-order potential in 2D and 3D cases.
+Figure~\ref{fig:TO} illustrates the  third-order potential examples in the 2D and 3D cases.
 
 \begin{figure}
 \centering
@@ -194,7 +188,7 @@ We next discuss the issue of how to sample the feature tuples to build potential
 
 For the two feature sets $P$ and $Q$,
 a potential element may be obtained by using two feature tuples sampled from each feature set separately.
-For $N$th-order matching, a naive way to construct the potential elements is as follows:
+For $N^{th}$-order matching, a naive way to construct the potential elements is as follows:
 first find all feature tuples for $P$ and $Q$, as $F_1$ and $F_2$; then $\forall (f_{i_1}^1, \cdots, f_{i_N}^1)\in F_1$,
 calculate the potentials for $(f_{i_1}^1, \cdots, f_{i_N}^1)$ with all feature tuples in $F_2$.
 This naive method is very time-consuming, which is why sampling is used.
@@ -205,16 +199,15 @@ Our sampling approach is to repeatedly randomly sample $t_1$ feature tuples for 
 For $P$, we repeatedly take one feature as a required element, and then randomly choose $t_1$ feature tuples containing this required element.
 We repeat this process until all features in $P$ have been chosen once as a required element.
 So the number of feature tuples in $F_1$ is $N_1t_1$, and $N_2^N$ for $F_2$.
-Then, $\forall (f_{i_1}^1, \cdots, f_{i_N}^1)\in F_1$, we find $k$ most similar features in $F_2$ to build $N$th potential elements as $\phi_i^k$.
+Then, $\forall (f_{i_1}^1, \cdots, f_{i_N}^1)\in F_1$, we find $k$ most similar features in $F_2$ to build $N$ potential elements as $\phi_i^k$.
 Combining all the potential elements obtained, we form the desired potential element set $\theta_N = \{\phi_i^k\}_{i=1}^{N_1 t_1}$, of size $|\theta_N| = N_1 t_1 k$.
-For $P$, the sampling cost is $O(N_1\, t_1\,  k)$.
+For $P$, the sampling cost is $O(N_1 t_1 k)$.
 The parameters $t_1$ and $k$ must be chosen according to the size of the feature sets.
 In practice, for two feature sets each with hundreds points,
-we may take $t_1 \approx 100$ and $k=300$ for third-order matching.
+we may take $t_1 \approx 100$ and $k\approx300$ for third-order matching.
 Our experiments demonstrate that this sampling approach works well.
 
-
-The most important part of our sampling approach is to use the supersymmetry of the affinity tensor. Potential elements whose indices are permutations of each other
+An important aspect of our sampling approach is to use the supersymmetry of the affinity tensor. Potential elements whose indices are permutations of each other
 have the same value, so should not be repeatedly sampled.
 Thus, we use a sampling constraint that the sets of feature tuples $F_1$ obtained from the sampling process should have no repetition, in the sense that
 \begin{eqnarray}
@@ -224,7 +217,7 @@ Thus, we use a sampling constraint that the sets of feature tuples $F_1$ obtaine
 where $\Omega$ is an arbitrary permutation.
 
 Earlier work~\cite{Duchenne09,Zass08} adopted random sampling,
-but failed to impose any constraint on the sampling process,
+but failed to impose any constraint on the sampling process to take into account supersymmetry,
 leading to the possibility that feature tuples may be sampled multiple times.
 For example, for third-order matching, it is possible that a feature tuple $(f_{i_1}^1, f_{i_2}^1, f_{i_3}^1)$ may be sampled from $P$ and $(f_{i_1}^2, f_{i_2}^2, f_{i_3}^2)$ from $Q$,
 and also a feature tuple $(f_{i_1}^1, f_{i_3}^1, f_{i_2}^1)$ sampled from $P$ and $(f_{i_1}^2, f_{i_3}^2, f_{i_2}^2)$ from $Q$. That will create two tensor elements $\phi_3(s_{i_1}, s_{i_2}, s_{i_3})$ with index $(s_{i_1}, s_{i_2}, s_{i_3})$ and $\phi_3(s_{i_1}, s_{i_3}, s_{i_2})$ with index $(s_{i_1}, s_{i_3}, s_{i_2})$, which are the same. However, we just need one tensor element to express the affinity measure on the assignment group $(s_{i_1}, s_{i_2}, s_{i_3})$ for any permutation of indices.
