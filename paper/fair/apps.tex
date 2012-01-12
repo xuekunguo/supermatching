@@ -9,14 +9,17 @@ For 3D coloured shapes, both SIFT and slippage features were used.
 We used third-order matching in our experiments, and note it would be simple to use higher order.
 
 %-------------------------------------------------------------------------
-\subsection{3D rigid shapes scans}
+\subsection{3D Rigid Shapes Scans}
 \label{subsec:3DRigid}
 
 Firstly, we used SuperMatching to align 3D rigid shape scans pairwise.
 Rigid transforms can be computed from three compatible matching feature points.
 The transform which brings the most data points within a threshold of a point in the model is chosen as the optimal aligning transform~\cite{Huttenlocher90}.
 As discussed in~\cite{Gelfand05}, such a voting scheme is guaranteed to find the optimal alignment between the pairwise scans and is independent of the initial pose of the input scans.
-Figure~\ref{fig:3DPair} shows two registration results for  an articulated model. On the left is our result; on the right is the incorrect result produced by the method in~\cite{Aiger08}.
+\cz{Figure~\ref{fig:3DPair} shows some registration results for the Rooster model from~\cite{Chuang09}. On the left column is the original state,
+then the following columns are our matching and registered result (without any ICP refinement); on the right column is the result produced by the method in~\cite{Aiger08}.}
+%%%YKL Explain the source and nature of the data (real scan, any additional noise, outliers etc.) and why [Aiger08] failed in this case.
+%%%ZQC I did not know why 4pcs failed. Could you explain this? tricky algorithm? 
 
 \begin{figure}[t!]
 \centering
@@ -47,7 +50,7 @@ Pairs of consecutive scans, linked by dark lines, are matched using the SuperMat
 %%%RRM http://ralph.cs.cf.ac.uk/papers/Geometry/crf.pdf
 
 %-------------------------------------------------------------------------
-\subsection{3D depth scans with color information}
+\subsection{3D Depth Scans with Color Information}
 \label{subsec:3dColored}
 
 We next provide a real-world noisy example of the use of SuperMatching.
@@ -66,7 +69,7 @@ The example also demonstrates that the SuperMatching is general, in the sense th
 \end{figure}
 
 %-------------------------------------------------------------------------
-\subsection{3D articulated shape synthetic data}
+\subsection{3D Articulated Shape Synthetic Data}
 \label{subsec:3darticulated}
 
 Thirdly, we present another application, registration of (approximately) articulated shapes. Such problems are common in dynamic range scanning.
@@ -108,12 +111,12 @@ the greatest distance error in any one frame was $0.012 D$.
   \caption{Registration of an articulated hand.
   Above: partial synthetic data with holes is generated from a deformation sequence.
   The reconstructed meshes are deduced from the registration process (center).
-  Below: ground truth shape, and average and maximum distance from the ground truth per frame.}
+  Below: first frame ground truth shape, and average and maximum distance from the ground truth per frame.}
 \label{fig:3DHand}
 \end{figure}
 
 %-------------------------------------------------------------------------
-\subsection{Deformable surfaces}
+\subsection{Deformable Surfaces}
 \label{subsec:2DDeformable}
 
 Finally, we matched SIFT points on images of deforming surfaces\footnote{From \url{http://cvlab.epfl.ch/data/dsr/}} showing a cloth and a cushion.
@@ -143,6 +146,22 @@ due to the lower discriminatory power of the pairwise geometric constraints used
 Higher-order algorithms perform  better due to the more complex geometric constraints.
 Nevertheless, SupeMatching also significantly outperforms the third-order algorithm~\cite{Duchenne09} and the hyper graph matching algorithm~\cite{Zass08}, as these do not tale proper advantage of supersymmetry.
 
+%%%YKL Perhaps compare with [Wang 2010] as well as this test is 2D based.
+%%%ZQC Aiping and I did not keep the version submitted to ACCV, during the updating, we directly update the codes by changing the our new equation equ.4. 
+%%%In fact, aiping is one multiple higher order graph matching, it went beyong previous algorithm by its unified framework without equ. 4 and sampling strategy.
+
+%----------------------------------------
+%  deformable matching results IMAGES
+%----------------------------------------
+%----------------------------------------
+\begin{figure}[tb]
+\centering
+  \includegraphics[width=1.00\linewidth]{figures/2DDeformable.jpg}
+  \caption{Matching results. Left: cloth set, matching between frame 80 and 90, right: cushion set, matching between 144 and 156.
+  Top to bottom, spectral method [Cour et al. 2006], hyper graph matching method [Zass and Shashua 2008], a Third-order tensor [Duchenne et al. 2009], and SuperMatching algorithm.}
+\label{fig:2DDeformable}
+\end{figure}
+
 %%%RRM This table is too wide. Omit the last two columns
 %----------------------------------------
 %  deformable matching results TABLE
@@ -158,35 +177,22 @@ Nevertheless, SupeMatching also significantly outperforms the third-order algori
 \hspace{-5ex}
 \label{tab:errorrate1}
 \small
-\begin{tabular}{l|c c c c | c c c c | c c}
+\begin{tabular}{l|c c c c | c c c c | c}
 \toprule
-{Dataset}  & \multicolumn{4}{|c|}{ {cloth}} & \multicolumn{4}{c|}{ {cushion}} & & \\
+{Dataset}  & \multicolumn{4}{|c|}{ {cloth}} & \multicolumn{4}{c|}{ {cushion}} & \\
 \hline
- {Matching frames} &  {F80-}	&  {F90-}	& {F95-}	& {F100-} & {F144-} & {F156-}	& {F165-}	& {F172-} & {Feature}	& {Time}  \\
- {}                &  {F90 }    &  {F95 }   & {F100}    & {F105}  & {F156}  & {F165}    & {F172}    & {F188}  & {Tuples}    &  {(s)} \\
+ {Matching frames} &  {F80-}	&  {F90-}	& {F95-}	& {F100-} & {F144-} & {F156-}	& {F165-}	& {F172-} &  {Time}  \\
+ {}                &  {F90 }    &  {F95 }   & {F100}    & {F105}  & {F156}  & {F165}    & {F172}    & {F188}  &  {(s)} \\
 \hline
- {SuperMatching}   &  {83\%}    &  {85\%}	& {84\%} 	& {81\%}  & {66\%}	& {60\%}	& {69\%}	& {56\%}  &  {$3\times10^6$}  &  {8}  \\
+ {SuperMatching}   &  {83\%}    &  {85\%}	& {84\%} 	& {81\%}  & {66\%}	& {60\%}	& {69\%}	& {56\%}  &  {8}  \\
 %\hline
- {\cite{Zass08}}   & {73\%}	    & {79\%}	& {70\%}	& {72\%}  & {44\%}  & {39\%}    & {54\%}	& {43\%}   & {$4\times10^6$}   & {6.5}  \\
+ {\cite{Zass08}}   & {73\%}	    & {79\%}	& {70\%}	& {72\%}  & {44\%}  & {39\%}    & {54\%}	& {43\%}   & {6.5}  \\
 %\hline
-{\cite{Duchenne09}} & {67\%}    & {77\%}    & {73\%}	& {65\%}  & {39\%}	& {31\%}	& {47\%}	& {42\%}   & {$10\times10^6$}  & {13}  \\
+{\cite{Duchenne09}} & {67\%}    & {77\%}    & {73\%}	& {65\%}  & {39\%}	& {31\%}	& {47\%}	& {42\%}   & {13}  \\
 %\hline
- {\cite{Cour06}}   & {27\%}     & {29\%}	&  {22\%}	& {27\%}  & {14\%}  & {5\%}	    & {28\%}	& {7\%}    & {--}       & {5}  \\
+ {\cite{Cour06}}   & {27\%}     & {29\%}	&  {22\%}	& {27\%}  & {14\%}  & {5\%}	    & {28\%}	& {7\%}    & {5}  \\
 \bottomrule
 \end{tabular}%
 %\vspace{-27pt}
 %\vspace{-8mm}
 \end{table}%
-
-%----------------------------------------
-%  deformable matching results IMAGES
-%----------------------------------------
-%----------------------------------------
-\begin{figure}[tb]
-\centering
-  \includegraphics[width=1.00\linewidth]{figures/2DDeformable.jpg}
-  \caption{Matching results. Left: cloth set, matching between frame 80 and 90, right: cushion set, matching between 144 and 156.
-  Top to bottom, spectral method [Cour et al. 2006], hyper graph matching method [Zass and Shashua 2008], a Third-order tensor [Duchenne et al. 2009], and SuperMatching algorithm.}
-\label{fig:2DDeformable}
-\end{figure}
-

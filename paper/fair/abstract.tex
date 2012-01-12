@@ -5,8 +5,11 @@ SuperMatching is formulated using a supersymmetric tensor representing an affini
 feature matching is cast as a higher-order graph matching problem.
 SuperMatching takes advantage of supersymmetry to devise an
 efficient sampling strategy to estimate the affinity tensor, as well as to store the tensor compactly.
-Matching is performed by computing a rank-one approximation of the tensor directly
-using a higher-order power iteration solution.
+Matching is performed by computing a rank-one approximation of the tensor directly using a higher-order power iteration solution.
+\cz{Matching is performed by an efficient higher-order power iteration solution, deduced from the supersymmtric affinity tensor.}
+%%%YKL In addition to describe what the whole system is, I think we should emphasise the contributions in the abstract, like supersymmetry.
+%%%YKL If you just say rank-one approximation, high-order power iteration, etc. they are not unique from previous methods.
+%%%ZQC \cz
 Experiments on both synthetic and real captured data show that
 SuperMatching provides accurate feature matching for a wide range of 2D and 3D features,
 giving more reliable results than other state-of-the-art approaches, with competitive computational cost. 
