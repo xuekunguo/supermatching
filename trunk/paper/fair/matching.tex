@@ -40,11 +40,7 @@ and $\forall i_n\in\{i_1, \ldots, i_N\}-\{i_m\}$ meets the requirement that $i_m
 
 A tensor element with $(i_1,\ldots,i_N)\in \theta_N$ is called a \emph{potential element}, while other elements are called \emph{non-potential element}.
 A potential element is one real matching result out of all possible matching candidates.
-\cz{The potential elements would be further detailed in the Section~\ref{subsec:sampling}.}
-
-%%%RRM It is still not clear why there are non-potential elements - this means you do not permit some possible matching results. Why?
-%%%ZQC If one element whose components are not invariant, then it would not be one potential element.
-%%%YKL I think potential/non-potential elements are related to sampling? You can refer to Section 4.4 to make it clearer.
+The potential elements would be further detailed in the Section~\ref{subsec:sampling}.
 
 Using Definition~\ref{mot:def2}, we now can reduce the amount of storage needed, representing every potential element $\mathcal{T}_N(i_1,\ldots,i_N)$ by the canonical entry $\mathcal{T}_N(\mathrm{sort}(i_1,\ldots,i_N))$, $\forall (i_1,\ldots,i_N)\in \theta_N$. Each stored value thus provides the value for $N!$ entries.
 Furthermore, as non-potential elements all have value zero, there is no need to store them.
@@ -169,14 +165,14 @@ It is easy to see that the potential preserves invariance under rigid transforma
 
 For 3D matching problems, we may replace the internal angle by edge length, i.e.\ the geodesic distance across the mesh in which the points are embedded. which now corresponds to assuming
 an isometry transform relating the point sets.
-Geodesic distance may be computed by  Dijkstra's algorithm~\cite{Peyre2010} .
+Geodesic distance may be computed by Dijkstra's algorithm~\cite{Peyre2010} .
 
 We will use these two high-order potentials to evaluate our algorithm.
-Figure~\ref{fig:TO} illustrates the  third-order potential examples in the 2D and 3D cases.
+Figure~\ref{fig:TO} illustrates the third-order potential examples in the 2D and 3D cases.
 
 \begin{figure}
 \centering
-  \includegraphics[width=0.7\linewidth]{figures/diagram.pdf}
+  \includegraphics[width=0.6\linewidth]{figures/diagram.pdf}
   \caption{Third-order potential. The geometric constraints are: internal angle invariance in 2D (above), and edge length invariance in 3D (below).}
 \label{fig:TO}
 \end{figure}
@@ -203,9 +199,7 @@ We repeat this process until all features in $P$ have been chosen once as a requ
 So the number of feature tuples in $F_1$ is $N_1t_1$, and $N_2^N$ for $F_2$.
 Then, $\forall (f_{i_1}^1, \cdots, f_{i_N}^1)\in F_1$, we find $k$ most similar features in $F_2$ to build $N$ potential elements as $\phi_i^k$.
 Combining all the potential elements obtained, we form the desired potential element set $\theta_N = \{\phi_i^k\}_{i=1}^{N_1 t_1}$, of size $|\theta_N| = N_1 t_1 k$.
-\cz{For $P$, the sampling cost is $O(N_1 \, t_1 \, k \, logN_2)$.}
-%%%YKL To find the k-nearest featurs from F2 may take an additional O(N2) complexity?
-%%%ZQC you are right, it should be log(N_2).
+For $P$, the sampling cost is $O(N_1 \, t_1 \, k \, logN_2)$.
 The parameters $t_1$ and $k$ must be chosen according to the size of the feature sets.
 In practice, for two feature sets each with hundreds points,
 we may take $t_1 \approx 100$ and $k\approx300$ for third-order matching.
@@ -220,9 +214,7 @@ Thus, we use a sampling constraint that the sets of feature tuples $F_1$ obtaine
 \end{eqnarray}
 where $\Omega$ is an arbitrary permutation.
 
-%%%YKL How about [Wang et al. 2010]?
-%%%ZQC Wang has the similar limitation.
-\cz{Earlier work~\cite{Zass08,Duchenne09,Aiping10} adopted random sampling,}
+Earlier work~\cite{Zass08,Duchenne09,Aiping10} adopted random sampling,
 but failed to impose any constraint on the sampling process to take into account supersymmetry,
 leading to the possibility that feature tuples may be sampled multiple times.
 For example, for third-order matching, it is possible that a feature tuple $(f_{i_1}^1, f_{i_2}^1, f_{i_3}^1)$ may be sampled from $P$ and $(f_{i_1}^2, f_{i_2}^2, f_{i_3}^2)$ from $Q$,
