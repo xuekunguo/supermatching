@@ -4,49 +4,44 @@
 
 We have used synthetically generated data as well as real captured data to evaluate the SuperMatching algorithm.
 To demonstrate that the SuperMatching algorithm is general (independent of feature descriptors), several descriptors have been used.
-For  input shapes without color information, slippage features~\cite{Bokeloh08} were employed.
-For 3D coloured shapes, both SIFT and slippage features were used.
+For input shapes without color information, a uniform sampling of points on the source shape were employed.
+For colored shapes, both SIFT feature points and uniform sampling points were used.
 We used third-order matching in our experiments, and note it would be simple to use higher order.
 
 %-------------------------------------------------------------------------
 \subsection{3D Rigid Shapes Scans}
 \label{subsec:3DRigid}
 
-Firstly, we used SuperMatching to align 3D rigid shape scans pairwise.
-Rigid transforms can be computed from three compatible matching feature points.
+Firstly, we used SuperMatching to align 3D rigid shape scans pairwise based on the uniform sampling scheme.
+Rigid transforms can be computed from three compatible sampling points.
 The transform which brings the most data points within a threshold of a point in the model is chosen as the optimal aligning transform~\cite{Huttenlocher90}.
 As discussed in~\cite{Gelfand05}, such a voting scheme is guaranteed to find the optimal alignment between the pairwise scans and is independent of the initial pose of the input scans.
-\cz{Figure~\ref{fig:3DPair} shows some registration results for the Rooster model from~\cite{Chuang09}. On the left column is the original state,
-then the following columns are our matching and registered result (without any ICP refinement); on the right column is the result produced by the method in~\cite{Aiger08}.}
-%%%YKL Explain the source and nature of the data (real scan, any additional noise, outliers etc.) and why [Aiger08] failed in this case.
-%%%ZQC I did not know why 4pcs failed. Could you explain this? tricky algorithm? 
+Figure~\ref{fig:3DPair} shows some registration results for the Rooster model from~\cite{Chuang09}. On the left column is the original state,
+then the following columns are our matching and registered result (without any ICP refinement~\cite{Besl92}); on the right column is the result produced by~\cite{Aiger08}.
 
-\begin{figure}[t!]
+\begin{figure}[htb]
 \centering
-  \includegraphics[width=0.99\linewidth]{figures/rigidCMP.jpg}
-  \caption{Pairwise alignment of pot scans. Left : our result. Right: result from [Aiger et al. 2008].}
+  \includegraphics[width=0.99\linewidth]{figures/RoosterPair.pdf}
+  \caption{Pairwise alignment of Rooster \emph{$I-II$} and \emph{$II-III$} scans. Left : our results. Right: results from [Aiger et al. 2008].}
 \label{fig:3DPair}
-\end{figure}
-
-\begin{figure}[t!]
-\centering
-  \includegraphics[width=0.99\linewidth]{figures/3DRigid.pdf}
-  \caption{Alignment of several sheep head scans from different viewpoints.
-  Above: scans are captured from different viewpoints. Below: the final shape is formed from 10 aligned scans, the dark lines indicating the pairwise matches.}
-\label{fig:3DRigid}
 \end{figure}
 
 Next, we extended the SuperMatching to build a complete model from a set of scans from different viewpoints.
 For these multiple scans,  third-order matching was first performed between each pair of consecutive scans.
-After the initial pairwise matching, the alignment was refined by the iterative closest point (ICP) algorithm following~\cite{Gelfand05}.
+After the initial pairwise matching, the alignment was refined by the iterative closest point (ICP) algorithm~\cite{Besl92}.
 Figure~\ref{fig:3DRigid} illustrates the approach.
-Above, a sheep's head is scanned from multiple viewpoints. Below, matching is used to align 10 scans which are then merged to produce a single shape.
+Above, a Rooster is aligned by our method, and the top-right is the real ground truth~\cite{Chuang09}.
+Below, matching is used to align 8 partial scans which are then merged to produce a single shape.
 Pairs of consecutive scans, linked by dark lines, are matched using the SuperMatching algorithm.
 
-%%%RRM Actually, there are some datasets out there with known transofrmations
-%%%RRM between them. We could try to show we can estimate the transformations
-%%%RRM more accurately than other methods.
-%%%RRM See for example the dataset used in
+\begin{figure}[htb]
+\centering
+  \includegraphics[width=0.99\linewidth]{figures/Rooster.pdf}
+  \caption{Alignment of several Rooster scans from different viewpoints.
+  Above: our final registered Rooster vs the ground truth [Chuang et al. 2009]. Below: 8 partial scans, the dark lines indicating the pairwise matches.}
+\label{fig:3DRigid}
+\end{figure}
+
 %%%RRM http://ralph.cs.cf.ac.uk/papers/Geometry/crf.pdf
 
 %-------------------------------------------------------------------------
@@ -55,7 +50,7 @@ Pairs of consecutive scans, linked by dark lines, are matched using the SuperMat
 
 We next provide a real-world noisy example of the use of SuperMatching.
 In this case, real world data with surface color information was captured using a Kinect camera~\cite{Kinect12},
-and both SIFT and slippage features were used as a basis for SuperMatching.
+and both SIFT and uniform sampling points were used as a basis for SuperMatching.
 This resulted in robust matches without significant outliers, as illustrated in Figure~\ref{fig:3DReal}.
 The example also demonstrates that the SuperMatching is general, in the sense that it is independent of feature descriptors.
 
@@ -80,15 +75,17 @@ we believe that our approach pushes the limits of what can be achieved with mini
 
 When doing pairwise articulated shape registration,
 although the partial scans have missing data and their poses are different, SuperMatching still produces accurate matching.
-Correspondences between slippage feature points are established by SuperMatching;
+Correspondences on uniform sampling points on the two shapes are established by SuperMatching;
 these permit robust registration of scans by computing piecewise rigid transformations.
 These transformations are propagated from the slippage feature points to the entire set of points in each scan using nearest neighbor interpolation.
-Figure~\ref{fig:3DRobot} shows two registration examples of an articulated model. On the left is our result, on the right is the  incorrect result produced by the method in~\cite{Chang09}.
+Figure~\ref{fig:3DRobot} shows two registration examples of an articulated model. 
+On the left is our result, on the right is the registered result produced by the method in~\cite{Chang09}.
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=0.99\linewidth]{figures/rigidCMP.jpg}
-  \caption{Pairwise alignment of articulated xx. Left: our result. Right: incorrect result produced by [Chang and Zwicker 2009].}
+  \includegraphics[width=0.95\linewidth]{figures/Robot.pdf}
+  \caption{Pairwise matching of articulated Robot between frame 9 and 10. 
+           Left: our result. Right: result produced by [Chang and Zwicker 2009] from front and side views, where red polygons indicate the large distortion regions.}
 \label{fig:3DRobot}
 \end{figure}
 
@@ -123,7 +120,7 @@ Finally, we matched SIFT points on images of deforming surfaces\footnote{From \u
 The surface of the cloth underwent relatively smooth deformation, while the surface of the cushion included sharp folds.
 This data comes with ground truth, which allows quantitative verification of the accuracy of the matches found.
 From each surface set we randomly chose two frames before and after a large deformation.
-We randomly chose $100$ corresponding points on each surface to be the features, using the provided ground truth.
+We randomly chose $100$ corresponding points on each surface, using the provided ground truth.
 
 We used the above input data as a basis for comparison with the spectral algorithm~\cite{Cour06} (a quadratic assignment algorithm),
 a third-order tensor algorithm~\cite{Duchenne09},
@@ -138,7 +135,7 @@ The difference  mainly results from differences in sampling strategy; note that 
 The average running time to match two feature sets each with $100$ features was around 8s for SuperMatching, 13s for~\cite{Duchenne09}, 6.5s for~\cite{Zass08}, and 5s for~\cite{Cour06}.
 SuperMatching takes less  time than the third-order tensor algorithm in~\cite{Duchenne09} as it uses the same tensor size but fewer feature tuples.
 
-Matching accuracy is assessed by the number of correctly matched points (known from the  ground truth) divided by the total number of points that could potentially be matched.
+Matching accuracy is assessed by the number of correctly matched points (known from the  ground truth) divided by the total number of points that could be matched.
 The results are summarised in Table~\ref{tab:errorrate1} and illustrated in Figure~\ref{fig:2DDeformable}.
 Table~\ref{tab:errorrate1} demonstrates that SuperMatching achieves a higher matching accuracy than previous algorithms.
 The worst matching result is produced by the spectral quadratic assignment algorithm~\cite{Cour06},
@@ -147,7 +144,7 @@ Higher-order algorithms perform  better due to the more complex geometric constr
 Nevertheless, SupeMatching also significantly outperforms the third-order algorithm~\cite{Duchenne09} and the hyper graph matching algorithm~\cite{Zass08}, as these do not tale proper advantage of supersymmetry.
 
 %%%YKL Perhaps compare with [Wang 2010] as well as this test is 2D based.
-%%%ZQC Aiping and I did not keep the version submitted to ACCV, during the updating, we directly update the codes by changing the our new equation equ.4. 
+%%%ZQC Aiping and I did not keep the version submitted to ACCV, during the updating, we directly update the codes by changing the our new equation equ.4.
 %%%In fact, aiping is one multiple higher order graph matching, it went beyong previous algorithm by its unified framework without equ. 4 and sampling strategy.
 
 %----------------------------------------
