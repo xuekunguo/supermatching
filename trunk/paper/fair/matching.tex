@@ -22,25 +22,25 @@ $\mathcal{T}_3(i_1, i_2, i_3)=\mathcal{T}_3(i_1, i_3, i_2)=\mathcal{T}_3(i_2, i_
 
 \begin{mot}[Supersymmetric Affinity Tensor]
 \label{mot:def2}
-Given two feature sets $P$ and $Q$, with $N_1$ and $N_2$ features respectively,
+Given two feature sets $P_1$ and $P_2$, with $N_1$ and $N_2$ features respectively,
 the supersymmetric affinity tensor is an $N$th order $I_1, \cdots, I_N$, nonnegative tensor $\mathcal{T}_N$,
 for which there exists a set of indices $\theta_N$,
 and an $N$th order potential function $\phi_N$, such that
 %
 \begin{flalign}
 \mathcal{T}_N(i_1,\ldots,i_N) = \begin{cases}
-\phi_N(\Omega(i_1,\ldots,i_N))&{,\forall(i_1,\ldots,i_N)\in \theta_N}  \\
-\quad{}\quad{}\quad{}   0     &{,\forall(i_1,\ldots,i_N)\notin \theta_N}
+\phi_N(\Omega(i_1,\ldots,i_N))&{,~\forall(i_1,\ldots,i_N)\in \theta_N}  \\
+\quad{}\quad{}\quad{}   0     &{,~\forall(i_1,\ldots,i_N)\notin \theta_N}
 \end{cases}
 \end{flalign}
 %
-where $\Omega$ stands for an arbitrary permutation of the vector, and $\theta_N$ satisfies $\forall (i_1,\ldots,i_N)\in \theta_N, \forall i_m\in\{i_1, \ldots, i_N\}$
+where $\Omega$ stands for an arbitrary permutation of the vector. $\theta_N$ satisfies $\forall (i_1,\ldots,i_N)\in \theta_N, \forall i_m\in\{i_1, \ldots, i_N\}$
 and $\forall i_n\in\{i_1, \ldots, i_N\}-\{i_m\}$ meets the requirement that $i_m \neq i_n$.
 \end{mot}
 
-A tensor element with $(i_1,\ldots,i_N)\in \theta_N$ is called a \emph{potential element}, while other elements are called \emph{non-potential element}.
-A potential element is one real matching result out of all possible matching candidates.
-The potential elements would be further detailed in the Section~\ref{subsec:sampling}.
+A tensor element with $(i_1,\ldots,i_N)\in \theta_N$ is called a \emph{potential element}, while other elements are called \emph{non-potential elements}.
+A potential element represents one matching result out of all possible matching candidates.
+Potential elements are further detailed in  Section~\ref{subsec:sampling}.
 
 Using Definition~\ref{mot:def2}, we now can reduce the amount of storage needed, representing every potential element $\mathcal{T}_N(i_1,\ldots,i_N)$ by the canonical entry $\mathcal{T}_N(\mathrm{sort}(i_1,\ldots,i_N))$, $\forall (i_1,\ldots,i_N)\in \theta_N$. Each stored value thus provides the value for $N!$ entries.
 Furthermore, as non-potential elements all have value zero, there is no need to store them.
@@ -53,15 +53,15 @@ At the same time, it can be used to make the power iteration process more effici
 \label{subsec:oursymmhopm}
 
 \begin{algorithm}[!t]
-\caption{\small Higher-order power iteration solution for the \protect\\
-         \mbox{}\hspace{15ex}\small supersymmetric affinity tensor (with $\mathcal{C}_1$ norm)}
+\caption{\small Higher-order power iteration solution (with $\mathcal{C}_1$ norm) for the \protect\\
+         \mbox{}\hspace{15ex}\small supersymmetric affinity tensor }
 \label{alg2}
 \begin{algorithmic}[1]
-\REQUIRE \small $N^{th}$-order supersymmetric affinity tensor
+\REQUIRE \small $N{th}$-order supersymmetric affinity tensor
 \ENSURE  \small Unit $\mathcal{\ell}^1$-norm vector $\boldsymbol{u}$
-\STATE   \small \; Initialize $\boldsymbol{u}_0$ by randomly positive values, $k=1$
+\STATE   \small \; Initialize $\boldsymbol{v}_0$ to random values in [0,1], $k=1$
 \REPEAT
-    \FOR{all $(i_1,i_2,\cdots , i_N)\in \theta_N$}
+    \FOR{all $(i_1,\cdots , i_N)\in \theta_N$}
         \FOR{all $m \in (i_1,\cdots , i_N)$}
         \STATE $v_{m}^{(k)}=(N-1)!\phi_N(i_1,\cdots , i_N) 2v_{m}^{(k-1)}v_{i_1}^{2_{(k-1)}}\cdots$ \\
                  $\qquad \qquad v_{m-1}^{2_{(k-1)}}v_{m+1}^{2_{(k-1)}}\cdots v_{i_N}^{2_{(k-1)}}$
@@ -72,7 +72,8 @@ At the same time, it can be used to make the power iteration process more effici
         \ENDFOR
     \ENDFOR
     \STATE $k=k+1$;
-\UNTIL{\small convergence};\protect\\
+\UNTIL{\small convergence};
+\STATE   \small \; $\boldsymbol{u}^{(k)}=\boldsymbol{v}^{2_{(k)}}$ \protect\\
        \small \textbf{Note}: $\boldsymbol{u}^{(k)}=\boldsymbol{v}^{2_{(k)}}$, $\phi_N$ is the corresponding potential function,
        \small and $v^{(k)}(((i-1)\cdot N_2+1) : i\cdot N_2)$ denotes the slice of $v^{(k)}$ with
        \small indices from $(i-1)\cdot N_2+1$ to $i\cdot N_2$.
@@ -81,8 +82,8 @@ At the same time, it can be used to make the power iteration process more effici
 
 The higher-order tensor problem in Eq. (\ref{equ:assigment}) may be solved by the tensor decomposition method~\cite{Kolda08}.
 Tensor decomposition originated in~\cite{Hitchcock27}.
-We utilize the rank-one higher-order power method~\cite{Lathauwer95} to approximately solve the Equ.(\ref{equ:assigment}); as noted, an exact computation is infeasible.
-So, Equ.(\ref{equ:assigment}) can be expressed as:
+We utilize the rank-one higher-order power method~\cite{Lathauwer95} to approximately solve  Eq. (\ref{equ:assigment}); as noted, an exact computation is infeasible.
+Eq. (\ref{equ:assigment}) can be expressed as:
 \begin{eqnarray}
 \label{equ:assigment2}
 {\boldsymbol{x}}^* &=& \argmax_{\boldsymbol{x}} \sum_{i_1,i_2,\cdots,i_N} \mathcal{T}_N(i_1,\cdots,i_N) x_{i_1} \cdots x_{i_N} \nonumber\\
@@ -96,7 +97,7 @@ i.e.\ finding a scalar $\lambda$ and a unit norm vector $\boldsymbol{u}\in \math
 such that the tensor $\hat{\mathcal{T}_N} = \lambda \boldsymbol{u}\star \boldsymbol{u} \star\cdots \star \boldsymbol{u}=\boldsymbol{u}^{\star N}$ minimizes the Frobenius norm squared function $f(\hat{\mathcal{T}_N})=\lVert \mathcal{T}_r-\hat{\mathcal{T}_N} \lVert^2_F$.
 The final matching result is found by replacing each element of $\boldsymbol{u}$ by 0 or 1 according to whichever it is closer to.
 
-The higher-order power method is commonly used to find the rank-one tensor approximation;
+The higher-order power method is commonly used for finding rank-one tensor approximations;
 a version for supersymmetric tensors (S-HOPM) is given in~\cite{Kofidis02}.
 The S-HOPM algorithm converges under the assumption of convexity (or concavity) for the functional induced by the tensor~\cite{Kofidis02},
 which is sufficiently robust for practical applications.
@@ -114,22 +115,20 @@ For $\hat{\boldsymbol{u}}^{(k)}$ belonging to an $N{th}$-order supersymmetric af
 \label{equ:eqsmain2}
 &\hat{\boldsymbol{u}}^{(k)}=\mathcal{I}\mathop{\star}\limits^{\mathcal{T}_N}
 {(\boldsymbol{u}^{(k-1)})}^{\mathop{\star}\limits^{\mathcal{T}_N} (N-1)} \mathrm{~implies~that~} \forall m\in (i_1,... , i_N), \nonumber \\
-&v_{m}^{(k)}= \nonumber\\
+&v_{m}^{(k)} = \nonumber\\
 &\sum\limits_{i_1,...,i_N}\mathcal{T}_N(i_1,...,i_N)2v_{m}^{(k-1)}v_{i_1}^{2_{(k-1)}}... v_{m-1}^{2_{(k-1)}}v_{m+1}^{2_{(k-1)}}... v_{i_N}^{2_{(k-1)}}= \nonumber \\
 &(N-1)!\phi_N(i_1,...,i_N)2v_{m}^{(k-1)}v_{i_1}^{2_{(k-1)}}... v_{m-1}^{2_{(k-1)}}v_{m+1}^{2_{(k-1)}}... v_{i_N}^{2_{(k-1)}}
 \end{flalign}
 %\end{small}
-where $\boldsymbol{u}^{(k)}=\boldsymbol{v}^{2_{(k)}}$, and $\phi_N$ is the corresponding potential function that would be detailed in the following Section~\ref{subsec:potentials}.
+where $\boldsymbol{u}^{(k)}=\boldsymbol{v}^{2_{(k)}}$, and $\phi_N$ is the  potential function explained in Section~\ref{subsec:potentials}.
 
 Note that Eq. (\ref{equ:eqsmain2}) is more compact than earlier expressions in the literature, as it handles all symmetrically related potential elements as a single item using   multiplication by $(N-1)!$.
-%%%RRM But if N is 3, (N-1)! is just 2, so this only gives a speed improvement of 2?
-%%%ZQC You are right Ralph, only 2 :) for each element, however there are many elements.
 The efficiency of our SuperMatching algorithm relies on two principles.
-First, we take advantage of the supersymmetry to deduce $\boldsymbol{u}$ as in Equ.(\ref{equ:eqsmain2}).
+First, we take advantage of the supersymmetry to deduce $\boldsymbol{u}$ as in Eq. (\ref{equ:eqsmain2}).
 Secondly, many of the elements of the affinity tensor are zero non-potential elements, and it is much more efficient to perform the power iteration by just considering the non-zero potential elements.
 
 Our supersymmetric higher-order power iteration solution of Eq. (\ref{equ:assigment}) is performed by the SuperMatching algorithm---See Algorithm~\ref{alg2}.
-It excludes each non-potential element from the iteration process and only utilizes one canonical potential element for each related element, so it is efficient.
+It excludes each non-potential element from the iteration process and utilizes a single canonical potential element for each related element, so is efficient.
 The complexity of the whole iteration process only depends on the number $|\theta_N|$ of non-zero affinities. Step 5 in Algorithm~\ref{alg2} represents all permutations of each potential element $\mathcal{T}_N(i_1,\cdots,i_N)$
 using a single potential function $\phi_N(i_1,\cdots,i_N)$.
 Consequently, this method reduces memory costs while keeping accuracy.
@@ -145,34 +144,30 @@ We simply use positive random values between $0$ and $1$ to initialize $\boldsym
 \label{subsec:potentials}
 
 Different higher-order potentials are appropriate for different applications.
-Here we give two general higher-order potentials.
-One may be used for  2D cases, while the other is useful for 3D matching.
+Here we give examples of two general higher-order potentials for  2D and 3D matching respectively; we  use them later to evaluate our algorithm.
 The potentials are based on a Gaussian function
 which guarantees the tensor elements are non-negative and invariant under any permutation of the input assignments.
 
-In 2D, we first restate a well-known 2D third-order geometric-similarity invariant potential $\phi_3$~\cite{Duchenne09,Chertok10} for linking two point feature triples.
-Similarity of triangles formed by three points corresponds to invariance under scaling, rotation and translation---interior angles do not change.
+In 2D, we use a well-known third-order geometric-similarity invariant potential $\phi_3$~\cite{Duchenne09,Chertok10} for linking point feature triples.
+Triangles formed by three points are \emph{similar} under scaling, rotation and translation---interior angles are invariant.
 Thus $\phi_3$ can be defined in terms of differences of corresponding interior angles:
 \begin{eqnarray}
 \phi_3(i_1,i_2,i_3)&=&\phi_3(\{p_1,q_1\}, \{p_2,q_2\}, \{p_3,q_3\})\nonumber\\
 &=&\exp(-1/\varepsilon^2\sum\nolimits_{(l,l^{'})}\lVert \alpha_l- \alpha_{l^{'} } \lVert^2 )
 \end{eqnarray}
-where $\varepsilon > 0$ is the is the kernel bandwidth,
-$\{\alpha_l\}_{l=1}^3$ and $\{\alpha_l^{'}\}_{l^{'}=1^{'}}^{3}$ are the angles formed by feature triples $(p_1,p_2,p_3)$ and $(q_1,q_2,q_3)$:
+where $\varepsilon > 0$ is the kernel bandwidth,
+and $\{\alpha_l\}_{l=1}^3$ and $\{\alpha_l^{'}\}_{l^{'}=1^{'}}^{3}$ are the angles formed by feature triples $(p_1,p_2,p_3)$ and $(q_1,q_2,q_3)$:
 see Figure~\ref{fig:TO}. Each point corresponds to one interior angle.
-We may extend it to the general case by using the internal angles formed by  polygons with more than 3 sides.
-It is easy to see that the potential preserves invariance under rigid transformations in 2D field.
+We may extend it to higher order by using the internal angles formed by polygons with more than 3 sides.
 
-For 3D matching problems, we may replace the internal angle by edge length, i.e.\ the geodesic distance across the mesh in which the points are embedded. which now corresponds to assuming
-an isometry transform relating the point sets.
-Geodesic distance may be computed by Dijkstra's algorithm~\cite{Peyre2010} .
-
-We will use these two high-order potentials to evaluate our algorithm.
-Figure~\ref{fig:TO} illustrates the third-order potential examples in the 2D and 3D cases.
+For 3D matching problems, we may replace the internal angle by edge length, i.e.\ the geodesic distance across the mesh in which the points are embedded. 
+which now corresponds to assuming an rigid and isometry transform relating the point sets.
+Geodesic distance may be computed by Dijkstra's algorithm~\cite{Peyre2010}.
+See  Figure~\ref{fig:TO}.
 
 \begin{figure}
 \centering
-  \includegraphics[width=0.6\linewidth]{figures/diagram.pdf}
+  \includegraphics[width=0.65\linewidth]{figures/diagram.pdf}
   \caption{Third-order potential. The geometric constraints are: internal angle invariance in 2D (above), and edge length invariance in 3D (below).}
 \label{fig:TO}
 \end{figure}
@@ -181,25 +176,25 @@ Figure~\ref{fig:TO} illustrates the third-order potential examples in the 2D and
 \subsection{Sampling Strategy}
 \label{subsec:sampling}
 
-Algorithm~\ref{alg2} depends on all potential elements.
+Algorithm~\ref{alg2} depends on the potential elements.
 We next discuss the issue of how to sample the feature tuples to build potential items, which determines the size $|\theta_N|$ and influences matching accuracy.
 
-For the two feature sets $P$ and $Q$,
-a potential element may be obtained by using two feature tuples sampled from each feature set separately.
-For $N^{th}$-order matching, a naive way to construct the potential elements is as follows:
-first find all feature tuples for $P$ and $Q$, as $F_1$ and $F_2$; then $\forall (f_{i_1}^1, \cdots, f_{i_N}^1)\in F_1$,
+For the two feature sets $P_1$ and $P_2$,
+a potential element may be obtained by using a feature tuple sampled from each feature set separately.
+For $N$th-order matching, a naive way to construct the potential elements is as follows:
+first find all feature tuples for $P_1$ and $P_2$, as $F_1$ and $F_2$; then $\forall (f_{i_1}^1, \cdots, f_{i_N}^1)\in F_1$,
 calculate the potentials for $(f_{i_1}^1, \cdots, f_{i_N}^1)$ with all feature tuples in $F_2$.
-This naive method is very time-consuming, which is why sampling is used.
+This is very time-consuming, so sampling is used instead.
 We employ random sampling for general feature matching problems,
 but this does not preclude more directed sampling if prior knowledge of the matching problems gives guidance.
 
-Our sampling approach is to repeatedly randomly sample $t_1$ feature tuples for each feature point from $P$, and fully sample $Q$.
-For $P$, we repeatedly take one feature as a required element, and then randomly choose $t_1$ feature tuples containing this required element.
-We repeat this process until all features in $P$ have been chosen once as a required element.
-So the number of feature tuples in $F_1$ is $N_1t_1$, and $N_2^N$ for $F_2$.
-Then, $\forall (f_{i_1}^1, \cdots, f_{i_N}^1)\in F_1$, we find $k$ most similar features in $F_2$ to build $N$ potential elements as $\phi_i^k$.
+Our sampling approach is to repeatedly randomly sample $t_1$ feature tuples for each feature point from $P_1$, and fully sample $P_2$.
+For $P_1$, we repeatedly take one feature as a required element, and then randomly choose $t_1$ feature tuples containing this required element.
+We repeat this process until all features in $P_1$ have been chosen once as a required element.
+Thus, the number of feature tuples in $F_1$ is $N_1t_1$, and $N_2^N$ in $F_2$.
+Then, $\forall (f_{i_1}^1, \cdots, f_{i_N}^1)\in F_1$, we find the $k$ most similar features in $F_2$ to build $N$ potential elements as $\phi_i^k$.
 Combining all the potential elements obtained, we form the desired potential element set $\theta_N = \{\phi_i^k\}_{i=1}^{N_1 t_1}$, of size $|\theta_N| = N_1 t_1 k$.
-For $P$, the sampling cost is $O(N_1 \, t_1 \, k \, logN_2)$.
+For $P_1$, the sampling cost is $O(N_1  t_1 k \log N_2)$.
 The parameters $t_1$ and $k$ must be chosen according to the size of the feature sets.
 In practice, for two feature sets each with hundreds points,
 we may take $t_1 \approx 100$ and $k\approx300$ for third-order matching.
@@ -217,7 +212,7 @@ where $\Omega$ is an arbitrary permutation.
 Earlier work~\cite{Zass08,Duchenne09,Aiping10} adopted random sampling,
 but failed to impose any constraint on the sampling process to take into account supersymmetry,
 leading to the possibility that feature tuples may be sampled multiple times.
-For example, for third-order matching, it is possible that a feature tuple $(f_{i_1}^1, f_{i_2}^1, f_{i_3}^1)$ may be sampled from $P$ and $(f_{i_1}^2, f_{i_2}^2, f_{i_3}^2)$ from $Q$,
-and also a feature tuple $(f_{i_1}^1, f_{i_3}^1, f_{i_2}^1)$ sampled from $P$ and $(f_{i_1}^2, f_{i_3}^2, f_{i_2}^2)$ from $Q$. That will create two tensor elements $\phi_3(s_{i_1}, s_{i_2}, s_{i_3})$ with index $(s_{i_1}, s_{i_2}, s_{i_3})$ and $\phi_3(s_{i_1}, s_{i_3}, s_{i_2})$ with index $(s_{i_1}, s_{i_3}, s_{i_2})$, which are the same. However, we just need one tensor element to express the affinity measure on the assignment group $(s_{i_1}, s_{i_2}, s_{i_3})$ for any permutation of indices.
+For example, for third-order matching, it is possible that a feature tuple $(f_{i_1}^1, f_{i_2}^1, f_{i_3}^1)$ may be sampled from $P_1$ and $(f_{i_1}^2, f_{i_2}^2, f_{i_3}^2)$ from $P_2$,
+and also a feature tuple $(f_{i_1}^1, f_{i_3}^1, f_{i_2}^1)$  from $P_1$ and $(f_{i_1}^2, f_{i_3}^2, f_{i_2}^2)$ from $P_2$. That would create two tensor elements $\phi_3({i_1}, {i_2}, {i_3})$ with index $({i_1}, {i_2}, {i_3})$ and $\phi_3({i_1}, {i_3}, {i_2})$ with index $({i_1}, {i_3}, {i_2})$, which are the same. However, we just need one tensor element to express the affinity on the assignment group $({i_1}, {i_2}, {i_3})$ for any permutation of indices.
 This extra sampling is not only inefficient, but may also reduce the accuracy of the power iteration: one set of symmetrically related elements  may be represented by a different number of samples than another set of  symmetrically related elements, which unbalances the power iteration process, and can lead to inaccurate results.
-Therefore, our sampling method reduces the sampling cost, while also improving the accuracy of the power iteration.
+Our sampling method reduces the sampling cost, while also improving the accuracy of the power iteration.
