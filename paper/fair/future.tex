@@ -1,21 +1,27 @@
-\section{Conclusion}
+\section{Conclusions}
 \label{sec:conclusion}
 
-This paper has presented the novel SuperMatching algorithm,
+This paper has presented the SuperMatching algorithm,
 which tackles the classic computer graphics and computer vision problem of feature matching, independently of feature description.
 It is an efficient higher-order matching algorithm which uses a compact form of the higher-order supersymmetric affinity tensor to express relatedness of features.
-Matching is performed using an efficient power iteration method, whose efficiency takes advantage of supersymmetry and avoids computing with zero elements.
+Matching is performed using an efficient power iteration method, which takes advantage of supersymmetry and avoids computing with zero elements.
 We also give an efficient sampling strategy for choosing feature tuples to create the affinity tensor.
 Experiments on both synthetic and real 2D and 3D data sets show that
 SuperMatching has greater accuracy than competing methods, whilst having competitive performance.
+
+\cz{In the future, we would like to improve the performance of the SuperMatching algorithm. 
+Parallelization is always possible since the random sampling could be executed in parallel.
+It is also interesting to see more challenging deformable imperfect 3D data matching in the real capturing scenarios.
+Finally, it would be useful to apply SuperMatching in wider fields, 
+as it is a foundation for many computer graphics and computer vision applications. }   
 
 %%===========================================================
 %% The Appendices part is started with the command \appendix;
 %% appendix sections are then done as normal sections
 %\appendix
 
-\textbf{Acknowledgements}. We are grateful to them for sharing related source codes, execution programs, and testing data, whose name would appear after the review.
-Then SuperMatching source codes would be public under the GNU Lesser General Public License.
+\textbf{Acknowledgements}. We are grateful to [omitted for review] for sharing source code, executable programs, and test data.
+SuperMatching source code [will be] publicly available under the GNU Lesser General Public License from [omitted for review].
 %\section{Why higher-order power iteration solving of supersymmetric tensor is efficient?}
 %We explain the idea using a third-order affinity tensor as an example.
 
