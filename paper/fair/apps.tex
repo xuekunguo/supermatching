@@ -17,15 +17,15 @@ Firstly, we used SuperMatching to build the pairwise matchings between 3D rigid 
 Then, rigid transforms can be computed from each three compatible matching points.
 The transform which brings the most data points within a threshold of a point in the model is chosen as the optimal aligning transform~\cite{Huttenlocher90}.
 As discussed in \cite{Gelfand05}, such a voting scheme is guaranteed to find the optimal alignment between the pairwise scans and is robust to the initial pose of the input scans.
-Figure~\ref{fig:3DPair} shows some registration results for the Rooster model from \cite{Chuang09}. On the left column is the original state,
-then the following columns are our matching and registered results (without any ICP refinement \cite{Besl92}); 
-\cz{on the right column is the result produced by \cite{Aiger08}, whose uncorrect registration maybe result from the initial poses differences.}
+Figure~\ref{fig:3DPair} shows some registration results for the Rooster model from \cite{Chuang09}. The left column shows the original state,
+then the following columns are our matching and registered results (without  ICP refinement \cite{Besl92});
+the right column shows the corresponding result produced by \cite{Aiger08}, which has clearly failed, presumably due that only 4 points were used to deduce the registration.
 %%%RRM Please colour the right hand 2 columns using the same colours, so they can be %%%RRM easily compared.
 %%%czq The color consistency would be done at Jan. 16.
 
 \begin{figure}[t!]
 \centering
-  \includegraphics[width=0.99\linewidth]{figures/RoosterPair.pdf}
+  \includegraphics[width=0.99\linewidth]{figures/RoosterPair2.pdf}
   \caption{Pairwise alignment of Rooster \emph{$I-II$} and \emph{$II-III$} scans. From left to right: before alignment, matching result, our alignment result, alignment result from [Aiger et al. 2008].}
 \label{fig:3DPair}
 \end{figure}
@@ -55,10 +55,9 @@ The example also demonstrates that SuperMatching is general, in the sense that i
 
 \begin{figure}[h]
 \centering
-  \includegraphics[width=0.9\linewidth]{figures/3DReal.jpg}
+  \includegraphics[width=1.05\linewidth]{figures/kinect.pdf}
   \caption{3D real depth scans with color information, captured using Kinect.
-  Above: two given different local pre-scans.  Below: a single scan.
-  Matching points are connected by green lines.}
+    Matching points are connected by colorful lines.}
 \label{fig:3DReal}
 \end{figure}
 
@@ -129,8 +128,7 @@ To enable direct and fair comparison,
 In these tests, SuperMatching considered $3\times 10^6$ feature tuples, while the method of \cite{Duchenne09} considered $10\times 10^6$ features  and the method of \cite{Zass08} used $4\times 10^6$.
 The difference mainly results from differences in sampling strategy; note that we have the lowest  sampling cost.
 The average running time to match two feature sets each with $100$ features was around 8s for SuperMatching, 13s for \cite{Duchenne09}, 6.5s for \cite{Zass08}, and 5s for \cite{Cour06}.
-\cz{The reason that SuperMatching takes less time than the third-order tensor algorithm in \cite{Duchenne09} mainly due to two facts:
-(i) fewer feature tuples; (ii) more efficient supersymmetric higher-order power iteration solution.}
+SuperMatching takes less time than the third-order tensor algorithm in \cite{Duchenne09} both because it uses fewer feature tuples and due to the more efficient supersymmetric higher-order power iteration solution.
 
 Matching accuracy was assessed by the number of correctly matched points (known from the  ground truth) divided by the total number of points that could be matched.
 The results are summarised in Table~\ref{tab:errorrate1} and illustrated in Figure~\ref{fig:2DDeformable}.
@@ -138,7 +136,7 @@ Table~\ref{tab:errorrate1} demonstrates that SuperMatching achieves a higher mat
 The worst matching result is produced by the spectral quadratic assignment algorithm \cite{Cour06},
 due to the lower discriminatory power of pairwise geometric constraints.
 Higher-order algorithms perform better due to the more complex geometric constraints.
-Nevertheless, SuperMatching also significantly outperforms the third-order algorithm \cite{Duchenne09} and the hypergraph matching algorithm \cite{Zass08}, 
+Nevertheless, SuperMatching also significantly outperforms the third-order algorithm \cite{Duchenne09} and the hypergraph matching algorithm \cite{Zass08},
 as these do not tale proper advantage of supersymmetry.
 
 %----------------------------------------
