@@ -9,7 +9,7 @@ e.g.\ SIFT~\cite{Lowe04}, spin images~\cite{Johnson99}, slippage features~\cite{
 Point-to-point matching can give misleading results as wrong correspondences are readily established.
 
 Matching point pairs  in one set to point pairs in the other set leads to a quadratic assignment problem.
-The usual approach is now to take into account both similarity of the point features, \emph{and} the Euclidean distance between the points in a pair,
+Such methods now  take into account both similarity of the point features, \emph{and} either the Euclidean distance between the points in a pair,
 assuming the two sets of points are related by a rigid transformation~\cite{Leordeanu05,Cour06}, or the geodesic distance, assuming isometry~\cite{li08,Tevs09,Ovsjanikov10,Tevs11,SahilliogluY11,Windheuser11}.
 Unfortunately, this quadratic assignment problem is NP-hard, and again, matches found are not always reliable.
 
@@ -23,7 +23,7 @@ and higher-order power iteration was used to achieve the final matching.
 \cite{Aiping10} built a unified multiple higher-order affinity tensor, by extending the third-order tensor method~\cite{Duchenne09}.
 \cite{Chertok10} treated the tensor as a joint probability of assignments, marginalized the affinity tensor to a matrix,
 and found optimal soft assignments by eigendecomposition of the matrix.
-Higher-order assignment problems typically require large amounts of memory and computational resources. By reducing the number of elements needed to represent the affinity measures, the above approaches can match moderate numbers (many hundreds) of features. However, these 2D approaches do not take advantage of supersymmetry of the affinity tensor, SuperMatching does so, leading to an improvement in matching accuracy.
+Higher-order assignment problems typically require large amounts of memory and computational resources. By reducing the number of elements needed to represent the affinity measures, the above approaches can match moderate numbers (many hundreds) of features. However, these 2D approaches do not take advantage of supersymmetry of the affinity tensor. SuperMatching does so, leading to an improvement in matching accuracy.
 3D problems are even more challenging.
 
 A related idea also using higher order constraints for 3D registration is the 4-points congruent sets method (4PCS) proposed in~\cite{Aiger08}.

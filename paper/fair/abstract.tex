@@ -1,11 +1,10 @@
 Feature matching is a challenging problem lying at the heart of numerous computer graphics and computer vision applications.
 We present here the \emph{SuperMatching} algorithm for finding correspondences between two sets of features.
 It does so by considering triangles or higher-order tuples of points, going beyond the pointwise and pairwise approaches typically used.
-SuperMatching is formulated using a supersymmetric tensor representing an affinity metric which takes into account geometric constraints between features:
+SuperMatching is formulated using a supersymmetric tensor representing an affinity metric which takes into account feature similarity and geometric constraints between features:
 feature matching is cast as a higher-order graph matching problem.
 SuperMatching takes advantage of supersymmetry to devise an
 efficient sampling strategy to estimate the affinity tensor, as well as to store the estimated tensor compactly.
-Matching is performed by an efficient higher-order power iteration approach which takes advantage of the compact representation of the supersymmetric affinity tensor.
+Matching is performed by an efficient higher-order power iteration approach which takes advantage of this compact representation.
 Experiments on both synthetic and real captured data show that
-SuperMatching provides accurate feature matching for a wide range of 2D and 3D features,
-giving more reliable results than other state-of-the-art approaches, with competitive computational cost. 
+SuperMatching provides more accurate feature matching than other state-of-the-art approaches for a wide range of 2D and 3D features, with competitive computational cost. 
