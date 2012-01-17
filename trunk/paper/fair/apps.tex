@@ -3,32 +3,69 @@
 \label{sec:experiments}
 
 We have used synthetic data and real captured data to evaluate the SuperMatching algorithm.
-To demonstrate  the SuperMatching algorithm's independence of feature descriptors, several descriptors have been used.
-For some shapes, only a uniform sampling of points on the testing shapes were employed,
-which means that we uniformly sample the input points to give a set of feature points.
-For other colored shapes, both SIFT feature points and uniform sampling points were used.
-We used third-order matching in our experiments, but it would be simple to use higher order.
+To demonstrate  the SuperMatching algorithm's independence of feature descriptors, several descriptors were used.
+In some cases, we simply uniformly sampled feature points on the objects, and used a trivial feature descriptor of 1 for all points, meaning affinities are based simply on distances between feature points---this allows us to show our method is robust in the presence of ambiguous feature descriptors.
+In other cases, we still used uniformly distributed feature points, together with SIFT or slippage feature descriptors, which shows that feature points do not have to be carefully chosen.
+We used third-order matching in our experiments, but it would be simple (but more costly) to use higher order.
 
 %-------------------------------------------------------------------------
 \subsection{3D Rigid Shapes Scans}
 \label{subsec:3DRigid}
 
-Firstly, we used SuperMatching to build the pairwise matchings between 3D rigid shape scans based on the uniform sampling feature points.
-Then, rigid transforms can be computed from each three compatible matching points.
-The transform which brings the most data points within a threshold of a point in the model is chosen as the optimal aligning transform~\cite{Huttenlocher90}.
-As discussed in \cite{Gelfand05}, such a voting scheme is guaranteed to find the optimal alignment between the pairwise scans and is robust to the initial pose of the input scans.
+Firstly, we used SuperMatching to build pairwise matchings between 3D rigid shape scans based on uniformly sampled feature points.
+Rigid transforms can be computed from each triple of compatible matching points.
+The transform which brings the most data points within a threshold distance of a point in the model is chosen as the optimal alignment transform~\cite{Huttenlocher90}.
+As discussed in \cite{Gelfand05}, such a voting scheme is guaranteed to find the optimal alignment between pairwise scans and is robust to the initial pose of the input scans.
 Figure~\ref{fig:3DPair} shows some registration results for the Rooster model from \cite{Chuang09}. The left column shows the original state,
-then the following columns are our matching and registered results (without  ICP refinement \cite{Besl92});
-the right column shows the corresponding result produced by \cite{Aiger08}, which has clearly failed, presumably due that only 4 points were used to deduce the registration.
-%%%RRM Please colour the right hand 2 columns using the same colours, so they can be %%%RRM easily compared.
-%%%czq The color consistency would be done at Jan. 16.
+the two middle columns are our matching and alignment results, and
+the right column shows the corresponding result produced by \cite{Aiger08}, which has clearly failed, presumably as only 4 points were used to deduce the alignment.
+We compared the transformation matrix computed by the SuperMatching with the ground truth provided by \cite{Chuang09}.
+Table~\ref{tab:matrix} demonstrates that our computed matrices for I-II and I-III are so similar with the ground truth. 
 
 \begin{figure}[t!]
 \centering
   \includegraphics[width=0.99\linewidth]{figures/RoosterPair2.pdf}
-  \caption{Pairwise alignment of Rooster \emph{$I-II$} and \emph{$II-III$} scans. From left to right: before alignment, matching result, our alignment result, alignment result from [Aiger et al. 2008].}
+  \caption{Pairwise alignment of Rooster \emph{$I-II$} and \emph{$II-III$} scans.
+  From left to right: before alignment, our matching result, our alignment result, alignment result from [Aiger et al. 2008].}
 \label{fig:3DPair}
 \end{figure}
+
+\begin{table}[tb]
+%\vspace{-4mm}
+\centering
+%\renewcommand{\arraystretch}{0.8}
+\tabcolsep=1pt
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\caption{Transformation matrix comparison}
+\hspace{-5ex}
+\label{tab:matrix}
+\small
+\begin{tabular}{|c |c c c c | c c c c|}
+\toprule
+ & \multicolumn{4}{|c|}{ {computed matrix}} & \multicolumn{4}{c|}{ {ground truth}} \\
+\hline
+{I} & {0.706748} 	& {-0.004298}   & {-0.705324}	& {-131.983}    & {0.707322} 	& {-0.004322}   & {-0.706878}	& {-132.334}   \\
+%\hline
+{|}&{-0.012433}     &  {1.000000}	& {-0.01300} 	& {-3.40032}  & {-0.0115584}	& {0.999777}	& {-0.0176787}	& {-3.31322}   \\
+%\hline
+{II}&{0.711232}	    & {0.019837}	& {0.700231}	& {-55.0001}  & {0.706797}     & {0.0206749}   & {0.707114}	& {-54.1285}   \\
+%\hline
+&{0}             & {0}	        & {0}	        & {1}          & {0}             & {0}	        & {0}	        & {1}          \\
+\hline
+{I} & {0.000743} & {-0.022132} &  {-1.000000} & {-188.032}          & {0.000735502} & {-0.021993} &  {-0.999758} & {-187.661}  \\
+%\hline
+{|}  &{-0.031999} & {1.000000} &{-0.022000} & {-4.12834}  	&{-0.0322266} & {0.999238} &{-0.0220053} & {-4.1392}   \\
+%\hline
+{III} &{1.000000} & {0.031897} &{0.0000026} &{-185.893}       &{0.99948} & {0.032235} &{2.61817e-05} &{-186.005}  \\
+%\hline
+&        {0}             & {0}	        & {0}	        & {1}          & {0}             & {0}	        & {0}	        & {1}          \\
+\bottomrule
+\end{tabular}%
+%\vspace{-27pt}
+%\vspace{-8mm}
+\end{table}%
+
 
 Next, we used SuperMatching to build a complete model from a set of scans from different viewpoints.
 For these multiple scans, third-order matching was first performed between each pair of consecutive scans.
@@ -48,16 +85,15 @@ Figure~\ref{fig:3DRigid} illustrates the approach and shows the result.
 \label{subsec:3dColored}
 
 We next provide a further real-world, noisy, example of the use of SuperMatching.
-In this case, data with surface color information was captured using a Kinect camera \cite{Kinect12},
-and both SIFT and uniform sampling points were used as a basis for SuperMatching.
+In this case, data with surface color information was captured using a Kinect camera. \cite{Kinect12},
+Uniform samples and SIFT feature vectors were used as a basis for SuperMatching.
 This resulted in robust matches without significant outliers, as illustrated in Figure~\ref{fig:3DReal}.
-The example also demonstrates that SuperMatching is general, in the sense that it is independent of choice of feature descriptors.
 
 \begin{figure}[h]
 \centering
   \includegraphics[width=1.05\linewidth]{figures/kinect.pdf}
   \caption{3D real depth scans with color information, captured using Kinect.
-    Matching points are connected by colorful lines.}
+    Matching points are connected by colored lines.}
 \label{fig:3DReal}
 \end{figure}
 
@@ -65,16 +101,16 @@ The example also demonstrates that SuperMatching is general, in the sense that i
 \subsection{3D Articulated Shape Synthetic Data}
 \label{subsec:3darticulated}
 
-A further application is registration of (approximately) articulated shapes. Such problems are common in dynamic range scanning.
+A further application is registration of (approximately) articulated shapes. Such problems are common in dynamic range scanning such as human motion capture.
 Given a sequence of range scans of a moving articulated subject, our method automatically registers all data to produce a complete 3D shape.
-Note that, unlike many other methods, we do not need  manual segmentation,  markers, or a prior template.
+Unlike many other methods, we do not need  manual segmentation,  markers, or a prior template.
 While the problem of non-rigid registration of deformable shapes is ill-posed and no algorithm is applicable to all scenarios,
 we believe that our approach pushes the limits of what can be achieved with minimal prior information. SuperMatching provides robust, accurate matching,
 even although the partial scans have holes and different poses.
 
-Again uniformly sampled points were used, these permit robust registration of scans by computing piecewise rigid transformations between matches.
-These transformations are propagated from feature points to the entire set of points in each scan using nearest neighbor interpolation.
-Figure~\ref{fig:3DRobot} shows two registration examples of an articulated model.
+Again uniformly sampled points were used. Registration of scans was performed by computing piecewise rigid transformations between matches.
+These transformations may be propagated from feature points to the entire set of points in each scan using nearest neighbor interpolation.
+Figure~\ref{fig:3DRobot} shows a registration example for an articulated model.
 On the left is our result, on the right is the registered result produced by the method in \cite{Chang09}.
 
 \begin{figure}[t!]
@@ -87,7 +123,7 @@ On the left is our result, on the right is the registered result produced by the
 
 For a sequence of partial articulated data, registration is performed in two main steps.
 We first precompute an initial pairwise registration for each pair of consecutive frames, then perform articulated shape reconstruction as in \cite{Pekelny08}.
-Segmentation of the scans into rigid parts can readily be done by clustering the transformations obtained from the slippage feature points,
+Segmentation of the scans into rigid parts can readily be done by clustering the transformations obtained from slippage feature points,
 using the mean shift algorithm \cite{Comaniciu02}.
 This information is used as input to the second step of articulated shape reconstruction following \cite{Pekelny08};
 this algorithm identifies and tracks the rigid parts in each frame, while accumulating  geometric information over time.
@@ -102,7 +138,7 @@ the greatest distance error in any one frame was $0.012 D$.
 \centering
   \includegraphics[width=0.95\linewidth]{figures/3DHand.pdf}
   \caption{Registration of an articulated hand.
-  Above: partial synthetic data with holes is generated from a deformation sequence.
+  Above: partial synthetic data with holes generated from a deformation sequence.
   Middle: reconstructed meshes are deduced from the registration process.
   Below: first frame ground truth shape, and average and maximum distance from the ground truth per frame.}
 \label{fig:3DHand}
@@ -123,12 +159,12 @@ a third-order tensor algorithm \cite{Duchenne09},
 and the hypergraph matching algorithm \cite{Zass08}, using the authors' code in each case.
 All methods were executed in Matlab on a $2.3$GHz Core2Duo with $2$GB memory.
 To enable direct and fair comparison,
-\cite{Duchenne09}, \cite{Zass08} and SuperMatching used the same potential and the same tensor size $(N_1N_2)^N$.
+\cite{Duchenne09}, \cite{Zass08} and SuperMatching used the same potential and the same tensor size.
 
-In these tests, SuperMatching considered $3\times 10^6$ feature tuples, while the method of \cite{Duchenne09} considered $10\times 10^6$ features  and the method of \cite{Zass08} used $4\times 10^6$.
+In these tests, SuperMatching considered $3\times 10^6$ feature tuples, while the method of \cite{Duchenne09} considered $10\times 10^6$ tuples  and the method of \cite{Zass08} used $4\times 10^6$.
 The difference mainly results from differences in sampling strategy; note that we have the lowest  sampling cost.
 The average running time to match two feature sets each with $100$ features was around 8s for SuperMatching, 13s for \cite{Duchenne09}, 6.5s for \cite{Zass08}, and 5s for \cite{Cour06}.
-SuperMatching takes less time than the third-order tensor algorithm in \cite{Duchenne09} both because it uses fewer feature tuples and due to the more efficient supersymmetric higher-order power iteration solution.
+SuperMatching takes less time than the third-order tensor algorithm in \cite{Duchenne09} both because it uses fewer feature tuples and because of the more efficient supersymmetric higher-order power iteration solution.
 
 Matching accuracy was assessed by the number of correctly matched points (known from the  ground truth) divided by the total number of points that could be matched.
 The results are summarised in Table~\ref{tab:errorrate1} and illustrated in Figure~\ref{fig:2DDeformable}.
