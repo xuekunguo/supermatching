@@ -1,7 +1,7 @@
 \section{Introduction}
 \label{sec:introduction}
 
-Building correspondences between two sets of features belonging to a pair of 2D images or or 3D shapes
+Building correspondences between two sets of features belonging to a pair of 2D images or 3D shapes
 is a fundamental problem in many computer graphics, geometry processing, and computer vision tasks.
 It arises in applications such as
 registration of partial or entire 3D shapes~\cite{Besl92,Gelfand05,Aiger08,li08,Chang09,Zeng10,vanKaick11,Chang11},
@@ -16,8 +16,9 @@ Determining correspondences is typically done in three steps~\cite{Johnson99,Low
 and (iii) determining the most suitable matching between the two sets of points.
 The former two problems have attracted considerable attention; their importance is clear.
 However, even supposing ideal feature descriptors and selectors that capture the most important and distinctive information about the neighborhood of each salient point,
-state-of-the-art algorithms  still find it challenging to determine the best matching~\cite{vanKaick11}:  real input data is noisy, and data may only be approximately in correspondence. The problem is further complicated by the presence of symmetric and congruent regions.
-Various feature matching algorithms have been devised to be robust in the presence of such issues. RANSAC-like algorithms~\cite{Tevs09,Tevs11}  minimize the effects of outliers,
+state-of-the-art algorithms  still find it challenging to determine the best matching~\cite{vanKaick11}:  real input data is noisy, and data may only be approximately in correspondence. 
+The problem is further complicated by the presence of symmetric and congruent regions.
+Various feature matching algorithms have been devised to be robust in the presence of such issues. RANSAC-like algorithms~\cite{Tevs09,Tevs11} minimize the effects of outliers,
 while generalized multidimensional scaling~\cite{Bronstein11} and
 heat kernel maps~\cite{Ovsjanikov10}  consider the manifold in which the points are embedded. M{\"o}bius transformations~\cite{Lipman09,Kim11} also provide a powerful approach.
 However, these previous algorithms generally do not treat the matching step as an independent problem, even if matching is not tightly coupled with feature description and selection.
@@ -61,4 +62,5 @@ The contributions of this paper include:
 
 Our experiments using both synthetic and real captured data sets show that SuperMatching is more accurate and robust than prior methods,
 yet has similar computational cost.
-Importantly, it is a general matching approach, independent of choice of 2D or 3D feature descriptors, feature point selection method, and constraints placed on tuples.
+Importantly, it is a general matching approach, independent of choice of 2D or 3D feature descriptors.
+%feature point selection method, and constraints placed on tuples.
