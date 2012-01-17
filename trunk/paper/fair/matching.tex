@@ -41,10 +41,12 @@ A tensor element with $(i_1,\ldots,i_N)\in \theta_N$ is called a \emph{potential
 A potential element represents one matching result out of all possible matching candidates.
 Potential elements are further detailed in  Section~\ref{subsec:sampling}.
 
-Using Definition~\ref{mot:def2}, we can reduce the amount of storage needed,  byrepresenting every potential element $\mathcal{T}_N(i_1,\ldots,i_N)$ by its canonical entry $\mathcal{T}_N(\mathrm{sort}(i_1,\ldots,i_N))$, $\forall (i_1,\ldots,i_N)\in \theta_N$. Each stored value thus provides the value for $N!$ entries.
+Using Definition~\ref{mot:def2}, we can reduce the amount of storage needed, 
+by representing every potential element $\mathcal{T}_N(i_1,\ldots,i_N)$ by its canonical entry $\mathcal{T}_N(\mathrm{sort}(i_1,\ldots,i_N))$, $\forall (i_1,\ldots,i_N)\in \theta_N$. 
+Each stored value thus provides the value for $N!$ entries.
 Furthermore, as non-potential elements all have value zero, there is no need to store them.
 This greatly reduces both storage, and the amount of feature tuple sampling
-needed  when estimating the affinity tensor, as discussed in Section~\ref{subsec:sampling}.
+needed when estimating the affinity tensor, as discussed in Section~\ref{subsec:sampling}.
 At the same time, it can be used to make the power iteration process more efficient: see Section~\ref{subsec:oursymmhopm}.
 
 %-------------------------------------------------------------------------
@@ -52,11 +54,11 @@ At the same time, it can be used to make the power iteration process more effici
 \label{subsec:oursymmhopm}
 
 \begin{algorithm}[!t]
-\caption{\small Higher-order power iteration solution (with $\mathcal{C}_1$ norm) for the \protect\\
+\caption{\small Higher-order power iteration solution (with $\mathcal{\ell}^1$ norm) for the \protect\\
          \mbox{}\hspace{15ex}\small supersymmetric affinity tensor }
 \label{alg2}
 \begin{algorithmic}[1]
-\REQUIRE \small $N{th}$-order supersymmetric affinity tensor
+\REQUIRE \small $N^{th}$-order supersymmetric affinity tensor
 \ENSURE  \small Unit $\mathcal{\ell}^1$-norm vector $\boldsymbol{u}$
 \STATE   \small \; Initialize $\boldsymbol{v}_0$ to random values in [0,1], $k=1$
 \REPEAT
@@ -108,7 +110,7 @@ To perform higher-order power iteration of $\boldsymbol{u}$, we must compute $\h
 {(\boldsymbol{u}^{(k-1)})}^{\mathop{\star}\limits^{\mathcal{T}_N} (N-1)}$, where
 $\mathop{\star}\limits^{\mathcal{T}_N}$ is a so-called $\mathcal{T}_N$-product,
 and $\mathcal{I}$ is the unit tensor~\cite{Kofidis02}.
-For $\hat{\boldsymbol{u}}^{(k)}$ belonging to an $N{th}$-order supersymmetric affinity tensor, this can be formulated as follows:
+For $\hat{\boldsymbol{u}}^{(k)}$ belonging to an $N^{th}$-order supersymmetric affinity tensor, this can be formulated as follows:
 %\begin{small}
 \begin{flalign}
 \label{equ:eqsmain2}
@@ -159,7 +161,7 @@ For $P_1$, we take each feature in turn as a required element, and then randomly
 Thus, the number of feature tuples in $F_1$ is $N_1t_1$, and $N_2^N$ in $F_2$.
 Then, for each feature tuple in $F_1$, we find the $k$ most similar features in $F_2$ to build $k$ potential elements as $\phi_i^k$.
 Combining all the potential elements obtained, we form the desired potential element set $\theta_N = \{\phi_i^k\}_{i=1}^{N_1 t_1}$, of size $|\theta_N| = N_1 t_1 k$.
-For $P_1$, the sampling cost is $O(N_1  t_1 k \log N_2)$, where the $\log N_2$ arises from use of a $k$D-tree to search for the $k$ most similar features in $F_2$.
+For $P_1$, the sampling cost is $O(N_1  t_1 k \log N_2)$, where the $\log N_2$ arises from use of a KD-tree to search for the $k$ most similar features in $F_2$.
 The parameters $t_1$ and $k$ must be chosen according to the size of the feature sets.
 In practice, for two feature sets each with hundreds points,
 we may take $t_1 \approx 100$ and $k\approx300$ for third-order matching.

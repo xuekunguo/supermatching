@@ -18,8 +18,10 @@ The transform which brings the most data points within a threshold distance of a
 As discussed in \cite{Gelfand05}, such a voting scheme is guaranteed to find the optimal alignment between pairwise scans and is robust to the initial pose of the input scans.
 Figure~\ref{fig:3DPair} shows some registration results for the Rooster model from \cite{Chuang09}. The left column shows the original state,
 the two middle columns are our matching and alignment results, and
-the right column shows the corresponding result produced by \cite{Aiger08}, which has clearly failed, presumably as only 4 points were used to deduce the alignment.
-The transformation matrix computed by  SuperMatching is compared with the ground truth provided by \cite{Chuang09} in Table~\ref{tab:matrix}, which demonstrates that our computed matrices for matching I-II and I-III are very close to the ground truth. 
+the right column shows the corresponding result produced by \cite{Aiger08}, which has clearly failed.
+The transformation matrix computed by  SuperMatching is compared with the ground truth provided by \cite{Chuang09} in Table~\ref{tab:matrix},
+which demonstrates that our computed matrices for matching I-II and I-III are very close to the ground truth.
+Note that the matrices are used to transform and alignment from II to I and III to I transformations. 
 
 \begin{figure}[t!]
 \centering
@@ -40,23 +42,23 @@ The transformation matrix computed by  SuperMatching is compared with the ground
 \hspace{-5ex}
 \label{tab:matrix}
 \small
-\begin{tabular}{|c |rrrr |rrrr|}
+\begin{tabular}{c |rrrr |rrrr}
 \toprule
- & \multicolumn{4}{|c|}{ {computed matrix}} & \multicolumn{4}{c|}{ {ground truth}} \\
+ & \multicolumn{4}{|c|}{ {computed matrix}} & \multicolumn{4}{c}{ {ground truth}} \\
 \hline
-{I} & {0.7067} 	& {-0.0043}   & {-0.7053}	& {-132.0}    & {0.7073} 	& {-0.0043}   & {-0.7069}	& {-132.3}   \\
+{I} & {0.7298} 	& {-0.0046}   & {-0.6822}	& {-127.6}  & {0.7073} 	& {-0.0043}   & {-0.7069}	& {-132.3}   \\
 %\hline
-{|}&{-0.0124}     &  {1.0000}	& {-0.0130} 	& {-3.4}  & {-0.0116}	& {0.9998}	& {-0.0177}	& {-3.3}   \\
+{|}&{-0.0056}     &  {1.0000}	& {-0.0155} & {-3.016}  & {-0.0116}	& {0.9998}	& {-0.0177}	& {-3.3}   \\
 %\hline
-{II}&{0.7112}	    & {0.0198}	& {0.70021}	& {-55.0}  & {0.7068}     & {0.02067}   & {0.7071}	& {-54.1}   \\
+{II}&{0.6928}	    & {0.0206}	& {0.70021}	& {-50.05}  & {0.7068}     & {0.02067}   & {0.7071}	& {-54.1}   \\
 %\hline
 &{0}             & {0}	        & {0}	        & {1}          & {0}             & {0}	        & {0}	        & {1}          \\
 \hline
-{I} & {0.0007} & {-0.0221} &  {-1.0000} & {-188.0}          & {0.0007} & {-0.0220} &  {-0.9998} & {-187.7}  \\
+{I} & {0.0051} & {-0.0118} &  {-0.9948} & {-186.8}          & {0.0007} & {-0.0220} &  {-0.9998} & {-187.7}  \\
 %\hline
-{|}  &{-0.0320} & {1.0000} &{-0.0220} & {-4.1}  	&{-0.0322} & {0.9992} &{-0.0220} & {-4.1}   \\
+{|}  &{-0.0139} & {1.0028} &{-0.0218} & {-4.769}  	&{-0.0322} & {0.9992} &{-0.0220} & {-4.1}   \\
 %\hline
-{III} &{1.0000} & {0.0319} &{0.0000} &{-185.9}       &{0.9995} & {0.0322} &{0.0000} &{-186.0}  \\
+{III} &{1.0166} & {0.0362} &{0.0052} &{-176.6}       &{0.9995} & {0.0322} &{0.0000} &{-186.0}  \\
 %\hline
 &        {0}             & {0}	        & {0}	        & {1}          & {0}             & {0}	        & {0}	        & {1}          \\
 \bottomrule
@@ -84,9 +86,9 @@ Figure~\ref{fig:3DRigid} illustrates the approach and shows the result.
 \label{subsec:3dColored}
 
 We next provide a further real-world, noisy, example of the use of SuperMatching.
-In this case, data with surface color information was captured using a Kinect camera. \cite{Kinect12},
+In this case, data with surface color information was captured using a Kinect camera \cite{Kinect12}.
 Uniform samples and SIFT feature vectors were used as a basis for SuperMatching.
-This resulted in robust matches without significant outliers, as illustrated in Figure~\ref{fig:3DReal}.
+This resulted in robust matches, as illustrated in Figure~\ref{fig:3DReal}.
 
 \begin{figure}[h]
 \centering
@@ -102,7 +104,7 @@ This resulted in robust matches without significant outliers, as illustrated in 
 
 A further application is registration of (approximately) articulated shapes. Such problems are common in dynamic range scanning such as human motion capture.
 Given a sequence of range scans of a moving articulated subject, our method automatically registers all data to produce a complete 3D shape.
-Unlike many other methods, we do not need  manual segmentation,  markers, or a prior template.
+Unlike many other methods, we do not need  manual segmentation, markers, or a prior template.
 While the problem of non-rigid registration of deformable shapes is ill-posed and no algorithm is applicable to all scenarios,
 we believe that our approach pushes the limits of what can be achieved with minimal prior information. SuperMatching provides robust, accurate matching,
 even although the partial scans have holes and different poses.
@@ -124,7 +126,7 @@ For a sequence of partial articulated data, registration is performed in two mai
 We first precompute an initial pairwise registration for each pair of consecutive frames, then perform articulated shape reconstruction as in \cite{Pekelny08}.
 Segmentation of the scans into rigid parts can readily be done by clustering the transformations obtained from uniformly feature points,
 using the mean shift algorithm \cite{Comaniciu02}.
-This information is used as input to the second step of articulated shape reconstruction following \cite{Pekelny08};
+This information is used as input to the second step of articulated shape reconstruction following \cite{Pekelny08}:
 this algorithm identifies and tracks the rigid parts in each frame, while accumulating  geometric information over time.
 However, \cite{Pekelny08} requires the user to manually segment each range scan in advance, whereas we automatically determine  the segmentation.
 Figure~\ref{fig:3DHand} shows an articulated hand example.
