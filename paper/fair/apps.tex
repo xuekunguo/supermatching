@@ -19,8 +19,7 @@ As discussed in \cite{Gelfand05}, such a voting scheme is guaranteed to find the
 Figure~\ref{fig:3DPair} shows some registration results for the Rooster model from \cite{Chuang09}. The left column shows the original state,
 the two middle columns are our matching and alignment results, and
 the right column shows the corresponding result produced by \cite{Aiger08}, which has clearly failed, presumably as only 4 points were used to deduce the alignment.
-We compared the transformation matrix computed by the SuperMatching with the ground truth provided by \cite{Chuang09}.
-Table~\ref{tab:matrix} demonstrates that our computed matrices for I-II and I-III are so similar with the ground truth. 
+The transformation matrix computed by  SuperMatching is compared with the ground truth provided by \cite{Chuang09} in Table~\ref{tab:matrix}, which demonstrates that our computed matrices for matching I-II and I-III are very close to the ground truth. 
 
 \begin{figure}[t!]
 \centering
@@ -41,23 +40,23 @@ Table~\ref{tab:matrix} demonstrates that our computed matrices for I-II and I-II
 \hspace{-5ex}
 \label{tab:matrix}
 \small
-\begin{tabular}{|c |c c c c | c c c c|}
+\begin{tabular}{|c |rrrr |rrrr|}
 \toprule
  & \multicolumn{4}{|c|}{ {computed matrix}} & \multicolumn{4}{c|}{ {ground truth}} \\
 \hline
-{I} & {0.706748} 	& {-0.004298}   & {-0.705324}	& {-131.983}    & {0.707322} 	& {-0.004322}   & {-0.706878}	& {-132.334}   \\
+{I} & {0.7067} 	& {-0.0043}   & {-0.7053}	& {-132.0}    & {0.7073} 	& {-0.0043}   & {-0.7069}	& {-132.3}   \\
 %\hline
-{|}&{-0.012433}     &  {1.000000}	& {-0.01300} 	& {-3.40032}  & {-0.0115584}	& {0.999777}	& {-0.0176787}	& {-3.31322}   \\
+{|}&{-0.0124}     &  {1.0000}	& {-0.0130} 	& {-3.4}  & {-0.0116}	& {0.9998}	& {-0.0177}	& {-3.3}   \\
 %\hline
-{II}&{0.711232}	    & {0.019837}	& {0.700231}	& {-55.0001}  & {0.706797}     & {0.0206749}   & {0.707114}	& {-54.1285}   \\
+{II}&{0.7112}	    & {0.0198}	& {0.70021}	& {-55.0}  & {0.7068}     & {0.02067}   & {0.7071}	& {-54.1}   \\
 %\hline
 &{0}             & {0}	        & {0}	        & {1}          & {0}             & {0}	        & {0}	        & {1}          \\
 \hline
-{I} & {0.000743} & {-0.022132} &  {-1.000000} & {-188.032}          & {0.000735502} & {-0.021993} &  {-0.999758} & {-187.661}  \\
+{I} & {0.0007} & {-0.0221} &  {-1.0000} & {-188.0}          & {0.0007} & {-0.0220} &  {-0.9998} & {-187.7}  \\
 %\hline
-{|}  &{-0.031999} & {1.000000} &{-0.022000} & {-4.12834}  	&{-0.0322266} & {0.999238} &{-0.0220053} & {-4.1392}   \\
+{|}  &{-0.0320} & {1.0000} &{-0.0220} & {-4.1}  	&{-0.0322} & {0.9992} &{-0.0220} & {-4.1}   \\
 %\hline
-{III} &{1.000000} & {0.031897} &{0.0000026} &{-185.893}       &{0.99948} & {0.032235} &{2.61817e-05} &{-186.005}  \\
+{III} &{1.0000} & {0.0319} &{0.0000} &{-185.9}       &{0.9995} & {0.0322} &{0.0000} &{-186.0}  \\
 %\hline
 &        {0}             & {0}	        & {0}	        & {1}          & {0}             & {0}	        & {0}	        & {1}          \\
 \bottomrule
