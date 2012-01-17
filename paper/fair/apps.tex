@@ -5,7 +5,7 @@
 We have used synthetic data and real captured data to evaluate the SuperMatching algorithm.
 To demonstrate  the SuperMatching algorithm's independence of feature descriptors, several descriptors were used.
 In some cases, we simply uniformly sampled feature points on the objects, and used a trivial feature descriptor of 1 for all points, meaning affinities are based simply on distances between feature points---this allows us to show our method is robust in the presence of ambiguous feature descriptors.
-In other cases, we still used uniformly distributed feature points, together with SIFT or slippage feature descriptors, which shows that feature points do not have to be carefully chosen.
+In other cases, we still used uniformly distributed feature points, together with SIFT descriptors, which shows that feature points do not have to be carefully chosen.
 We used third-order matching in our experiments, but it would be simple (but more costly) to use higher order.
 
 %-------------------------------------------------------------------------
@@ -111,7 +111,7 @@ even although the partial scans have holes and different poses.
 Again uniformly sampled points were used. Registration of scans was performed by computing piecewise rigid transformations between matches.
 These transformations may be propagated from feature points to the entire set of points in each scan using nearest neighbor interpolation.
 Figure~\ref{fig:3DRobot} shows a registration example for an articulated model.
-On the left is our result, on the right is the registered result produced by the method in \cite{Chang09}.
+On the left is our result, on the right is the result produced by the method \cite{Chang09}.
 
 \begin{figure}[t!]
 \centering
@@ -123,7 +123,7 @@ On the left is our result, on the right is the registered result produced by the
 
 For a sequence of partial articulated data, registration is performed in two main steps.
 We first precompute an initial pairwise registration for each pair of consecutive frames, then perform articulated shape reconstruction as in \cite{Pekelny08}.
-Segmentation of the scans into rigid parts can readily be done by clustering the transformations obtained from slippage feature points,
+Segmentation of the scans into rigid parts can readily be done by clustering the transformations obtained from uniformly feature points,
 using the mean shift algorithm \cite{Comaniciu02}.
 This information is used as input to the second step of articulated shape reconstruction following \cite{Pekelny08};
 this algorithm identifies and tracks the rigid parts in each frame, while accumulating  geometric information over time.
