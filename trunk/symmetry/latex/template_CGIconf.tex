@@ -1,0 +1,77 @@
+\RequirePackage{fix-cm}
+%
+%\documentclass{svjour3}                     % onecolumn (standard format)
+%\documentclass[smallcondensed]{svjour3}     % onecolumn (ditto)
+%\documentclass[smallextended]{svjour3}       % onecolumn (second format)
+\documentclass[twocolumn]{svjour3}          % twocolumn
+\smartqed  % flush right qed marks, e.g. at end of proof
+\usepackage{graphicx}
+
+\usepackage{amssymb,amsmath}
+%\newcommand{definition}{[Definition]}
+%\newtheorem{definition}{Definition}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Supp}{Supp}
+
+%\ifpdf \usepackage[pdftex]{graphicx} \pdfcompresslevel=9
+%\else \usepackage[dvips]{graphicx} \fi
+
+%\PrintedOrElectronic
+
+% prepare for electronic version of your document
+%\usepackage{t1enc,dfadobe}
+
+%\usepackage{egweblnk}
+\usepackage{cite}
+\usepackage{algorithm}
+\usepackage[noend]{algorithmic}
+\usepackage{subfigure}
+\usepackage{epsfig}
+\usepackage{color}
+\definecolor{turquoise}{cmyk}{0.65,0,0.1,0.1}
+\definecolor{purple}{rgb}{0.65,0,0.65}
+\newcommand{\tofix}[1]{{\color{green}[FIX: #1]}}
+\newcommand{\ZQC}[1]{{\color{red}[Zhiquan: #1]}}
+\newcommand{\YC}[1]{{\color{blue}[Yin: #1]}}
+\newcommand{\YKL}[1]{{\color{magenta}[Yukun: #1]}}
+\newcommand{\RRM}[1]{{\color{purple}[Ralph: #1]}}
+
+% For backwards compatibility to old LaTeX type font selection.
+% Uncomment if your document adheres to LaTeX2e recommendations.
+\let\rm=\rmfamily    \let\sf=\sffamily    \let\tt=\ttfamily
+\let\it=\itshape     \let\sl=\slshape     \let\sc=\scshape
+\let\bf=\bfseries
+
+\journalname{CGI2012} % The correct name will be entered by the editor
+\begin{document}
+
+\title{Generalized partial symmetry of shapes}
+\subtitle{Insert your subtitle here, otherwise leave blank}
+\author{First Author \and Second Author}
+\institute{F. Author \at first adress \and S. Author \at second address}
+\date{ }% The correct dates will be entered by the editor
+
+\maketitle
+
+\begin{abstract}
+In this paper, we describe a new algorithm for detecting partial symmetry in shapes.
+Our algorithm computes rigid symmetries, i.e., subsets of a shape that reoccur several times within the model differing only by translation, rotation or mirroring.
+Our algorithm is based on matching locally coherent constellations of meaningful parts on the object surfaces.
+In comparison to previous work, the new algorithm is able to detect partial symmetric parts without restrictions to regular patterns or nested hierarchies.
+In addition, working on relevant meaningful parts only leads to a strong reduction in memory and processing costs such that very large data sets can be handled.
+We apply the algorithm to a number of real world 2D and 3D scanner data sets, demonstrating high recognition rates for general partial symmetry.
+
+\keywords{symmetry detection \and partial symmetry \and shape matching}
+\end{abstract}
+
+\input{intro}
+\input{related}
+\input{algorithm}
+\input{result}
+\input{conclusion}
+
+\bibliographystyle{ieeetr}
+\bibliography{parsym}
+\end{document}
+
+
