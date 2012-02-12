@@ -45,21 +45,25 @@
 \journalname{CGI2012} % The correct name will be entered by the editor
 \begin{document}
 
-\title{Generalized partial symmetry of shapes}
-\subtitle{Insert your subtitle here, otherwise leave blank}
-\author{First Author \and Second Author}
-\institute{F. Author \at first adress \and S. Author \at second address}
+\title{Generalized partial symmetry detection of 3d shapes}
+%\subtitle{Insert your subtitle here, otherwise leave blank}
+\subtitle{}
+%\author{First Author \and Second Author}
+\author{Paper ID: 18}
+%\institute{F. Author \at first adress \and S. Author \at second address}
+\institute{}
 \date{ }% The correct dates will be entered by the editor
 
 \maketitle
 
 \begin{abstract}
-In this paper, we describe a new algorithm for detecting partial symmetry in shapes.
-Our algorithm computes rigid symmetries, i.e., subsets of a shape that reoccur several times within the model differing only by translation, rotation or mirroring.
-Our algorithm is based on matching locally coherent constellations of meaningful parts on the object surfaces.
-In comparison to previous work, the new algorithm is able to detect partial symmetric parts without restrictions to regular patterns or nested hierarchies.
-In addition, working on relevant meaningful parts only leads to a strong reduction in memory and processing costs such that very large data sets can be handled.
-We apply the algorithm to a number of real world 2D and 3D scanner data sets, demonstrating high recognition rates for general partial symmetry.
+In this paper, we propose a new algorithm for detecting symmetries in shapes.
+Our algorithm computes generalized partial symmetries, i.e.,
+subsets of a shape that reoccur multiple times within the model differing by combinations of translation, rotation, and mirroring deformation.
+Our algorithm is based on segmentation and matching locally coherent meaningful parts on the object surfaces.
+Working on relevant parts leads to the new algorithm is able to detect partial symmetries more robust than the recent algorithms,
+which based on the correlated correspondences among graphs of invariant features.
+We apply the algorithm to a number of 3D data sets, demonstrating high recognition rates for general partial symmetry.
 
 \keywords{symmetry detection \and partial symmetry \and shape matching}
 \end{abstract}
