@@ -15,13 +15,14 @@ For such models, our algorithm provides good segmentation for the partial matchi
 \label{fig:Tiger}
 \end{figure}
 
-As our algorithm works on the segmentation, uniform sampling, and clustering, the matching results do not depend on the tessellation of the shapes.
-Figure~\ref{fig:Point} demonstrates that our algorithm performs very well on the shape in the point set form.
+As our algorithm works on the segmentation, uniform sampling, and clustering, the matching results do not depend on the representation and tessellation of the shapes.
+Figure~\ref{fig:Point} demonstrates that our algorithm performs very well on the shape in the point set form. 
+Simultaneously, it proves that our algorithm is insensitive to the shape remeshing, as the left and right regions of Dinosaur are in large different resolutions. 
 
 \begin{figure}[t]
 \centering
   \includegraphics[width=0.99\linewidth]{figures/Rooster.pdf}
-  \caption{The in point set form.}
+  \caption{The symmetry detection of point set Dinosaur with different resolutions in the left and right regions.}
 \label{fig:Point}
 \end{figure}
 
@@ -33,16 +34,19 @@ Note that, the example is clearly claimed as the failure case in the STAR algori
 
 We use another example on the complete and non-complete Armidillo (Figure~\ref{fig:Arm}) to demonstrate the robustness of our algorithm.
 Both on the complete and non-complete cases, the algorithm computes a global reflectional plane based on all final correspondences. 
-Experiments show that the plane is almost same in the both cases.
+Experiments show that the plane is almost totally same in the both cases.
 
 \begin{figure}[t]
 \centering
-  \includegraphics[width=0.99\linewidth]{figures/Rooster.pdf}
-  \caption{The global reflectional planes are computed from the complete and non-complete Armadillo shapes.}
+  \includegraphics[width=0.99\linewidth]{figures/Armadillo.pdf}
+  \caption{The global reflectional planes are almost totally same, which are computed from both the complete and non-complete Armadillo shapes.}
 \label{fig:Arm}
 \end{figure}
 
 The performance data of Table 1 indicates how the computation on the symmetries of the shapes.
+significantly more complex symmetry structure as compared to the
+dragon, hence computation times are substantially higher even
+though the models have roughly the same size.
 
 \begin{table*}
 \centering
@@ -57,10 +61,10 @@ Model
 %%%RRM Use captial letter for all model names
 Armadillo  & 172,974  & 9 &  982ms   & 2ms & 7ms \\
 Chetah     &   5,000  & 7 &   47ms   & 1ms & 2ms  \\
+Dinosaur   &  69,215  &   &          &     & \\
 Eager      &  14,618  & 6 &  413ms   & 2ms & 3ms \\
 Gargoyl    & 250,003  & 6 &  218ms   & 3ms & 3ms  \\
 %feline     &  49,864  & 20 & 109ms    & 3ms & 2ms \\
-
 \hline
 \end{tabular}
 \caption{Timing for our algorithm: automatic meaningful segmentation, partial matching of each part,
