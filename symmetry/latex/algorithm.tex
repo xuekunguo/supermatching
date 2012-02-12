@@ -44,16 +44,19 @@ the regions are recognized as of candidate symmetry if $match_{i,j} > cm$, where
 
 In the following, we put together all the correspondences for each part $\mathbb{S}_i$, found by former partial matching.
 So, we form a many-to-many correspondence in the whole $\mathbb{S}$.  
-Then, we cluster nodes in $\mathbb{S}$ based on local consistency of the matching.
+Then, we cluster nodes in $\mathbb{S}$ based on local transformation consistency of the matching.
+
 Benefiting from our partial matching, rigid transforms can be computed from each triple of compatible matching points.
 The transform which brings the most data points within a threshold distance of a point in the model is chosen as the optimal alignment transform~\cite{Huttenlocher1990}.
 As shown by ~\cite{Huttenlocher1990}, this transformation always exists for three non-collinear points, and is unique up to a reflective ambiguity. 
 The solution method is closed-form and only involves second-order equations.
 The later paper~\cite{Gelfand05} claimed that such a voting scheme is robust to the initial pose of the triples.
+
 Our clustering method is similar to~\cite{mitra2006} based on the computed transformation that map local surface patches onto each other.
 Each matching pair provides evidence for a symmetry relation at the level of the local sample spacing. 
 So, we could extract meaningful symmetries at larger scales by finding groups of pairs with a similar transformation 
 that correspond to symmetric subsets of the shape.
+The suitable clustering method also is mean shift clustering~\cite{Comaniciu2002}, a non-parametric method based on gradient ascent on a density function.
 
 
 
