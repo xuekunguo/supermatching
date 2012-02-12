@@ -4,9 +4,9 @@
 0
 1
 template_CGIconf.tex
+18
 7
-7
-1
+0
 
 
 
@@ -15,25 +15,58 @@ template_CGIconf.tex
 
 template_CGIconf.tex
 TeX
-135278587 0 -1 2547 -1 2373 0 0 1425 636 0 374 527 -1 -1 0 0 23 -1 -1 23 1 0 2373 -1   0
+403714043 0 -1 2876 -1 1805 0 0 1425 636 0 350 374 -1 -1 0 0 23 -1 -1 23 1 0 1805 -1   0
 intro.tex
 TeX
-269496315 0 -1 1761 -1 1066 250 250 1592 857 0 894 170 -1 -1 0 0 -1 -1 -1 -1 1 0 1066 -1   0
+1060859 0 -1 2622 -1 2623 250 250 1592 857 0 1390 510 -1 -1 0 0 3030 -1 -1 3030 1 0 2623 -1   0
 related.tex
 TeX
-1060859 0 -1 3324 -1 1109 22 29 1447 665 0 230 187 -1 -1 0 0 22 -1 -1 22 1 0 1109 -1   0
+1060859 0 -1 47 -1 3449 22 29 1447 665 0 1390 476 -1 -1 0 0 22 -1 -1 22 1 0 3449 -1   0
 algorithm.tex
 TeX
-1060859 0 -1 431 -1 935 66 87 1491 723 0 1174 187 -1 -1 0 0 19 -1 -1 19 1 0 935 -1   0
+1060859 0 -1 937 -1 1401 66 87 1491 723 0 478 340 -1 -1 0 0 19 -1 -1 19 1 0 1401 -1   0
 result.tex
 TeX
-1060859 0 -1 0 -1 0 275 275 1617 882 0 22 0 -1 -1 0 0 -1 -1 -1 -1 1 0 0 -1   0
+1060859 0 -1 1432 -1 2175 275 275 1617 882 0 286 238 -1 -1 0 0 17 -1 -1 17 1 0 2175 -1   0
 conclusion.tex
 TeX
-1060859 0 -1 0 -1 0 0 0 1342 607 0 22 0 -1 -1 0 0 -1 -1 -1 -1 1 0 0 -1   0
+1060859 0 -1 281 -1 752 0 0 1342 607 0 622 170 -1 -1 0 0 21 -1 -1 21 1 0 752 -1   0
 parsym.bib
 BibTeX:UNIX
-1147890 2 115 1601 115 1 44 58 1469 694 0 22 425 -1 -1 0 0 47 0 0 47 1 0 1 115   0
+1147890 0 822 33 822 21 44 58 1469 694 0 182 799 -1 -1 0 0 66 0 0 66 1 0 21 822   0
+template_CGIconf.bbl
+DATA
+273678578 0 50 73 51 8 176 232 1601 868 1 126 476 -1 -1 0 0 28 0 0 28 1 0 8 51   0
+E:\Researching\2012\FAIR\share\symmetry\results\rewewouldsubmitanothermatchingpapertocgi\algorithm.tex
+TeX
+269496315 0 -1 0 -1 5339 44 58 1469 694 0 318 799 -1 -1 0 0 -1 -1 -1 -1 1 0 5339 -1   0
+E:\Researching\2012\FAIR\share\symmetry\results\rewewouldsubmitanothermatchingpapertocgi\related.tex
+TeX
+269496315 1 -1 47 -1 3449 22 29 1447 665 0 1390 476 -1 -1 0 0 -1 -1 -1 -1 1 0 3449 -1   0
+E:\Researching\2012\FAIR\share\symmetry\results\rewewouldsubmitanothermatchingpapertocgi\intro.tex
+TeX
+269496315 1 -1 3129 -1 0 0 0 1425 636 0 22 0 -1 -1 0 0 -1 -1 -1 -1 1 0 0 -1   0
+D:\CTEX\WinEdt\Exec\Acrobat CloseDoc.edt
+ASCII:EDT
+269494138 7 35 1629 35 1 220 290 1645 926 1 70 595 -1 -1 0 0 -1 -1 -1 -1 1 0 1 35   0
+E:\Researching\2012\FAIR\share\symmetry\results\rewewouldsubmitanothermatchingpapertocgi\template_CGIconf.tex
+TeX
+269496315 1 -1 2746 -1 2024 198 261 1623 897 0 22 527 -1 -1 0 0 -1 -1 -1 -1 1 0 2024 -1   0
+E:\Researching\2012\GMP deformation\apps.tex
+TeX:UNIX
+286371835 0 -1 1285 -1 1138 154 203 1579 839 0 198 357 -1 -1 0 0 -1 -1 -1 -1 1 0 1138 -1   0
+E:\Researching\2012\FAIR\share\paper\fair\apps.tex
+TeX:UNIX
+269594619 1 -1 2698 -1 3214 44 58 1469 694 0 1422 255 -1 -1 0 0 76 -1 -1 76 1 0 3214 -1   0
+E:\Researching\2012\FAIR\share\paper\fair\abstract.tex
+TeX:UNIX
+269594619 1 -1 630 -1 1198 110 145 1535 781 0 1054 153 -1 -1 0 0 -1 -1 -1 -1 1 0 1198 -1   0
+E:\Researching\2012\FAIR\share\paper\fair\fair.tex
+TeX:UNIX
+269594619 0 -1 0 -1 7995 88 116 1513 752 0 182 416 -1 -1 0 0 -1 -1 -1 -1 1 0 7995 -1   0
+E:\Researching\2012\GMP deformation\intro.tex
+TeX:UNIX
+269594619 0 -1 0 -1 385 66 87 1491 723 0 310 238 -1 -1 0 0 -1 -1 -1 -1 1 0 385 -1   0
 
 *template_CGIconf.tex
 >
