@@ -21,8 +21,8 @@ Simultaneously, it proves that our algorithm is insensitive to the shape remeshi
 
 \begin{figure}[t]
 \centering
-  \includegraphics[width=0.99\linewidth]{figures/Rooster.pdf}
-  \caption{The symmetry detection of point set Dinosaur with different resolutions in the left and right regions.}
+  \includegraphics[width=0.99\linewidth]{figures/dinosaur.pdf}
+  \caption{The symmetry detection of point set Dinosaur with different resolutions in the left and right regions. The left and right legs are detected as the symmetric.}
 \label{fig:Point}
 \end{figure}
 
@@ -43,10 +43,21 @@ Experiments show that the plane is almost totally same in the both cases.
 \label{fig:Arm}
 \end{figure}
 
-The performance data of Table 1 indicates how the computation on the symmetries of the shapes.
-significantly more complex symmetry structure as compared to the
-dragon, hence computation times are substantially higher even
-though the models have roughly the same size.
+At last, we use the iterative segmentation and symmetry detection steps to improve the output results, on both the shape segmentation and symmetry detection. 
+Firstly, this shape is particularly reasonable segmented since it is so complex that the segmentation algorithm~\cite{lai2009} is difficult to handle.
+Beyond the segmentation, the symmetry is detected as before. Then, using the detected reflectional symmetry information, we further improve the segmentation.
+The Figure~\ref{fig:iteration} shows the initial segmentation and symmetry detection, and the refined results after two iteration.
+
+\begin{figure}[t]
+\centering
+  %\includegraphics[width=0.99\linewidth]{figures/Armadillo.pdf}
+  \caption{The iterative segmentation and symmetry detection. Top: the initial results, below: the results after two iteration.}
+\label{fig:iteration}
+\end{figure}
+
+The performance data of Table~\ref{tab:timing} indicates how the computation on the symmetry of 3d shapes.
+From the table, it is easy to note that the partial matching time is higher as the more segmentation, but less sensitive to vertex number of each shape.
+The reason is that the sampling point is the key issue to the time complexity, and it is linearly dependent on the segmentation parts number in the paper.
 
 \begin{table*}
 \centering
@@ -59,11 +70,11 @@ Model
 & Correspondences clustering \\
 \hline
 %%%RRM Use captial letter for all model names
-Armadillo  & 172,974  & 9 &  1.6s   & 959.0s & 7s \\
-Chetah     &   5,000  & 7 &  0.2s   & 588.2s & 2s  \\
-Dinosaur   &  69,215  & 7 &  3.2s   &       &    \\
-Eager      &  14,618  & 6 &  0.5s   & 403.1s & 3s \\
-Gargoyl    & 250,003  & 6 &  3.6s   & 448.9s & 3s  \\
+Armadillo  & 172,974  & 9 &  1.6s   & 959.0s & 7.8s \\
+Chetah     &   5,000  & 7 &  0.2s   & 588.2s & 5.2s  \\
+Dinosaur   &  69,215  & 7 &  3.2s   & 522.7s & 5.1s   \\
+Eager      &  14,618  & 6 &  0.5s   & 403.1s & 3.2s \\
+Gargoyl    & 250,003  & 6 &  3.6s   & 448.9s & 3.9s  \\
 \hline
 \end{tabular}
 \caption{Timing for our algorithm: automatic meaningful segmentation, partial matching of each part,
