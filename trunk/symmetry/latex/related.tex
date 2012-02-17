@@ -1,28 +1,32 @@
 \section{Related work}
 \label{sec:related}
 
-Symmetry detection and analysis have been thoroughly studied from theoretic, algorithmic, and applicative aspects during the last two decades.
-There exist a significant number of papers proposed for this purpose, which can mainly be classified into \emph{global} and \emph{partial} types.
-As we will aim to detect the partial symmetry in 3D shapes in this paper, we concentrate on the most relevant 3D shape symmetry methods and recent advances in the segmentation-symmetry aspect.
-For the comprehensive review, please refer to papers~\cite{xu2009,berner2011}.
+Symmetry detection and analysis have been thoroughly studied from theoretical, algorithmic, and applications aspects for many years. Papers on this topic can  be classified according to whether they consider \emph{global} or \emph{partial} symmetries; most but not all recent papers consider approximate rather than exact symmetries.
+We aim to detect partial approximate symmetry in 3D shapes in this paper, and so we concentrate on the most closely related 3D symmetry detection methods, as well as ideas relating segmentation and symmetry. Comprehensive reviews can be found in~\cite{xu2009,berner2011}.
 
-A common approach for symmetry detection is to identify the global symmetry in Euclidean space from the clusters in the transformed space~\cite{podolak2006,pauly2008}. 
-Other approaches~\cite{Berner2008,bokeloh2009} formulate the symmetry detection as graph matching, and compute the reliable line features from scanned data.
-Extrinsic symmetry methods always employed symmetry of the Euclidean space for detecting symmetries~\cite{zabrodsky1997,podolak2006,ovsjanikov2008,ovsjanikov2010,chertok2010,hooda2011},
-and patterns~\cite{pauly2008,bokeloh2009,yeh2009}.
-Ovsjanikov et al. perform global intrinsic symmetry detection using eigenanalysis of the surface Laplace-Beltrami operator~\cite{ovsjanikov2008}, 
-then resorting to the heat kernel maps~\cite{ovsjanikov2010}.
-By utilizing the Mobius transformation and conformal mapping, two robust symmetry detection algorithms were proposed by Kim and his coworkers~\cite{kim2010,kim2011}.
-Most algorithms considered discrete symmetries by sampling. An exception is the work~\cite{ben-chen2010}
-where global intrinsic symmetry is detected using the approximate killing vector field~\cite{ben-chen2010} from a continuous perspective.
+A common approach to symmetry detection is to identify the global symmetry in Euclidean space from clusters in the transformed space~\cite{podolak2006,pauly2008}.
+Other approaches~\cite{Berner2008,bokeloh2009} formulate symmetry detection as graph matching, based on  reliable line features extracted from scanned data.
+Extrinsic symmetry methods employ invariance under rigid transformations and possibly scaling for symmetry detection~\cite{zabrodsky1997,podolak2006,ovsjanikov2008,ovsjanikov2010,chertok2010,hooda2011},
+and for finding patterns~\cite{pauly2008,bokeloh2009,yeh2009}.
+Ovsjanikov et al. perform global intrinsic symmetry detection for non-rigid isometric shapes  
+using eigenanalysis of the surface Laplace-Beltrami operator~\cite{ovsjanikov2008},
+or by use of heat kernel maps~\cite{ovsjanikov2010}.
+Two robust symmetry detection algorithms proposed by Kim et al~\cite{kim2010,kim2011} utilize the Mobius transformation and conformal mapping.
+Most algorithms determine discrete symmetries by sampling. An exception is the work~\cite{ben-chen2010}
+where global intrinsic symmetry is detected using the approximate Killing vector field~\cite{ben-chen2010} from a continuous perspective.
 
-Recent works have focused on analyzing partial and approximate symmetries, which is more difficult than the global, given the partial data.
-Similar to global symmetry, partial symmetry detection can also be categorized as extrinsic~\cite{mitra2006,bronstein2009,berner2011} and intrinsic~\cite{lasowski2009,xu2009,mitra2010,raviv2010,bronstein2011} cases.
-The Global MultiDimensional Scaling (GMDS) computation was thoroughly studied by Bronstein and coworkers~\cite{bronstein2006,bronstein2009,raviv2010,bronstein2011} to detect the extrinsic and intrinsic symmetries, and mainly applied to the shape invariant retrieval applications. In addition, other researchers proposed variant symmetry methods by using different techniques, e.g., Markov random field model~\cite{lasowski2009}, symmetry axis voting~\cite{xu2009}, Eigen analysis~\cite{lipman2010}, Pseudo-polar Fourier Transform~\cite{bermanis2010}, etc.
-For the general partial symmetries, our algorithm would solve the reflectional, rotational and translational problems in a unified framework. Our approach is some similar to the partial symmetry detection~\cite{berner2011}, but going beyond it by robustly producing more reasonable results.
+Recent works have focused on analyzing partial and approximate symmetries, which is more difficult than finding global symmetries. As for global symmetry, partial symmetry detection can also be categorized as extrinsic~\cite{mitra2006,bronstein2009,berner2011} or intrinsic~\cite{lasowski2009,xu2009,mitra2010,raviv2010,bronstein2011}.
+%%%RRM You have not really explained what intrinsic and extrinsic mean
+%%%ZQC add some exlain in previous paragraph
+A global multidimensional scaling (GMDS) approach devised by Bronstein and coworkers~\cite{bronstein2006,bronstein2009,raviv2010,bronstein2011} can detect  extrinsic and intrinsic symmetries; it has been mainly applied to  shape  retrieval applications based on invariants. Other researchers have proposed  methods based on a variety of techniques, e.g.\ Markov random field models~\cite{lasowski2009}, symmetry axis voting~\cite{xu2009}, eigenanalysis~\cite{lipman2010}, pseudo-polar Fourier transforms~\cite{bermanis2010}, etc.
+For general partial symmetries, our algorithm can handle reflectional, rotational and translational problems in a unified framework. 
+%%%ZQC Our approach has some similarities to the partial symmetry detection method of~\cite{berner2011}, but goes beyond it robustly producing more convincing results.
+%%%ZQC I masked the sentence as it is some strong.
+%%%RRM Too brief. Say how it is similar, how it differs, and why it differs
+%%%RRM Say in what way the results (i) are more convincing (ii) are more robust.
 
-The relationship between symmetry and segmentation could be viewed as chicken-and-egg, as they are foundation and output for each other. 
-The directive application of symmetry detection is the more plausible segmented parts, as demonstrated by the global~\cite{podolak2006,podolak2007} and partial algorithms~\cite{xu2009,lipman2010}.
-At the same time, the output of symmetry detection is always segmented parts, proved by most previous algorithms.
-In the paper, the fact that segmentation is always the foundation of symmetry detection is clearly claimed, and use it to develop new symmetry detection algorithm. 
+The relationship between symmetry and segmentation can be viewed as a chicken-and-egg problem, as each provides clear guidance for the other.
+Symmetry detection has already been used to provide more plausible segmented parts, in both global~\cite{podolak2006,podolak2007} and partial symmetry algorithms~\cite{xu2009,lipman2010}.
+The output of most symmetry detection algorithms is expressed in terms of segmented object parts.
+In this paper, we use segmentation to drive our symmetry detection algorithm.
 
