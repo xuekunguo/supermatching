@@ -1,16 +1,19 @@
 \section{Conclusions}
 \label{sec:con}
 
-We have proposed a symmetry detection algorithm for discovering and extracting partial symmetries of 3D geometric models.
-The algorithm could detects the general symmetry types, such as the rotation, translation, and mirroring symmetry.
-It is robust as relying on the shape segmentation, and shows the advantage over the graph matching using salient feature lines.
-Our algorithm is provably effective, easy to implement, and applicable to a wide range of 3D shapes.
+We have proposed a symmetry detection algorithm for discovering and extracting partial approximate symmetries of 3D geometric models.
+It can detect  rotational, translational, and mirror symmetries.
+It is based on first performing shape segmentation, and performs better than graph matching using salient feature lines.
+Our algorithm is effective, easy to implement, and applicable to a wide range of 3D shapes.
 
-\paragraph{Discussion.}
-The main characterization of our symmetry detection algorithm stems from the foundation that we build it by using the segmentation algorithm.
-In presence of significant noise, this assumption breaks down for our choice of meaningful segmentation,
-thus forcing the algorithm to the unstable scenario.
-As the rapid development and maturity of meaningful segmentation~\cite{Shamir2008},
-more segmentation algorithm would and could be employed to produce more reasonable decomposition.
-In addition, it is useful and necessary to develop more efficient algorithm by resorting to multi-resolution or parallelization
-techniques (e.g., using the GPU) to improve the speed of the algorithm.
+Our symmetry detection algorithm relies on helpful outputs from a segmentation algorithm
+which may be hard to ensure in the presence of significant noise. 
+We have used a general purpose segmentation algorithm, but better results are likely to be achieved if the 
+segmentation algorithm itself is symmetry aware.
+Further improvements both in performance and quality of results
+is likely to arise through use of  multi-resolution approaches, as well as  parallelization
+techniques.
+
+
+%%%RRM Why dont you revise the segmentation boundaries to agree with the symmetry?
+%%%RRM This key step in the algorithm is missing, and could improve results.

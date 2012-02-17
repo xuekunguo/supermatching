@@ -1,3 +1,4 @@
+% !TEX TS-program = pdflatexmk
 \RequirePackage{fix-cm}
 %
 %\documentclass{svjour3}                     % onecolumn (standard format)
@@ -45,7 +46,8 @@
 \journalname{CGI2012} % The correct name will be entered by the editor
 \begin{document}
 
-\title{Partial symmetry detection of 3d shapes}
+\title{Segmentation-based partial symmetry detection for 3D shapes}
+%%%RRM These are approximate symmetries right? Added to title and elsewhere
 %\subtitle{Insert your subtitle here, otherwise leave blank}
 \subtitle{}
 %\author{First Author \and Second Author}
@@ -57,14 +59,14 @@
 \maketitle
 
 \begin{abstract}
-In this paper, we propose a new algorithm for detecting symmetries in shapes.
-Our algorithm computes generalized partial symmetries, i.e.,
-subsets of a shape that reoccur multiple times within the model differing by combinations of translation, rotation and mirroring.
-Our algorithm is based on segmentation and matching locally coherent meaningful parts on the object surfaces.
-Working on relevant parts leads to a new algorithm that is able to detect partial symmetries more robust than the recent algorithms,
-which are based on the correlated correspondences among graphs of invariant features.
-More important, the segmentation and symmetry detection could be performed in the iterative way to produce more reasonable results. 
-We apply our algorithm to a number of 3D data sets, demonstrating high recognition rates for general partial symmetry.
+This paper proposes a new algorithm for detecting partial symmetries in 3D shapes.
+Our algorithm detects generalized partial approximate symmetries, i.e. subsets of a shape that
+approximately occur multiple times differing by combinations of translation, rotation and mirroring.
+Our algorithm is based on segmentation and matching locally coherent meaningful parts on the object's surfaces.
+%Working with relevant parts leads to a new algorithm that is able to detect partial symmetries more robustly
+%than algorithms based on correlated correspondences among graphs of invariant features.
+A useful feature is that segmentation and symmetry detection can be performed iteratively to produce hierarchical better results.
+We apply our algorithm to a number of 3D data sets, demonstrating high detection rates for general partial symmetries.
 
 \keywords{symmetry detection \and partial symmetry \and segmentation}
 \end{abstract}
