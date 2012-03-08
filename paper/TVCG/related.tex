@@ -1,0 +1,32 @@
+\section{Related work}
+\label{sec:related}
+
+Previous approaches to feature matching can be classified into those which match single points to single points, those which match  point pairs to point pairs, and so on.
+
+Matching single points to single points is a linear assignment problem which only considers an affinity measure between two features, one from each set being matched.
+The affinity measure is typically defined as the feature distance between the feature vectors, which in turn are based on local information around each feature point,
+e.g.\ SIFT~\cite{Lowe04}, spin images~\cite{Johnson99}, heat diffusion signatures~\cite{Sun09}, and BRISK~\cite{Leutenegger11}.
+Point-to-point matching can give misleading results as wrong correspondences are readily established.
+
+Matching point pairs  in one set to point pairs in the other set leads to a quadratic assignment problem.
+Such methods now  take into account both similarity of the point features, \emph{and} either the Euclidean distance between the points in a pair,
+assuming the two sets of points are related by a rigid transformation~\cite{Leordeanu05,Cour06}, or the geodesic distance, assuming isometry~\cite{li08,Tevs09,Ovsjanikov10,Tevs11,SahilliogluY11,Windheuser11}.
+Unfortunately, this quadratic assignment problem is NP-hard, and again, matches found are not always reliable.
+
+Several higher-order approaches have also been proposed.
+While they can significantly improve matching accuracy,
+higher-order assignment  is even more computationally demanding, so various approximate methods have been developed.
+\cite{Zass08} considered a probabilistic model of soft hypergraph matching.
+They reduce the higher-order problem to a first-order one by marginalizing the higher-order tensor to a one dimensional probability vector.
+\cite{Duchenne09,Duchenne2011} introduced the use of a third-order tensor in place of an affinity matrix to represent affinities of feature triples,
+and higher-order power iteration was used to achieve the final matching.
+\cite{Aiping10} built a unified multiple higher-order affinity tensor, by extending the third-order tensor method~\cite{Duchenne09,Duchenne2011}.
+\cite{Chertok10} treated the tensor as a joint probability of assignments, marginalized the affinity tensor to a matrix,
+and found optimal soft assignments by eigendecomposition of the matrix.
+Higher-order assignment problems typically require large amounts of memory and computational resources. By reducing the number of elements needed to represent the affinity measures, the above approaches can match moderate numbers (many hundreds) of features. However, these 2D approaches do not really take advantage of supersymmetry of the affinity tensor. SuperMatching does so, leading to an improvement in matching accuracy.
+3D problems are even more challenging.
+
+A related idea also using higher order constraints for 3D registration is the 4-points congruent sets method (4PCS) proposed in~\cite{Aiger08}.
+It is a fast alignment scheme for 3D point sets that uses widely separated points.
+However, the need to find coplanar 4-tuples of points and the assumption of rigid transformation limit its applicability.
+We solve both rigid and isometric shape matching problems with a single approach.

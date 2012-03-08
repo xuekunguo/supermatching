@@ -1,0 +1,26 @@
+\section{Conclusions}
+\label{sec:conclusion}
+
+This paper has presented the SuperMatching algorithm,
+which tackles the classic computer graphics and computer vision problem of feature matching, independently of feature description.
+It is an efficient higher-order matching algorithm which uses a compact form of the higher-order supersymmetric affinity tensor to express relatedness of features.
+Matching is performed using an efficient power iteration method, which takes advantage of supersymmetry and avoids computing with zero elements.
+We also give an efficient sampling strategy for choosing feature tuples to create the affinity tensor.
+Experiments on both synthetic and real 2D and 3D data sets show that
+SuperMatching has greater accuracy than competing methods, whilst having competitive performance.
+
+In future, we wish to further improve the performance of the SuperMatching algorithm.
+Random sampling could be executed in parallel.
+We also intend to apply it to more challenging deformable imperfect 3D data matching with real captured data.
+SuperMatching has applicability to many fields,
+as matching is a foundation for many computer graphics and computer vision applications.
+
+%%===========================================================
+%% The Appendices part is started with the command \appendix;
+%% appendix sections are then done as normal sections
+%\appendix
+
+%\section{Why higher-order power iteration solving of supersymmetric tensor is efficient?}
+%We explain the idea using a third-order affinity tensor as an example.
+
+% The general matching algorithm finds correspondences considering triangle or higher-order polygons formed by feature points, going beyond traditional pointwise and pairwise approaches. It is formulated as a supersymmetric-tensor-based matching scheme, solved by an efficient higher-order power iteration method. Experiments with several applications demonstrante its accuracy.
